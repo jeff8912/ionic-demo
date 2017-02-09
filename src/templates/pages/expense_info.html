@@ -1,0 +1,76 @@
+<ion-view hide-back-button="false" id="expense_info">
+	<ion-nav-title align-title="center">
+		<span class="ui inverted header">报销详情</span>
+	</ion-nav-title>
+	<ion-content overflow-scroll="false" has-bouncing="true">
+		<div class="list">
+			<label class="item item-input no-thin-border">
+					<span class="input-label">活动名称</span>
+					<span class="lump ">{{model.expense.expenses.abi_name}}</span>
+			</label>
+			<label class="item item-input no-thin-border">
+				<span class="input-label">活动类别</span>
+				<span class="lump">{{model.expense.expenses.abi_category}}</span>
+			</label>
+			<label class="item item-input margin-bottom-10">
+					<span class="input-label">活动主办方</span>
+					<span class="lump">{{model.expense.expenses.abi_sponsor}}</span>
+			</label>
+			<label class="item item-input no-thin-border">
+					<span class="input-label">预算金额</span>
+					<span class="lump">{{model.expense.expenses.abi_min_budget}}-{{model.expense.expenses.abi_max_budget}}</span>
+			</label>
+			<label class="item item-input margin-bottom-10">
+					<span class="input-label">报销金额</span>
+					<span class="lump">{{model.expense.aeiAmount}}</span>
+			</label>
+			<label class="item">
+					<span class="input-label margin-bottom-6">备注说明</span>
+					<div class="item-text-wrap" style="padding: 0 1rem;">
+						<span>{{model.expense.aeiRemarks}}
+						</span>
+					</div>
+				</label>
+		</div>
+		<div class="item item-input marginTop marginBottom multiple-label row" style="border: 0;">
+			<div class="full-image" ng-repeat="file in model.expense.aeiImgUrl">
+				<img ng-src="{{file | formatDbImgUrl}}" />
+			</div>
+		</div>
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		//console.log("参数                " + JSON.stringify($scope.pageParams()));
+		var params = $scope.pageParams();
+		$scope.model = {
+			expense: {}
+		};
+		$scope.getexpense = function() {
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/activityexpensesinfo/getExpenses', {
+					id: params.id,
+					abiId: params.abiId
+				},
+				'获取报销稿详情',
+				function(data) {
+					//console.log(JSON.stringify(data) + "报销详情");
+					$timeout(function() {
+						if(params.id) {
+							$scope.model.expense = data;
+						} else {
+							$scope.model.expense = data[0];
+						}
+						if($scope.model.expense.aeiImgUrl) {
+							$scope.model.expense.aeiImgUrl = $scope.model.expense.aeiImgUrl.split(",");
+						}
+					});
+				},
+				function(error) {
+					//TODO
+				});
+		}
+		$scope.getexpense();
+	}
+</script>

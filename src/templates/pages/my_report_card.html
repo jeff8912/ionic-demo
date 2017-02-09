@@ -1,0 +1,271 @@
+<ion-view hide-back-button="false" id="my_report_card">
+	<ion-nav-buttons side="right">
+		<span class="icon-topbar_share" ng-click="share()"></span>
+	</ion-nav-buttons>
+	<ion-nav-title align-title="center">
+		<span class="ui inverted header">我的成绩单</span>
+	</ion-nav-title>
+	<div class="tabs tabs-default tabs-top">
+		<a ng-repeat="item in model.typeList" ng-click="selectByType($index)" class="tab-item {{item.cls}}">
+	    	{{item.label}}
+	  	</a>
+	</div>
+	<ion-content overflow-scroll="false" has-bouncing="true">
+		<div class="item item-avatar" ng-if="model.reportCard">
+		    <div class="report-card-left">
+		    	<img ng-src="{{$parent.userInfo.imgUrl | formatImgUrl}}">
+		    </div>
+		    <div class="report-card-middle">
+		    	<h2>
+			    	<div class="name-label">
+			    		<span class="float-left">姓</span>
+			    		<span class="float-right">名</span>
+			    	</div>
+			    	<span class="desc">{{model.reportCard.urcUserName || $parent.userInfo.uuiName}}</span>
+			    </h2>
+			    <div class="user-no">
+			    	<div class="no-label">
+			    		<span class="float-left">学</span>
+			    		<span class="float-right">号</span>
+			    	</div>
+			    	<span class="desc">{{model.reportCard.urcUserNo || $parent.userInfo.gradeCode}}</span>
+			    </div>
+			    <div class="user-no">
+			    	<span class="no-label">联系电话</span>
+			    	<span class="desc">{{model.reportCard.urcPhone=='null'?'':model.reportCard.urcPhone || $parent.userInfo.uuiMobile || ''}}</span>
+			    </div>
+		    </div>
+		    <div class="report-card-right">
+		    	<p>{{model.reportCard.integrateValue || '0'}}</p>
+		    	<p>
+		    		<span class="icon-my_report_list"></span>
+		    		综合分值
+		    	</p>
+	    	</div>
+		</div>
+		<div class="report-card certification" ng-if="model.selectStatus==0">
+			<div class="item item-thumbnail-left"  ng-repeat="item in model.certification" ng-init="item.abiStartTime=item.uhiDateStart;item.abiEndTime=item.uhiDateEnd">
+				<div class="thumbnail-icon" ng-if="$index == 0">
+					<span class="icon-my_report_certificate2">
+	                	<span class="path1"></span><span class="path2"></span><span class="path3"></span>
+	                </span>
+	                <br />
+	                <span>证书&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	           	</div>
+				<p><b>编号</b><a href="javascript:void(0)" ng-bind="{{item.id}}"></a></p>
+				<p><b>名称</b>{{item.uhiName}}</p>
+				<p><b>时间</b><a href="javascript:void(0)">{{item | dateregion}}</a></p>
+				<p><b>介绍</b>{{item.uhiDescription}}</p>
+			</div>
+		</div>
+		<div class="report-card award" ng-if="model.selectStatus==0">
+			<div class="item item-thumbnail-left"  ng-repeat="item in model.award" ng-init="item.abiStartTime=item.uhiDateStart;item.abiEndTime=item.uhiDateEnd">
+				<div class="thumbnail-icon" ng-if="$index == 0">
+					<span class="icon-my_report_reward2">
+	                	<span class="path1"></span><span class="path2"></span><span class="path3"></span>
+	                </span>
+	                <br />
+	                <span>奖励&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	           	</div>
+				<p><b>编号</b><a href="javascript:void(0)" ng-bind="{{item.id}}"></a></p>
+				<p><b>名称</b>{{item.uhiName}}</p>
+				<p><b>时间</b><a href="javascript:void(0)">{{item | dateregion}}</a></p>
+				<p><b>介绍</b>{{item.uhiDescription}}</p>
+			</div>
+		</div>
+		<div class="report-card schoolDuty" ng-if="model.selectStatus==0">
+			<div class="item item-thumbnail-left" ng-repeat="item in model.schoolDuty" ng-init="item.abiStartTime=item.uhiDateStart;item.abiEndTime=item.uhiDateEnd">
+				<div class="thumbnail-icon" ng-if="$index == 0">
+					<span class="icon-my_report_post2">
+	                	<span class="path1"></span><span class="path2"></span><span class="path3"></span>
+	                </span>
+	                <br />
+	                <span>校内职务&nbsp;&nbsp;&nbsp;</span>
+				</div>
+				<p><b>编号</b><a href="javascript:void(0)" ng-bind="{{item.id}}"></a></p>
+				<p><b>名称</b>{{item.uhiName}}</p>
+				<p><b>时间</b><a href="javascript:void(0)">{{item | dateregion}}</a></p>
+				<p><b>介绍</b>{{item.uhiDescription}}</p>
+			</div>
+		</div>
+		<div class="report-card activity-list" ng-if="model.selectStatus==1">
+			<div class="item item-thumbnail-left" ng-repeat="item in model.activityList">
+				<div class="thumbnail-icon" ng-if="$index == 0">
+					<span class="icon-my_report_activity2">
+	                	<span class="path1"></span><span class="path2"></span><span class="path3"></span>
+	                </span>
+	                <br />
+	                <span>活动历程&nbsp;&nbsp;&nbsp;</span>
+	           	</div>
+				<p><b>编号</b><a href="javascript:void(0)" ng-bind="{{item.id}}"></a></p>
+				<p><b>名称</b>{{item.abiName}}</p>
+				<p><b>时间</b><a href="javascript:void(0)">{{item | dateregion}}</a></p>
+				<p><b>介绍</b>{{item.abiDescription}}</p>
+				<p><b>活动人数</b>{{item.abiSignNum}}</p>
+				<p><b>活动得分</b>{{item.aciScore || '0'}}</p>
+			</div>
+		</div>
+		<div class="nodata_textdiv" ng-if="model.hasData">
+	       	童鞋，你还木有该类信息哟~~！
+	    </div>
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		$scope.model = {
+			award: [],
+			schoolDuty: [],
+			certification: [],
+			reportCard: {},
+			activityList: [],
+			selectStatus: 0,
+			hasData: 0,
+			typeList : [{
+				label: '荣誉',
+				cls: 'active'
+			}, {
+				label: '活动',
+				cls: ''
+			}]
+		};
+		$scope.$parent.model.isShowShare = "hidden";
+		$scope.selectByType = function(index) {
+			angular.forEach($scope.model.typeList, function function_name(item, key) {
+				item.cls = '';
+			});
+			$scope.model.selectStatus = index;
+			if(index == 0){
+				$scope.getHonorData();
+			} else if(index == 1){
+				$scope.getActivityList();
+			}
+			$scope.model.hasData = 0;
+			$scope.model.typeList[index].cls = 'active';
+			$scope.$parent.scrollTop();
+		}
+		//获取我的成绩单
+		$scope.getReportCardList = function() {
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/userreportcard/getReportCardList', {auditStatus: 2},
+				'获取我的成绩单',
+				function(data) {
+					$timeout(function() {
+						if(data && data.queryData && data.queryData.length > 0){
+							$scope.model.reportCard = data.queryData[0];	
+						} else {
+							$scope.model.hasData = 0;
+							$scope.model.reportCard = {};
+						}
+						console.log(JSON.stringify(data) + "我的成绩单");
+					});
+				},
+				function(error) {
+					//TODO
+				});
+		}
+		$scope.getReportCardList();
+		//获取荣誉列表
+		$scope.getHonorData = function() {
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/userhonorinfo/getHonorList', {
+					uuiId: uuiId,
+					limit: 100,
+					skip: 0,
+					status: 2
+				},
+				'获取荣誉列表',
+				function(data) {
+					$timeout(function() {
+						$timeout(function() {
+							console.log(JSON.stringify(data) + "荣誉列表")
+							if (data && data.queryData && data.queryData.length > 0) {
+								angular.forEach(data.queryData, function(value, key) {
+									$scope.model.schoolDuty = [];
+									$scope.model.certification = [];
+									$scope.model.award = [];
+									if (value.uhiLabelModel && value.uhiLabelModel.sdiName == '校内职务'){
+										console.log("\n校内职务");
+										$scope.model.schoolDuty.push(value);
+									} else if(value.uhiLabelModel && value.uhiLabelModel.sdiName == '证书') {
+										$scope.model.certification.push(value);
+									} else if(value.uhiLabelModel && value.uhiLabelModel.sdiName == '奖励'){
+										$scope.model.award.push(value);
+									}									
+								});
+							} else {
+								$scope.model.hasData = 1;
+								//TODO
+							}
+						});
+					});
+				},
+				function(error) {
+					//TODO
+				});
+		}
+		$scope.getHonorData();
+		//获取全部我的活动
+		$scope.getActivityList = function(index) {
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/activitybaseinfo/getData', {
+					createId: 1,
+					auditStatus: 2,
+					search_select_type: 1,
+					isEnd: 1
+				},
+				'获取我的活动',
+				function(data) {
+					$timeout(function() {
+						console.log(JSON.stringify(data) + "我的活动列表");
+						//TODO 活动得分， 评价得分
+						if (data && data.length > 0) {
+							$scope.model.activityList = data;
+						} else{
+							$scope.model.activityList = [];
+							$scope.model.hasData = 1;
+						}
+					});
+				},
+				function(error) {
+					//TODO
+				});
+		}
+		//打开弹出
+      	$scope.openShareModal = function () {
+      		$scope.$parent.blurPixel = "blurPixel";
+	      	$scope.$parent.model.isShowShare = "visible";
+	      	$scope.$parent.model.isShowModal = "visible";
+	      	var i = 0;
+	      	var rotate = $(".row-close").find(".col");
+	      	var interval = setInterval(function(){
+	      		i += 5;
+	      		rotate.rotate(i);
+	      		if(i == 45){
+	      			clearInterval(interval);
+	      		}
+      		},10);
+      	};
+      	//关闭弹出
+      	$scope.$parent.closeShareModal = function () {
+	      	$scope.$parent.blurPixel = "";
+	      	$scope.$parent.model.isShowShare = "hidden";
+	      	$scope.$parent.model.isShowModal = "hidden";
+      	};
+      	//分享
+      	$scope.share = function() {
+	    	cordova.exec(function(result) {
+		        alert('分享成功');
+		    }, function(error) {
+		        alert('分享失败');
+		        console.debug(error)
+		    }, "ShareSDK", "share", ['成绩单分享',
+		    		$scope.model.reportCard.urcUserName,
+		    		'http://join-inapp.com/images/zgj_logo_1.png',
+		    		'http://join-inapp.com'
+		    	]);
+		}
+}
+</script>

@@ -1,0 +1,87 @@
+/*
+ * 优先级最高的CSS，比如重写第三方组件，又是公共的，多个页面用到，而且优先组最高的，就需要写到这里
+ * */
+
+html, body, button, input, select, textarea, a, abbr, acronym, address, applet, article, aside, audio, b,
+big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed,
+fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img,
+ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small,
+span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+  font-family: Helvetica, Tahoma, Arial, "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+}
+
+span[class^="path"] {
+  font-family: 'icomoon' !important; word-wrap:normal;
+}
+
+
+@-webkit-keyframes ht-show {
+  0% {
+    opacity: 0;
+    z-index: -1
+  }
+  1% {
+    opacity: 0;
+    z-index: 99999
+  }
+  100% {
+    opacity: 0.7;
+    z-index: 99999
+  }
+}
+@keyframes ht-show {
+  0% {
+    opacity: 0;
+    z-index: -1
+  }
+  1% {
+    opacity: 0;
+    z-index: 99999
+  }
+  100% {
+    opacity: 0.7;
+    z-index: 99999
+  }
+}
+@keyframes ht-hide {
+  0% {
+    opacity: 0.7;
+    z-index: 99999
+  }
+  99% {
+    opacity: 0;
+    z-index: 99999
+  }
+  100% {
+    opacity: 0;
+    z-index: -1
+  }
+}
+@-webkit-keyframes ht-hide {
+  0% {
+    opacity: 0.7;
+    z-index: 99999
+  }
+  99% {
+    opacity: 0;
+    z-index: 99999
+  }
+  100% {
+    opacity: 0;
+    z-index: -1
+  }
+}
+
+.tabs > a {
+    color: #444;
+    text-decoration: none;
+}
+
+.tabs > a:hover {
+    color: #444;
+    text-decoration: none;
+}
+
+.tabs > .tab-item.tab-item-active{
+	color: #39D0E7;
+}

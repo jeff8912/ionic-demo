@@ -1,0 +1,15 @@
+<div class="notice" id="notice-{{$$value$$.ids}}" ng-style="{'border': ($$value$$.option.borderWidth||0)+'px solid #ddd'}" ng-init="getNoticeByIds($$value$$)">
+	<div class="scroll-txt">
+    <span ng-if="model.isLoad" class="icon-home_notice" ng-style="{'color': $$value$$.iconColor}">
+    </span>
+    <ul class="font-inner" ng-if="$$value$$.nList.length > 0">
+      <li ng-repeat="item in $$value$$.nList" ng-click="gotoNoticeDetail(item.id)">
+        <a>官方通知：{{item.nniTitle}}</a>
+      </li>
+    </ul>
+    <span ng-if="$$value$$.more == 0 && model.isLoad" style="float: right;" ng-click="openWindow('sys_news_list')">、
+    	更多
+    	<span class="icon-common_rightarrow"></span>
+    </span>
+  </div>
+</div>

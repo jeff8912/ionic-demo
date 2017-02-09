@@ -1,0 +1,161 @@
+<ion-view hide-back-button="true" id="activity_search_list">
+	<ion-nav-buttons side="right" >
+		<div style="margin-top: 6px;" ng-click="black()">取消</div>
+	</ion-nav-buttons>
+	
+	<ion-nav-title align-title="center">
+		<div style="margin-top: 5px;">
+			<form ng-submit="init(0,0)"><span></span><input type="text" placeholder="搜索活动" ng-model="model.keyword" style="width: 100%;padding-left: 35px;border-radius: 25px;"></span></form>
+			<span class="icon-topbar_search_grey" style="float: left;margin-left: 5px;font-size: 24px;margin-top: -28px;color: #9b9b9b;" ng-click="init(0,0)"></span>
+		</div>
+	</ion-nav-title>
+	
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true">
+		<div class="nodata_textdiv" ng-if="hasData==0">
+	    	  童鞋，你还木有搜索到信息哟~~！
+	    </div>
+		<div class="list card">
+			<div class="item item-avatar" ng-repeat="model in list" style="min-height: 100px;">
+				<img 
+					image-lazy-src="{{model.imgUrl | formatDbImgUrl}}" 
+					image-lazy-distance-from-bottom-to-load="100"
+					onerror="javascript:this.src='./img/my_list_default.png';" 
+					ng-click="toDetail(model.id)"
+				>
+				<h2>{{model.abiName}}</h2>
+				<p class="address"><span class="icon-home_add"></span>　{{model.abiGpsPlace}}</p>
+				<p class="address"><span class="icon-home_activity_del_time"></span>　{{model.abiTime | dateregion}}</p>
+				
+				<div class="signup" style="min-width: 75px;text-align: center;" ng-if="model.abiStatus==1 && (model.limitSignNum != model.abiSignNum)" ng-click="activityJoin(model)">
+	  				<span>报名</span>
+				</div>
+			</div>
+		</div>
+		
+		<ion-infinite-scroll immediate-check="false" ng-if="moredata" on-infinite="pullupRefresh_()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+
+	var offset = 0;
+	var limit = 10;
+	
+  function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+  	
+  	$scope.model={keyword:""};
+  	$scope.list=[];
+  	$scope.hasData = 1;
+  	
+  	$scope.params = $scope.pageParams();
+	$scope.model.keyword = $scope.params.keyword;
+	$scope.categoryId = $scope.params.categoryId;
+	
+	//取消
+	$scope.black =function(){
+		$scope.openWindow('home')
+	}
+	
+	//上拉加载更多
+	$scope.pullupRefresh_ = function() {
+		$scope.moredata = false;
+		if(offset!=0){
+			$scope.init(2,offset);	
+		}
+	}
+	
+	//报名活动
+	$scope.activityJoin = function(activity){
+		var activityId= activity.id
+		var changeActivityStatus = $ionicPopup.show({
+				title: '',
+				template: "确认报名活动吗 ？",
+				scope: $scope,
+				buttons: [{
+					text: '取消 ',
+					type: 'button',
+					onTap: function(e) {
+						changeActivityStatus.close();		
+					}
+				}, {
+					text: '确认',
+					type: 'button-positive',
+					onTap: function(e) {
+						ajaxPost.call($scope,$http,API_appserverurl + "/api/activitycheckinfo/enroll",{
+							abiId:activityId
+						},"活动报名",function(ret){
+							activity.abiSignNum = ret.abiSignNum;
+							zn.showToast("报名成功")
+							changeActivityStatus.close();
+						});
+					}
+				}]
+		});
+	}
+	
+	//到活动详情
+	$scope.toDetail = function(activityId){
+		if(activityId)
+			$scope.openWindow("activity_details",{id:activityId})
+	}
+	
+	//初始化 获取标签数据
+	$scope.init = function(type,skip){
+		
+		printLog("监听 活动关键字"+JSON.stringify($scope.model.keyword));
+		printLog("监听 活动类别"+JSON.stringify($scope.categoryId));
+		
+		var data = {
+			keyword:$scope.model.keyword
+		};
+		
+		if($scope.categoryId != ""){
+			$.extend(data,{categoryId:$scope.categoryId});
+		}
+		
+		switch (type){
+			case 0:
+			case 1:
+				offset = 0;
+				$scope.list=[];
+				$.extend(data,{limit:limit,skip:0});
+				break;
+			case 2:
+				$.extend(data,{limit:limit,skip:skip});
+				break;
+		}
+		
+		if($scope.categoryId){//带标签 搜索活动
+			ajaxPost.call($scope,$http,API_appserverurl + "/api/activitybaseinfo/searchActivity",data,"搜索 带标签所有活动",function(ret){
+				if(ret.length==0){
+					if($scope.list.length==0)
+						$scope.hasData = 0;
+					$scope.moredata = false;
+				}else{
+					offset += ret.length;
+					$scope.hasData = 1;
+					$scope.list = $scope.list.concat(ret);
+					$scope.moredata = true;
+				}
+				
+			})
+		}else{//搜索所有活动
+			ajaxPost.call($scope,$http,API_appserverurl + "/api/activitybaseinfo/searchActivity",data,"搜索所有活动",function(ret){
+				if(ret.length==0){
+					if($scope.list.length==0)
+						$scope.hasData = 0;
+					$scope.moredata = false;
+				}else{
+					offset += ret.length;
+					$scope.hasData = 1;
+					$scope.list = $scope.list.concat(ret);
+					$scope.moredata = true;
+				}
+			})
+		}
+
+	}
+	
+	$scope.init(0,0);
+  }
+
+</script>

@@ -1,0 +1,38 @@
+<ion-view id="my_setting_version" title="关于我们">
+  <ion-content overflow-scroll="false" has-bouncing="true" class="has-header" style="background-color: #f8f8f8;">
+    <div class="nodata_textdiv" style="background-image: url(./img/logo512.png);padding-top: 35%;" ng-click="showDemo()">
+      <p ng-bind="versionInfo.name" style="font-size: 18px;color: #666666;"></p>
+      <p ng-bind="versionInfo.version"></p>
+    </div>
+  </ion-content>
+</ion-view>
+<script type="text/javascript">
+
+  function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+    $scope.versionInfo = {};
+    $scope.getLoadData = function (date) {
+//      console.log('zn.versionInfo:'+JSON.stringify(zn.versionInfo));
+      $scope.versionInfo = zn.versionInfo;
+//      $scope.appversionname = zn.versionInfo.name;
+//      $scope.appversionno = zn.versionInfo.version;
+    }
+
+    $scope.clickNum = 0;
+
+    $scope.showDemo = function () {
+
+    		$scope.clickNum++;
+    		console.log("点击次数："+$scope.clickNum);
+
+    		if ($scope.clickNum >= 10)
+    		{
+    			$scope.clickNum = 0;
+    			$scope.openWindow("demo");
+    			return;
+    		}
+
+    }
+
+    $scope.getLoadData();
+  }
+</script>

@@ -1,0 +1,257 @@
+<style type="text/css">
+	.bar {
+		border-bottom: 0px;
+	}
+	.bar-subheader {
+		top: 44px;
+		display: block;
+		height: 44px;
+		text-align: center;
+		background-color: #39d0e7;
+		color: #fff;
+		height: 12px;
+		font-size: 6px;
+		line-height: 12px;
+		position: absolute;
+		padding: 0;
+		top: 31px;
+	}
+</style>
+<ion-view hide-back-button="false" id="my_comment">
+	<ion-nav-title align-title="center">
+		<div ng-click="openMyModel()">
+			<span class="ui inverted header" style="margin-top: 5px;display: block;">
+				我的评论
+				<div class="platform-ios bar bar-subheader" style="line-height: 14px;top: 25px;background-image: none;font-size: 8px;">
+					<span style="color: #CCF8FF;">{{title}}</span>
+			<span class="icon-topbar_arrow_down" ng-if="!showHonorModal"></span>
+			<span class="icon-topbar_arrow_up" ng-if="showHonorModal"></span>
+		</div>
+		</span>
+		</div>
+	</ion-nav-title>
+	<div id="honorModal" ng-if="showHonorModal">
+		<div class="item select" ng-click="chooseActivity('收到的评分')">
+			<span>收到的评分</span>
+		</div>
+		<div class="item select" ng-click="chooseActivity('发出的评分')">
+			<span>发出的评分</span>
+		</div>
+		<div class="opacity" ng-click="chooseActivity('')"></div>
+	</div>
+	<!--收到的-->
+	<ion-content overflow-scroll="false" has-bouncing="true">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<div class="list margin-top-10">
+			<a class="item item-score no-thin-border my_comment_score back-color" ng-if="model.hasData==1">
+				<p ng-if="types==0">我的评价总分：<i>{{model.score}}&nbsp;分</i></p>
+				<p ng-if="types==1">我评论的总分：<i>{{model.score}}&nbsp;分</i></p>
+			</a>
+		</div>
+		<div class="list border-bottom" ng-if="types==0" ng-repeat="item in model.scoreList">
+			<div class="item item-thumbnail-left no-thin-border back-color">
+				<img class="img-main" ng-click="getoUserHome(item.createId)" image-lazy-src="{{item.imgUrl | formatImgUrl}}">
+				<div style="margin-top: 8px;">
+					<span class="comment-name">{{item.createName}}</span>
+					<div class="ui rating">
+						<i class="icon active" ng-if="item.aciScore>=1"></i>
+						<i class="icon active" ng-if="item.aciScore>=2"></i>
+						<i class="icon active" ng-if="item.aciScore>=3"></i>
+						<i class="icon active" ng-if="item.aciScore>=4"></i>
+						<i class="icon active" ng-if="item.aciScore>=5"></i>
+					</div>
+					<span class="icon-my_comment_del_reply" ng-click="gotoCommentInfo(item.aciId, item.abiId, 1)"><i>{{item.sum}}</i></span>
+				</div>
+				<span class="item-time">{{item.createDate | formatDate}}</span>
+			</div>
+			<div class="comment-content back-color" ng-click="gotoCommentInfo(item.aciId, item.abiId, 1)">
+				{{item.aciContent}}
+			</div>
+		</div>
+		<!--发出的-->
+		<div class="list border-bottom" ng-if="types==1" ng-repeat="item in model.scoreList">
+			<div class="margin-bottom-10 back-color" style="height: 100%;">
+				<div class="item item-thumbnail-left no-thin-border back-color">
+					<img  class="img-main" image-lazy-src="{{model.myInfo.imgUrl | formatImgUrl}}">
+					<div style="margin-top: 8px;">
+						<span class="comment-name">{{model.myInfo.name}}</span>
+						<span hidden="hidden">{{model.myInfo.id}}</span>
+						<div class="ui rating">
+							<i class="icon active" ng-if="item.aciScore>=1"></i>
+							<i class="icon active" ng-if="item.aciScore>=2"></i>
+							<i class="icon active" ng-if="item.aciScore>=3"></i>
+							<i class="icon active" ng-if="item.aciScore>=4"></i>
+							<i class="icon active" ng-if="item.aciScore>=5"></i>
+						</div>
+						<span class="icon-my_comment_del_reply" ng-click="gotoCommentInfo(item.id, item.abiId, item.type)" ><i>{{item.sum}}</i></span>
+					</div>
+					<span class="item-time">{{item.createDate | formatDate}}</span>
+				</div>
+				<div class="comment-content back-color" ng-click="gotoCommentInfo(item.id, item.abiId, item.type)">
+					{{item.aciContent}}
+				</div>
+				<div class="item item-thumbnail-left no-thin-border item-him" ng-if="item.type == 0" ng-click="gotoActivityDetails(item.abiId)">
+					<img class="img-next" image-lazy-src="{{item.info.imgUrl | formatImgUrl}}" ng-click="clickLook(item.id, item.abiId.id)">
+					<h2 ng-click="clickLook(item.id, item.abiId.id)">{{item.info.name}}</h2>
+					<p><span class="icon-my_news_add"></span>&nbsp;活动地点：{{item.info.abiGpsPlace}}</p>
+					<p><span class="icon-my_news_time"></span>&nbsp;活动时间：{{item.info | dateregion}}</p>
+				</div>
+
+				<div class="item item-thumbnail-left no-thin-border item-him" ng-if="item.type == 1" ng-click="getoUserHome(item.idc)">
+					<img class="img-next" image-lazy-src="{{item.info.imgUrl | formatImgUrl}}" ng-click="clickLook(item.id, item.abiId.id)">
+					<h2 ng-click="clickLook(item.id, item.abiId.id)">{{item.info.name}}</h2>
+					<p>{{item.info.Sig}}</p>
+				</div><br />
+			</div>
+		</div>
+
+		<div class="nodata_textdiv" ng-if="model.hasData==0">
+			<div ng-if="types==0">童鞋，你还没有收到活动评分哟~</div>
+			<div ng-if="types==1">童鞋，你还没有参加活动评分哟~</div>
+		</div>
+		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>
+
+<script type="text/javascript">
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+
+		$scope.title = "收到的评论";
+		$scope.types = 0; //收到的与发出的 0：收到的;1:发出的
+		$scope.first = true;
+
+		$scope.model = {
+				limit: 5,
+				page: 1,
+				hasData: 1,
+				isMore: true,
+				scoreList: [],
+				score: 0,
+				myInfo: {}
+			}
+			// 初始化，并获取第一个切面数据
+		$scope.init = function() {
+//			console.log("limit:" + $scope.model.limit + " skip:" + ($scope.model.page - 1) * $scope.model.limit)
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/activityscoreinfo/getScoreList', {
+					type: $scope.types,
+					limit: $scope.model.limit,
+					skip: ($scope.model.page - 1) * $scope.model.limit
+				},
+				'获取我的评分数据',
+				function(data) {
+					$timeout(function() {
+//						console.log(JSON.stringify(data) + "===初始化数据")
+						if($scope.model.page == 1) {
+							$scope.model.scoreList = [];
+						}
+						if(data && data.arydata.length > 0) {
+							angular.forEach(data.arydata, function(value, key) {
+								$scope.model.scoreList.push(value);
+							});
+
+							if($scope.types == 1)
+								$scope.model.myInfo = data.myInfo;
+//							console.log("个人信息：" + JSON.stringify($scope.model.myInfo));
+
+							$scope.model.score = data.score;
+							$scope.model.hasData = 1;
+							$scope.model.isMore = true;
+
+						} else {
+							if($scope.model.page == 1) {
+								$scope.model.scoreList = [];
+								$scope.model.hasData = 0;
+							}
+							$scope.model.isMore = false;
+						}
+						// 第一次进入我的评分若无数据，则自动跳转发出去的
+						if($scope.model.hasData == 0　 && $scope.first) {
+							$scope.model.hasData = 0;
+							$scope.chooseActivity("发出的评分");
+							$scope.first = false;
+						}
+					});
+				},
+				function(error) {
+					//TODO
+				});
+		};
+		// 初始化切面
+		$scope.init();
+
+		//下拉刷新
+		$scope.pulldownRefresher = function() {
+			$scope.model.page = 1;
+			$scope.init();
+			$scope.$broadcast('scroll.refreshComplete');
+		};
+		//上拉加载更多
+		$scope.loadMore = function() {
+			$scope.init($scope.model.page++);
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		};
+		// 评论详情
+		$scope.commentInfo = function(aciUserId, acCeateId, abiId) {
+			$scope.openWindow('comment_personage_info', {
+				aciUserid: $scope.type == 0 ? aciUserId : acCeateId,
+				abiId: abiId
+			});
+		};
+
+		//打开 其他活动 
+		$scope.openMyModel = function() {
+			$scope.showOpenModal = false;
+			$scope.openHonorModal();
+		}
+
+		//关闭 title选择
+		$scope.chooseActivity = function(title) {
+			if(title != "") {
+				$scope.title = title;
+				switch(title) {
+					case "收到的评分":
+						$scope.types = 0;
+						break;
+					case "发出的评分":
+						$scope.types = 1;
+						break;
+				}
+				$scope.model.isMore = false;
+				$scope.model.hasData = 1;
+				$scope.model.scoreList = [];
+				$scope.model.page = 1;
+				$scope.init();
+			}
+			$scope.$parent.showHonorModal = false;
+		};
+		// 活动详情
+		$scope.gotoActivityDetails = function(abiId) {
+			$scope.openWindow('activity_details', {
+				id: abiId
+			});
+		};
+		
+		// 评分详情
+		$scope.gotoCommentInfo = function(aciId, abiId, type) {
+			if(type ==1){
+				$scope.openWindow('comment_personage_one', {
+				aciId: aciId,
+				abiId: abiId
+			});
+			} else{
+				$scope.openWindow('comment_activity_info', {
+				aciId: aciId,
+				abiId: abiId
+			});
+			}
+		};
+	      // 个人中心
+	    $scope.getoUserHome = function(usrid) {
+			$scope.openWindow('user_home', {
+				uuiId: usrid,
+			});
+		}
+	}
+</script>

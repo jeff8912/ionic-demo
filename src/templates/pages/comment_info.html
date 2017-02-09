@@ -1,0 +1,116 @@
+<ion-view hide-back-button="false" id="comment_info">
+	<ion-nav-buttons side="right">
+    <a class="button button-blue btnsubmit" ng-href="" ng-if="model.past==0" ng-click="submit()">提交</a>
+	</ion-nav-buttons>
+	<ion-nav-title align-title="center">
+		<span class="ui inverted header">我的评论</span>
+	</ion-nav-title>
+	<ion-content overflow-scroll="false" has-bouncing="true">
+		<div class="list" style="top:0px; border: 0;">
+			<a class="item item-avatar">
+				<img ng-src="{{model.comment.createId.aeiImgUrl | formatDbImgUrl}}">
+				<p class="item-name">{{model.comment.createName}}</p>
+				<p class="item-time">{{model.comment.createDate | formatDate}}</p>
+			</a>
+			<div class="item-text-wrap">{{model.comment.aciContent}}</div>
+			<div>
+				<a class="item item-thumbnail-left">
+					<img ng-src="{{model.comment.abiId.imgUrl | formatDbImgUrl}}">
+					<h2>{{model.comment.abiId.abiName}}</h2>
+					<p><span class="icon-my_news_add"></span>&nbsp;活动地点：{{model.comment.abiId.abiGpsPlace}}</p>
+					<p><span class="icon-my_news_time"></span>&nbsp;活动时间：{{model.comment.abiId | dateregion}}</p>
+				</a>
+			</div>
+		</div>
+		<div class="list item-textarea">
+			<i>回复：</i>
+			<textarea id="comment" ng-if="model.past==0" placeholder="输入回复内容" ng-model="postModel.replyContent" autocomplete="off" autocorrect="off"></textarea><br /><br />
+			<div id="comment" ng-if="model.past==1">{{model.comment.replyContent}}</div>
+			<span hidden="false" ng-model="postModel.comment.id"></span>
+		</div>
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		console.log("参数                " + JSON.stringify($scope.pageParams()));
+		var params = $scope.pageParams()
+		$scope.model = {
+			comment: {},
+			past: 0
+		};
+		$scope.postModel = {
+			replyContent: '',
+			id: 0
+		};
+		$scope.getcomment = function() {
+			$scope.$parent.isNewsEdit = true;
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/activityscoreinfo/getModel', {
+					id: params.id
+				},
+				'获取评论详情',
+				function(data) {
+					console.log(JSON.stringify(data) + "评论详情");
+					$timeout(function() {
+						$scope.model.comment = data;
+						if ($scope.model.comment.aeiImgUrl) {
+							$scope.model.comment.aeiImgUrl = $scope.model.comment.aeiImgUrl.split(",");
+						}
+						if ($scope.model.comment.replyContent && $scope.model.comment.replyTime) {
+							$scope.model.past = 1;
+						} else {
+							$scope.postModel.id = $scope.model.comment.id;
+						}
+					});
+				},
+				function(error) {
+					//TODO
+				});
+		}
+		$scope.getcomment();
+		//提交回复
+		$scope.submit = function() {
+				var str = $scope.postModel.replyContent;
+				if (str.length > 252) {
+					showError("回复文字过多");
+					return;
+				}
+				ajaxPost.call(
+					$scope, $http,
+					API_appserverurl + '/api/activityscoreinfo/editData',
+					$scope.postModel,
+					'活动报销提交',
+					function(data) {
+						console.log("成功！");
+						$scope.showSubmitSuccess();
+					},
+					function(error) {
+						console.log("失败！" + error);
+					});
+			}
+			//提交成功
+		$scope.showSubmitSuccess = function() {
+			var myPopup = $ionicPopup.show({
+				title: '<div style="position: relative;"><i style="top:0; right: 0;" class="icon-common_prompt_cancel"></i><div>',
+				template: '<div style="text-align: center;">提交成功<div>',
+				scope: $scope,
+				buttons: [{
+					text: '<b>查看此评论</b>',
+					type: 'button',
+					onTap: function(e) {
+						$scope.model.past=1;
+						$scope.model.comment.replyContent = $scope.postModel.replyContent;
+					}
+				}, {
+					text: '<b>返回我的评论</b>',
+					type: 'button-positive',
+					onTap: function(e) {
+						$scope.openWindow('my_comment');
+						myPopup.close();
+					}
+				}]
+			});
+		}
+	}
+</script>

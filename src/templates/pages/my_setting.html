@@ -1,0 +1,73 @@
+<ion-view id="my_setting">
+  <ion-nav-title align-title="center"><span class="ui inverted header">设置</span></ion-nav-title>
+  <ion-content overflow-scroll="false" has-bouncing="true" class="has-header" style="background-color: #f8f8f8;">
+    <div class="list" style="margin-top: 10px;">
+
+      <a class="item item-icon-right item-input" style="height: 50px;" href="#/my_setting_password">
+        修改密码
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+    </div>
+    <div class="list">
+      <a class="item item-icon-right item-input" style="height: 50px;" href="#/my_setting_message">
+        消息设置
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+
+      <a class="item item-icon-right item-input" style="height: 50px;" href="#/my_setting_base">
+        基本设置
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+    </div>
+
+    <div class="list" style="margin-bottom: 30px;">
+    <a class="item item-icon-right item-input" style="height: 50px;" href="#/my_setting_version">
+      关于我们
+      <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+    </a>
+    </div>
+    <div class="list" style="margin: 0 20px;">
+      <a class="button button-full button-blue" ng-href="" ng-click="logoutData()">退出登录</a >
+    </div>
+  </ion-content>
+</ion-view>
+<script type="text/javascript">
+  function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+
+    $scope.logoutData = function () {
+      var confirmPopup = $ionicPopup.confirm({
+        title: '退出登录',
+        template: '确定退出当前用户登录？',
+        buttons: [{text: "取消"}, {
+          text: '<b>确定</b>',
+          type: 'button-positive',
+          onTap: function (e) {
+            var _isIO = isAjaxToIO;
+            // 强制用Ajax：
+            isAjaxToIO = false;
+            ajaxPost.call($scope, $http, API_appserverurl + "/api/user/logoutData", {}, "退出登录",
+              function (json) {
+                isAjaxToIO = false;
+                islogined = false;
+                $scope.$parent.removeUrlCache();
+                $ionicHistory.clearCache();
+                $scope.$parent.userInfo=null;
+                uuiId = 0;
+                db.clearall();
+                var push = window.plugins && window.plugins.jPushPlugin;
+                if (push)
+                  plugins.jPushPlugin.setTagsWithAlias([], "");
+                db.add('app_no_first_load', true);
+                $scope.openWindow('login');
+              }, function (err) { $scope.openWindow('login'); });
+            isAjaxToIO = _isIO;
+            confirmPopup.close();
+            e.preventDefault();
+          }
+        }]
+      });
+    }
+
+  }
+
+</script>

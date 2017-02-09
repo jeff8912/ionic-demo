@@ -1,0 +1,46 @@
+<style>
+  #myCarousel {
+    height: 50%;
+  }
+  .carousel-image {
+    padding-bottom: 0;
+    background-size: 100% auto;
+    -webkit-background-size: 100% auto;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box;
+    background-position: center;
+    padding-left: 0;
+    padding-right: 0;
+    height: 100%;
+    width: 100vw;
+  }
+  .swiper-container {
+    width: 100%;
+    height: 60vmin;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+<div class="imageAds" ng-style="{'border': ($$value$$.option.borderWidth||0)+'px solid #ddd'}">
+
+  <div class="swiper-container" id="index-container-{{$$value$$.ids}}">
+    <div class="swiper-wrapper" id="index-wrapper-{{$$value$$.ids}}">
+      <div ng-repeat="item in $$value$$.imageAds.imgs" class="swiper-slide" >
+        <div style="background-repeat: no-repeat;"
+        	ng-style="{'background-image': 'url('+(item.fileImgUrl | formatDbImgUrl)+')'}"
+          ng-click="gotoActivityDetail(item.abiId.id)" ng-init="$last && swiper_init($$value$$.ids, $$value$$.prefix)" class="carousel-image">
+        </div>
+        <!--<div image-lazy-src="{{item.fileImgUrl | formatDbImgUrl}}" image-lazy-background-image="true" style="background-repeat: no-repeat;"
+             ng-click="gotoActivityDetail(item.abiId.id)" ng-init="$last && swiper_init($$value$$.ids, $$value$$.prefix)" class="carousel-image">
+        </div>-->
+        <!--<img ng-click="imageNavigate(item)" src="{{item.fileImgUrl | formatDbImgUrl}}" data-holder-rendered="true" on-swipe-left="onSwipeLeft()" on-swipe-right="onSwipeRight()"/>-->
+      </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination" id="index-pagination-{{$$value$$.ids}}"></div>
+    <!-- Add Arrows -->
+    <!--<div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>-->
+  </div>
+
+</div>

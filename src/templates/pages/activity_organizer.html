@@ -1,0 +1,158 @@
+<ion-view view-title="活动承办方" id="activity_organizer">
+	<ion-nav-buttons side="right">
+    <a class="button button-blue btnsubmit" ng-href="" ng-click="onSubmit()">提交</a>
+	</ion-nav-buttons>
+
+  <ion-content overflow-scroll="false" has-bouncing="true">
+  	<div class="ui fluid dropdown selection multiple" tabindex="0" ng-if="selectOrganizer.length != 0">
+		<a class="ui label transition visible" style="display: inline-block !important;" ng-repeat="select in selectOrganizer"> {{select.sdiName}}<i class="delete icon" ng-click="delete(select)"></i></a>
+	</div>
+
+  	<div class="item item-input-inset" style="margin-bottom: 10px;">
+	    <label class="item-input-wrapper">
+	      <input type="text" placeholder="请输入活动承办方" ng-model="model.keyword" class="ng-pristine ng-untouched ng-valid ng-empty" focus-me>
+	    </label>
+	    <span class="icon-topbar_search search" ng-click="search()"></span>
+	  </div>
+
+
+	<div class="nodata_textdiv" ng-if="hasData==0">
+		还没有活动承办方哟~~！
+	</div>
+
+	<ion-list>
+	  	<ion-checkbox ng-repeat="item in organizer" ng-model="item.checked" ng-checked="item.checked" ng-click="select(item)" style="color: #222222;">{{item.sdiName}}</ion-checkbox>
+	</ion-list>
+
+	<ion-infinite-scroll immediate-check="false" ng-if="moredata" on-infinite="pullupRefresh_()" distance="1%"></ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>
+<script type="text/javascript">
+	var offset = 0;
+	var limit = 10;
+
+  function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+
+  	$scope.model={keyword:""};
+	$scope.selectOrganizer =[];
+	$scope.organizer =[];
+	$scope.hasData = 1;
+
+	//上拉加载更多
+	$scope.pullupRefresh_ = function() {
+		$scope.moredata = false;
+		$scope.init(2, offset);
+		$scope.$broadcast('scroll.infiniteScrollComplete');
+	}
+
+	//把选择的item重新赋值
+	$scope.setItem = function(obj){
+		angular.forEach(obj, function (item) {
+			angular.forEach($scope.selectOrganizer, function (subItem) {
+				if(item.id == subItem.id){
+					item.checked = true;
+				}
+			});
+		});
+	}
+
+	//承办方搜索
+	$scope.search = function(){
+		$scope.moredata = false;
+		if($scope.model.keyword){
+			ajaxPost.call($scope,$http,API_appserverurl + "/api/sysdictionaryinfo/getDictList",{
+				scdId:organizer,
+				key:$scope.model.keyword
+			},"获取承办方",function(ret){
+				$scope.organizer =  ret;
+				$scope.setItem($scope.organizer);
+			})
+		}else{
+			$scope.moredata = true;
+			$scope.organizer = $scope.initOrganizer;
+			$scope.setItem($scope.organizer);
+		}
+	}
+
+	//添加到已选择的承办方
+	$scope.select = function(organizer){
+		if($scope.selectOrganizer.length==0){//第一次添加
+			$scope.selectOrganizer.push(organizer);
+		}else{
+			var flag =true;
+			for(var i = 0; i < $scope.selectOrganizer.length ; i++){
+				var tempId = $scope.selectOrganizer[i].id;
+				if(tempId == organizer.id){//去除相同的元素
+					$scope.selectOrganizer.splice(i,1);
+					flag=false;
+				}
+
+			}
+			if(flag){//没有相同的元素添加
+				$scope.selectOrganizer.push(organizer);
+				organizer.checked = true;
+			}
+		}
+
+	}
+
+	//删除已选择的承办方
+	$scope.delete = function(organizer){
+
+		for(item in $scope.organizer){
+			if(organizer.id == $scope.organizer[item].id){
+				$scope.organizer[item].checked = false;
+			}
+		}
+
+		for(selectItem in $scope.selectOrganizer){
+			if(organizer.id == $scope.selectOrganizer[selectItem].id){//去除相同的元素
+				$scope.selectOrganizer.splice(selectItem,1);
+			}
+		}
+	}
+
+	//确认提交
+	$scope.onSubmit = function(){
+		EventBus.fire({type: "notice.activity_organizer.onSubmit", data:$scope.selectOrganizer});
+	    $ionicHistory.goBack();
+	}
+
+	//初始化 获取承办方数据
+	$scope.init = function(type,skip){
+		var data ={scdId:organizer}
+
+		switch (type){
+			case 0:
+			case 1:
+				offset = 0;
+				$.extend(data,{limit:limit,offset:0});
+				break;
+			case 2:
+				$.extend(data,{limit:limit,offset:skip});
+				break;
+		}
+
+		console.log("参数："+JSON.stringify(data))
+		ajaxPost.call($scope,$http,API_appserverurl + "/api/sysdictionaryinfo/getDictList",data,"获取承办方",function(ret){
+			if(ret.length==0){
+				if($scope.organizer.length==0)
+					$scope.hasData = 0;
+				$scope.moredata = false;
+			}else{
+				offset += ret.length;
+				$scope.hasData = 1;
+				$scope.organizer =  $scope.organizer.concat(ret);
+				$scope.moredata = true;
+				$scope.initOrganizer = $scope.organizer;
+				$scope.setItem($scope.organizer);
+			}
+		})
+	}
+
+	$scope.init(0,0);
+
+  }
+
+</script>

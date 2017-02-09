@@ -1,0 +1,171 @@
+<ion-view id="my_sysmsg_list">
+	<ion-nav-title align-title="center"><span class="ui inverted header">{{globalTitle}}</span></ion-nav-title>
+	<ion-content overflow-scroll="false" has-bouncing="true" class="has-header" style="background-color: #f8f8f8;">
+		<div class="nodata_textdiv" ng-if="hasData==0">
+			童鞋，你还木有该类信息哟~~！
+		</div>
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresh_()"></ion-refresher>
+		<div class="list1">
+			<div class="item1" ng-repeat="item in noticeDataList">
+				<div class="headtime" align="center">
+					<span ng-bind-html="getDate(item.npiModel.createDate)"></span>
+				</div>
+				<div class="content" ng-click="goToDetail(item)">
+					<div class="title">
+						<span ng-bind-html="item.npiModel.npiTitle"></span>
+						<p style="margin-top: 5px;"><span ng-bind-html="getShortDate(item.npiModel.createDate)" class="shortdate"></span></p>
+					</div>
+					
+					<div class="content1" ng-bind-html="item.npiModel.npiContent">
+					</div>
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<ion-infinite-scroll immediate-check="false" ng-if="moredata" on-infinite="pullupRefresh_()" distance="1%"></ion-infinite-scroll>
+
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+	var offset = 0;
+	var limit = 10;
+
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		$scope.noticeDataList = [];
+		$scope.nniType = null;
+		$scope.globalTitle = null;
+		$scope.hasData = 1;
+		$scope.moredata = false;
+		/**
+		 * 页面初始化
+		 */
+		$scope.init = function() {
+				var keyPar = $scope.pageParams();
+				$scope.nniType = keyPar.msgType;
+				switch ($scope.nniType) {
+					case "1":
+						$scope.globalTitle = '活动提醒';
+						break;
+					case "2":
+						$scope.globalTitle = '系统通知';
+						break;
+				}
+				$scope.getSysMsgList(0, 0);
+				printLog("页面参数消息列表=" + JSON.stringify(keyPar));
+			}
+			/**获取活动提醒或官方通知列表
+			 * @param  int type  0初始化 1下拉刷新 2加载更多
+			 * @param int coffset 已加载条数
+			 */
+		$scope.getSysMsgList = function(type, coffset) {
+				console.log("--------------" + type);
+				var data = {
+					offset: coffset,
+					limit: limit,
+					nniType: $scope.nniType
+				}
+				ajaxPost.call($scope, $http, API_appserverurl + "/api/notifypersoninfo/getNoticeList", data, "系统消息列表",
+					function(ret) {
+						if (ret && ret.length > 0) {
+							switch (type) {
+								case 0:
+									$scope.noticeDataList = ret;
+									offset = ret.length;
+									break;
+								case 1:
+									$scope.noticeDataList = ret;
+									offset = ret.length;
+									$scope.$broadcast('scroll.refreshComplete');
+									break;
+								case 2:
+									offset += ret.length;
+									$.each(ret, function(j, item) {
+										$scope.noticeDataList.push(item);
+									});
+									$scope.$broadcast('scroll.infiniteScrollComplete');
+									break;
+							}
+							if(ret.length < limit)
+							   $scope.moredata = false;
+							else
+							   $scope.moredata = true;
+						} else {
+							switch (type) {
+								case 0:
+									$scope.noticeDataList = [];
+									$scope.hasData = 0;
+									break;
+								case 1:
+									$scope.noticeDataList = [];
+									$scope.hasData = 0;
+									$scope.$broadcast('scroll.refreshComplete');
+									break;
+								case 2:
+									$scope.$broadcast('scroll.infiniteScrollComplete');
+									break;
+							}
+							$scope.moredata = false;
+						}
+						printLog("return Data=" + JSON.stringify($scope.noticeDataList));
+						printLog("总记录数：##############################" + offset);
+					},
+					function(err) {
+						if (type == 1)
+							$scope.$broadcast('scroll.refreshComplete');
+						if (type == 2)
+							$scope.$broadcast('scroll.infiniteScrollComplete');
+						printLog("错误信息：" + JSON.stringify(err));
+					}, false, false, false, true);
+			}
+			//下拉刷新
+		$scope.pulldownRefresh_ = function() {
+				$scope.getSysMsgList(1, 0);
+			}
+			//上拉加载更多
+		$scope.pullupRefresh_ = function() {
+			$scope.getSysMsgList(2, offset);
+		}
+		$scope.goToDetail = function(item) {
+				var id = item.id;
+				//判断是否为用户信息
+				if (item.isRead != null && item.isRead != 1) {
+					id = item.npiId1;
+					ajaxPost.call($scope, $http, API_appserverurl + "/api/activitycheckinfo/read", data, "将用户通知标志为已读", function(ret) {})
+				}
+				/*$scope.openWindow('my_sysmsg_detail', {
+					id: id
+				});*/
+			}
+			//时间格式化
+		$scope.add0 = function(m) {
+			return m < 10 ? '0' + m : m
+		}
+		$scope.getDate = function(date) {
+			if (date != null) {
+				var time = new Date(date);
+				var y = time.getFullYear();
+				var m = time.getMonth() + 1;
+				var d = time.getDate();
+				var h = time.getHours();
+				var mm = time.getMinutes();
+				var s = time.getSeconds();
+				var d = y + '-' + $scope.add0(m) + '-' + $scope.add0(d) + ' ' + $scope.add0(h) + ':' + $scope.add0(mm) + ':' + $scope.add0(s);
+				return d;
+			}
+			return "";
+		}
+		
+		$scope.getShortDate = function(date){
+			if (date != null) {
+				var time = new Date(date);
+				var m = time.getMonth() + 1;
+				var d = time.getDate();
+				var d = $scope.add0(m) + '月' + $scope.add0(d) + '日';
+				return d;
+			}
+			return "";
+		}
+		$scope.init();
+	}
+</script>

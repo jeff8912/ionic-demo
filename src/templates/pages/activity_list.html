@@ -1,0 +1,392 @@
+<ion-view hide-back-button="false" id="activity_list">
+	<ion-nav-title align-title="center">
+		<span class="ui inverted header">{{title[type-1]}}</span>
+	</ion-nav-title>
+	<div class="tabs tabs-default tabs-top">
+		<a ng-repeat="item in statusList" ng-click="selectByStatus($index)" class="tab-item {{item.cls}}">
+	    	{{item.label}}
+	    	<span class="icon-topbar_arrow_down" ng-if="$first && !model.showActivityModal"></span>
+			<span class="icon-topbar_arrow_up" ng-if="$first && model.showActivityModal"></span>
+			
+	    	<span class="icon-topbar_arrow_down" ng-if="$last && !model.showActivityTimeModal"></span>
+			<span class="icon-topbar_arrow_up" ng-if="$last && model.showActivityTimeModal"></span>
+	  	</a>
+	</div>
+	
+	<div id="activityTypeModal" ng-if="model.showActivityModal" >
+		<div class="list" style="max-height: 240px;margin-bottom: 0px;overflow-y: scroll;">
+			<div class="item select" ng-click="chooseType(c.id)" ng-repeat="c in category">
+				<span>{{c.sdiName}}</span>
+			</div>
+		</div>
+		<div class="opacity" ng-click="closeActivityModal()"></div>
+	</div>
+	
+	<div id="activityTimeModal" ng-if="model.showActivityTimeModal" class="list">
+		<div class="item select" ng-click="chooseTime(1)">
+			<span>发布时间</span>
+		</div>
+		<div class="item select" ng-click="chooseTime(2)">
+			<span>开始时间</span>
+		</div>
+		<div class="opacity" ng-click="closeActivityModal()"></div>
+	</div>
+		
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="listTop">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresh_()"></ion-refresher>
+		<div class="nodata_textdiv" ng-if="hasData==0">
+	    	  童鞋，你还木有该类信息哟~~！
+	    </div>
+		<div class="list" style="margin-top: 10px;padding-bottom: 0px;">
+			<div ng-repeat="model in activityList" style="margin-bottom: 10px;" >
+				<div style="background-color: white;position: relative;">
+					<div style="position: relative;">
+						<!--<div ng-click="toDetails(model.abiNum)" class="micropage-activity-image" image-lazy-src="{{model.imgUrl | formatDbImgUrl}}" image-lazy-background-image="true" style="background-repeat: no-repeat;background-size: 100%,auto;margin: 10px 10px;"></div>-->
+						<div style="padding: 10px;padding-bottom: 0px;min-height: 120px;">
+							<img ng-click="toDetails(model.abiNum)" style="width: 100%;min-height: 50px;height: auto;" 
+							onerror="javascript:this.src='./img/my_list_default.png';"  
+							image-lazy-src="{{model.imgUrl | formatDbImgUrl}}"
+							image-lazy-distance-from-bottom-to-load="100"
+							/>
+						</div>
+						<div class="signup" ng-if="model.abiStatus == 1 && (model.abiSignNum != model.limitSignNum)" ng-click="activityJoin(model)" style="margin-right: 10px;">
+							<span class="abiEnrollmentNum ng-binding">{{model.abiSignNum || 0}} /</span>
+							<span class="ng-binding">{{model.limitSignNum}}</span> 报名
+						</div>
+						<div class="signup-no-back" ng-if="model.abiStatus == 1 && (model.abiSignNum != model.limitSignNum)" ng-click="activityJoin(model)" style="margin-right: 10px;">
+							<span class="abiEnrollmentNum ng-binding">{{model.abiSignNum || 0}} /</span>
+							<span class="ng-binding">{{model.limitSignNum}}</span> 报名
+						</div>
+					</div>
+					<div style="padding-bottom: 0.3rem;padding-left: 10px;">
+						<h3 style="padding: 10px 0 0 0;font-size: 16px;" class="ng-binding">{{model.abiName}}
+							<div class="distance" ng-if="type == 1">
+								距离：{{model.distance}}
+							</div>
+						</h3>
+						<div style="margin-bottom: 10px;">
+							<span class="ng-binding">
+			                	<span class="icon-home_add" style="color: #22B5FF;margin-right: 5px;"></span> 
+			                	<span class="address">活动地点：{{model.abiGpsPlace}}</span>
+							</span>
+						</div>
+						<div class="activity-loop">
+							<span class="ng-binding">
+			               		<span class="icon-home_activity_del_time" style="color: #BD18FD;margin-right: 5px;"></span> 
+			               		<span class="address">活动时间：{{model.abiTime | dateregion}}</span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<ion-infinite-scroll immediate-check="false" ng-if="moredata" on-infinite="pullupRefresh_()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+	
+</ion-view>
+<script type="text/javascript">
+	var offset = 0;
+	var limit = 10;
+	
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+
+		$scope.model = {
+			showActivityModal: false,
+			showActivityTimeModal: false
+		}
+		
+		$scope.hasData = 1;
+		$scope.categoryId = 0;
+		$scope.chooseStatus = 0;
+		$scope.activityList =[];
+		$scope.type = $scope.pageParams().type;
+		$scope.distance = 5000; 
+		
+		//状态栏
+		$scope.statusList = [{
+			label: '按类型',
+			cls: ''
+		}, {
+			label: '按时间',
+			cls: ''
+		}];
+		
+		//标题
+		$scope.title =['附近活动','帮你推荐','所有活动'];
+		
+		//到活动详情
+		$scope.toDetails = function(activityId){
+			if(activityId)
+				$scope.openWindow("activity_details",{id:activityId})
+		}
+		
+		//活动报名 
+		$scope.activityJoin = function(activity){
+			var activityId = activity.id;
+			var activityJoin = $ionicPopup.show({
+				title: '',
+				template: '确认报名吗 ？',
+				scope: $scope,
+				buttons: [{
+					text: '取消 ',
+					type: 'button',
+					onTap: function(e) {
+						activityJoin.close();		
+					}
+				}, {
+					text: '确认',
+					type: 'button-positive',
+					onTap: function(e) {
+						ajaxPost.call($scope,$http,API_appserverurl + "/api/activitycheckinfo/enroll",{
+							abiId:activityId
+						},"活动报名",function(ret){
+							activity.abiSignNum = ret.abiSignNum;
+							activityJoin.close();
+							zn.showToast("报名成功")
+						});
+					}
+				}]
+			});
+		}
+		
+		//选择状态栏
+		$scope.selectByStatus = function(index) {
+			$scope.chooseStatus = index;
+			switch(index){
+				case 0:
+				$scope.model.showActivityTimeModal = false;
+				$scope.model.showActivityModal = !$scope.model.showActivityModal;
+					break;
+				case 1:
+				$scope.model.showActivityModal = false;
+				$scope.model.showActivityTimeModal = !$scope.model.showActivityTimeModal;
+					break;
+			}
+			
+			angular.forEach($scope.statusList, function function_name(item, key) {
+				item.cls = '';
+			});
+			$scope.statusList[index].cls = 'active';
+		}
+		
+		//选择类型下拉
+		$scope.chooseType = function(categoryId){
+			$scope.scrollTop();
+			$scope.categoryId = categoryId;
+			$scope.init({type:$scope.type,categoryId:$scope.categoryId},0,0);
+			
+			$scope.model.showActivityModal = false;
+		}
+		
+		//选择时间下拉
+		$scope.chooseTime = function(index){
+			$scope.scrollTop();
+			$scope.selectTime = index;
+			if($scope.categoryId == 0 ){
+				$scope.init({type:$scope.type,sortTime:$scope.selectTime},0,0);
+			}else{
+				$scope.init({type:$scope.type,sortTime:$scope.selectTime,categoryId:$scope.categoryId},0,0);
+			}
+			
+			$scope.model.showActivityTimeModal = false;
+		}
+		
+		$scope.closeActivityModal = function () {
+			$scope.model.showActivityModal = false;
+			$scope.model.showActivityTimeModal = false;
+		}
+		
+		//下拉刷新
+		$scope.pulldownRefresh_ = function() {
+			// 0为按照类型 1为按照时间
+			switch ($scope.chooseStatus){
+				case 0:
+				if($scope.categoryId == 0 ){
+					$scope.init({type:$scope.type},1,0);
+				}else{
+					$scope.init({type:$scope.type,categoryId:$scope.categoryId},1,0);
+				}
+				$scope.model.showActivityModal = false;
+				$scope.$broadcast('scroll.refreshComplete');
+					break;
+				case 1:
+				if($scope.categoryId == 0 ){
+					$scope.init({type:$scope.type,sortTime:$scope.selectTime},1,0);
+				}else{
+					$scope.init({type:$scope.type,sortTime:$scope.selectTime,categoryId:$scope.categoryId},1,0);
+				}
+				$scope.model.showActivityTimeModal = false;
+				$scope.$broadcast('scroll.refreshComplete');
+					break;
+				default:
+				$scope.$broadcast('scroll.refreshComplete');
+					break;
+			}
+		}
+		
+		//上拉加载更多
+		$scope.pullupRefresh_ = function() {
+			$scope.moredata = false;
+			// 0为按照类型 1为按照时间
+			switch ($scope.chooseStatus){
+				case 0:
+				if($scope.categoryId == 0 ){
+					$scope.init({type:$scope.type},2,offset);
+				}else{
+					$scope.init({type:$scope.type,categoryId:$scope.categoryId},2,offset);
+				}
+				$scope.model.showActivityModal = false;
+				$scope.$broadcast('scroll.infiniteScrollComplete');
+					break;
+				case 1:
+				if($scope.categoryId == 0 ){
+					$scope.init({type:$scope.type,sortTime:$scope.selectTime},2,offset);
+				}else{
+					$scope.init({type:$scope.type,sortTime:$scope.selectTime,categoryId:$scope.categoryId},2,offset);
+				}
+				$scope.model.showActivityTimeModal = false;
+				$scope.$broadcast('scroll.infiniteScrollComplete');
+					break;
+				default:
+				$scope.$broadcast('scroll.infiniteScrollComplete');
+					break;
+			}
+			
+		}
+		
+		/**
+		 * 初始化 获取 我的活动数据
+		 * @param  data 调用接口传的参数
+		 * data.type 1:附近活动  2:帮你推荐  3:所有活动
+		 * type 0:初始化 1:下拉刷新 2：上拉加载
+		 */
+		$scope.init = function(data,type,skip){
+			switch (type){
+				case 0:
+				case 1:
+					offset = 0;
+					$scope.moredata = true;
+					$scope.activityList =[];
+					$.extend(data,{limit:limit,skip:0});
+					break;
+				case 2:
+					$.extend(data,{limit:limit,skip:skip});
+					break;
+			}
+			
+			//获取活动类别列表
+			ajaxPost.call($scope,$http,API_appserverurl + "/api/sysdictionaryinfo/getDictList",{
+				scdId:activityCategory
+			},"获取活动类别",function(ret){
+				$scope.category = ret;
+			});
+			
+			if($scope.type == 1){//附近活动
+				
+				$scope.lng =113.955645;
+				$scope.lat =22.548753;
+				zn.getPosition(function (p) {
+					console.log(p);
+					var tempData = GetCircleRangeByRadius({Lng:p.coords.longitude, Lat:p.coords.latitude}, $scope.distance);
+					$scope.lng = p.coords.longitude//经度
+					$scope.lat = p.coords.latitude//纬度
+					$.extend(data, {
+						Lng:p.coords.longitude,
+						Lat:p.coords.latitude,
+						minLng:tempData.minLng,
+						minLat:tempData.minLat,
+						maxLng:tempData.maxLng,
+						maxLat:tempData.maxLat
+					});
+					
+					console.log("调用接口参数："+JSON.stringify(data));
+			
+					//根据类型获取活动列表
+					ajaxPost.call($scope,$http,API_appserverurl + "/api/activitybaseinfo/getActivityByType",data,"获取活动列表",function(ret){
+		//				console.log(JSON.stringify(ret))
+						if(ret.length !=0 ){
+							
+							if($scope.type == 1){
+								angular.forEach(ret,function(item){
+									item.distance = AnalyseDistance($scope.lng, $scope.lat, item.abiGpsLng, item.abiGpsLat)
+								})
+							}
+							
+							offset += ret.length;
+							$scope.activityList = $scope.activityList.concat(ret);
+							$scope.hasData = 1;	
+							$scope.moredata = true;
+						}else{
+							if($scope.activityList.length==0)
+								$scope.hasData = 0;
+							$scope.moredata = false;
+						}
+					});
+				}, function (err) {
+					var tempData = GetCircleRangeByRadius({Lng:113.955645, Lat:22.548753}, $scope.distance);
+					console.log(JSON.stringify(tempData))
+					$.extend(data, {
+						Lng:113.955645, 
+						Lat:22.548753,
+						minLng:tempData.minLng,
+						minLat:tempData.minLat,
+						maxLng:tempData.maxLng,
+						maxLat:tempData.maxLat
+					});
+					console.log("调用接口参数："+JSON.stringify(data));
+			
+					//根据类型获取活动列表
+					ajaxPost.call($scope,$http,API_appserverurl + "/api/activitybaseinfo/getActivityByType",data,"获取活动列表",function(ret){
+		//				console.log(JSON.stringify(ret))
+						if(ret.length !=0 ){
+							
+							if($scope.type == 1){
+								angular.forEach(ret,function(item){
+									item.distance = AnalyseDistance($scope.lng, $scope.lat, item.abiGpsLng, item.abiGpsLat)
+								})
+							}
+							
+							offset += ret.length;
+							$scope.activityList = $scope.activityList.concat(ret);
+							$scope.hasData = 1;	
+							$scope.moredata = true;
+						}else{
+							if($scope.activityList.length==0)
+								$scope.hasData = 0;
+							$scope.moredata = false;
+						}
+					});
+					console.log(err);
+				});
+				
+			}else{
+				console.log("调用接口参数："+JSON.stringify(data));
+			
+				//根据类型获取活动列表
+				ajaxPost.call($scope,$http,API_appserverurl + "/api/activitybaseinfo/getActivityByType",data,"获取活动列表",function(ret){
+	//				console.log(JSON.stringify(ret))
+					if(ret.length !=0 ){
+						
+						if($scope.type == 1){
+							angular.forEach(ret,function(item){
+								item.distance = AnalyseDistance($scope.lng, $scope.lat, item.abiGpsLng, item.abiGpsLat)
+							})
+						}
+						
+						offset += ret.length;
+						$scope.activityList = $scope.activityList.concat(ret);
+						$scope.hasData = 1;	
+						$scope.moredata = true;
+					}else{
+						if($scope.activityList.length==0)
+							$scope.hasData = 0;
+						$scope.moredata = false;
+					}
+				});
+			}
+		}
+		
+		$scope.init({type:$scope.type},0,0);
+	}
+</script>

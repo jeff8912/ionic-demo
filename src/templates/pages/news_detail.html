@@ -1,0 +1,56 @@
+<ion-view hide-back-button="false" id="news_detail">
+	<ion-nav-title align-title="center">
+		<span class="ui inverted header">新闻稿详情</span>
+	</ion-nav-title>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true">
+		<div class="list">
+			<div class="item margin-top-10 thin-border-right-16">
+				<h2>{{model.news.aniTitle}}</h2>
+			    <p>{{model.news.news.abi_start_time}} -- {{model.news.news.abi_end_time}}</p>
+			    <p>活动人数：{{model.news.news.abi_sign_num}} </p>
+			    <p>活动地点：{{model.news.news.abi_gps_place}}</p>
+			</div>
+			<div class="item item-input marginTop marginBottom multiple-label row no-thin-border">
+				<!--<span>最多上传6张</span><br/>-->
+				<div class="multiple-div col" ng-repeat="file in model.news.aniImgUrl">
+					<img image-lazy-src="{{file | formatDbImgUrl}}" 
+						 image-lazy-distance-from-bottom-to-load="100"/>
+				</div>
+			</div>
+		  	<label class="item item-input item-stacked-label no-thin-border">
+	  			<!--<span class="input-label">内容</span>-->
+			    <div class="item-text-wrap" ng-bind-html="model.news.aniContent | unsafe"> 
+			    </div>
+			</label>
+	  	</div>	
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		console.log("参数                " + JSON.stringify($scope.pageParams()));
+		$scope.model = {
+			news: {}
+		};
+		$scope.getNews = function() {
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/activitynewsinfo/getNews', {
+					id: $scope.pageParams().id
+				},
+				'获取新闻稿详情',
+				function(data) {
+					$timeout(function() {
+						$scope.model.news = data;
+						if($scope.model.news.aniImgUrl){
+							$scope.model.news.aniImgUrl = $scope.model.news.aniImgUrl.split(",");
+						}
+						console.log(JSON.stringify(data) + "新闻稿");
+					});
+				},
+				function(error) {
+					//TODO
+				});
+		}
+		$scope.getNews();
+	}
+</script>

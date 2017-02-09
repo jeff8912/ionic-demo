@@ -1,0 +1,14 @@
+<div class="imageNavigation"
+     ng-style="{'heigth': $$value$$.option.heigth, 'border': ($$value$$.option.borderWidth||0)+'px solid #ddd'}">
+	<div class="row" ng-if="$$value$$.imageNavigation.imgs.length > 0">
+		<!-- //TODO-->
+	  <div class="col" ng-repeat="item in $$value$$.imageNavigation.imgs" ng-click="gotoActivityListPage(item)">
+	    <img image-lazy-src="{{item.fileImgUrl | formatDbImgUrl}}" 
+	    	 image-lazy-distance-from-bottom-to-load="100"
+	    />
+	    <!--<div class="navigation-image" style="background-image: url('{{item.fileImgUrl}}'); background-repeat: no-repeat;">-->
+	    <!--</div>-->
+	    <div style="">{{item.description}}</div>
+	  </div>
+	</div>
+</div>

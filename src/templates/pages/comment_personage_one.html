@@ -1,0 +1,242 @@
+<ion-view hide-back-button="false" id="comment_personage_one">
+	<ion-nav-title align-title="center">
+		<span class="ui inverted header">个人评论详情</span>
+	</ion-nav-title>
+	<ion-content overflow-scroll="false" has-bouncing="true" ng-click="closeModal()">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<div class="list margin-top-10">
+			<div class="item item-thumbnail-left no-thin-border">
+				<img class="ui centered tiny image circular" image-lazy-src="{{model.mainInfo.imgUrl | formatImgUrl}}">
+				<span>{{model.mainInfo.createName}}</span>
+				<span class="ui rating" style="margin-top: 5px;">
+					<i class="icon active" ng-if="model.mainInfo.aciScore>=1"></i>
+					<i class="icon active" ng-if="model.mainInfo.aciScore>=2"></i>
+					<i class="icon active" ng-if="model.mainInfo.aciScore>=3"></i>
+					<i class="icon active" ng-if="model.mainInfo.aciScore>=4"></i>
+					<i class="icon active" ng-if="model.mainInfo.aciScore>=5"></i>
+				</span>
+				<!--<span class="float-right comment-bar-edit" ng-click="isNo[0].checked=!isNo[0].checked">{{isNo[0].checked?'完成':'编辑'}}</span>-->
+				<span class="float-right comment-bar-comment" ng-click="openPopover(model.mainInfo.createName, model.mainInfo.aciId, model.mainInfo.aciId)">
+	    			<span class="icon-Rectangle-584" ng-if="isComment">评论</span>
+				</span>
+				<br />
+				<span class="commentTime">{{model.mainInfo.createDate | formatCommentDate}}</span><br />
+				<p class="comment-text comment-white" ng-click="openPopover(model.mainInfo.createName, model.mainInfo.aciId, model.mainInfo.aciId)">
+					{{model.mainInfo.aciContent}}
+				</p>
+			</div>
+			<div class="nodata_textdiv" ng-if="model.isHave">
+				<div>快来抢沙发~</div>
+			</div>
+			<div ng-repeat="c in model.comment" class="comment-person">
+				<span class="icon-create_-activity_cancel" ng-if="isNo[0].checked" ng-click="clearComment(c.aciId)">
+					<span class="path1"></span><span class="path2"></span>
+				</span>
+				<span class="comment-name">{{c.createName}}：</span>
+				<span class="comment-text" ng-click="openPopover(c.createName, c.aciId, c.path)">{{c.aciContent}}</span>
+				<br />
+				<div ng-repeat="item in c.list">
+					<span class="icon-create_-activity_cancel" ng-if="isNo[0].checked" ng-click="clearComment(item.aciId)">
+						<span class="path1"></span><span class="path2"></span>
+					</span>
+					<span class="comment-name">{{item.createName}}</span>
+					<span class="comment-text">&ensp;回复&ensp;</span>
+					<span class="comment-name">{{item.pid.createName}}：</span>
+					<span class="comment-text" ng-click="openPopover(item.createName, item.aciId, item.path)">{{item.aciContent}}</span>
+					<br />
+				</div>
+			</div>
+		</div>
+
+	</ion-content>
+</ion-view>
+<script id="comment.html" type="text/ng-template">
+	<ion-postModel-view>
+		<div class="chunk" ng-click="closePopover()"></div>
+		<div id="list-comment">
+			<textarea id="comment" placeholder="{{postModel.name}}" ng-model="postModel.aciContent"></textarea>
+			<span id="send" ng-click="submitReply()">发布</span>
+			<input ng-model="postModel.pid" hidden="hidden"></input>
+			<input ng-model="postModel.path" hidden="hidden"></input>
+		</div>
+	</ion-postModel-view>
+</script>
+<script type="text/javascript">
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		var params = $scope.pageParams();
+		//		console.log("个人单评分：" + JSON.stringify(params));
+		$scope.first = true;
+		$scope.model = {
+			mainInfo: {},
+			comment: [],
+			isComment: true,
+			isHave: false
+		};
+		$scope.postModel = {};
+		$scope.postModal = {};
+		$scope.isNo = [{
+			checked: false
+		}, ];
+		$scope.getComment = function() {
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/activityscoreinfo/getCommentOne', {
+					aciId: params.aciId,
+					abiId: params.abiId
+				},
+				'获取活动评论信息',
+				function(data) {
+					//					console.log("所有数据===" + JSON.stringify(data));
+					if(data && data.comment) {
+						console.log("data.comment" + JSON.stringify(data.comment));
+						$scope.model.mainInfo = data.comment;
+					}
+					$scope.model.comment = [];
+					if(data && data.arydata) {
+						angular.forEach(data.arydata, function(value, key) {
+							$scope.model.comment.push(value);
+						});
+					} else {
+						$scope.model.isHave = true;
+					}
+					if(data.type == 0) { // / 是否能评：0:已过期；1：能评 
+						$scope.model.isComment = false;
+					} else if($scope.first) {
+						$scope.postModel.name = "评论";
+						$scope.popover.show();
+						$scope.first = false;
+
+					}
+				},
+				function(error) { //TODO
+				});
+		}
+		$scope.getComment();
+
+		//下拉刷新
+		$scope.pulldownRefresher = function() {
+			$scope.getComment();
+			$scope.$broadcast('scroll.refreshComplete');
+		};
+
+		// 组织或活动管理提交后台审核
+		$scope.clearComment = function(aciId) {
+				ajaxPost.call(
+					$scope, $http,
+					API_appserverurl + '/api/activityscoreinfo/editData', {
+						id: aciId,
+						abiId: params.abiId
+					},
+					'活动个人评论提交后台审核',
+					function(data) {
+						$scope.getComment();
+						$scope.closePopover();
+					},
+					function(error) {});
+			}
+			//提交评论
+		$scope.submitReply = function() {
+			$scope.postModel.abiId = params.abiId;
+			//			console.log(" pid=======提交数据========" + $scope.postModel.pid);
+			//			console.log("=abiId======提交数据========" + $scope.postModel.abiId);
+			//			console.log("=path======提交数据========" + $scope.postModel.path + $scope.postModel.pid + ",");
+
+			if(!$scope.postModel.pid) {
+				$scope.postModel.pid = $scope.model.comment[0].aciId;
+				$scope.postModel.path = $scope.model.comment[0].aciId;
+				//				console.log(" pid=======提交数据========" + $scope.postModel.pid);
+				//				console.log("=abiId======提交数据========" + $scope.postModel.abiId);
+				//				console.log("=path======提交数据========" + $scope.postModel.path + $scope.postModel.pid + ",");
+			}
+
+			$scope.postModal.abiId = params.abiId;
+			$scope.postModal.pid = $scope.postModel.pid;
+			var tem = $scope.postModel.path + "";
+			if(tem.indexOf(",") > 0) {
+				$scope.postModal.path = $scope.postModel.path + $scope.postModel.pid + ",";
+			} else {
+				$scope.postModal.path = "0," + $scope.postModel.path + ",";
+			}
+			$scope.postModal.aciContent = $scope.postModel.aciContent;
+
+			if(!$scope.postModel.aciContent) {
+				showError("评论内容不能为空！");
+				return;
+			}
+			if($scope.postModel.aciContent.length > 100) {
+				showError("文字过多！");
+				return;
+			}
+			$scope.postModal.aciScore = 0;
+			$scope.postModal.auditStatus = 2;
+			$scope.postModal.aciUserid = $scope.model.mainInfo.uuid;
+			//			console.log(" pid=======提交数据OK========" + $scope.postModel.pid);
+			//			console.log("=abiId======提交数据OK========" + $scope.postModel.abiId);
+			//			console.log("=path======提交数据OK========" + $scope.postModel.path + $scope.postModel.pid + ",");
+			//			console.log(JSON.stringify($scope.postModal) + "活动评论发送信息");
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/activityscoreinfo/addData',
+				$scope.postModal,
+				'个人评论提交',
+				function(data) {
+					$scope.getComment();
+					$scope.postModel.aciContent = "";
+				},
+				function(error) {
+					console.log("失败！" + error);
+				});
+		}
+
+		//下拉刷新
+		$scope.pulldownRefresher = function() {
+			$scope.getComment();
+			$scope.$broadcast('scroll.refreshComplete');
+		};
+		/**
+		 * 浮动层
+		 */
+		$scope.popover = $ionicPopover.fromTemplateUrl('comment.html', {
+			scope: $scope
+		});
+
+		// .fromTemplateUrl() 方法
+		$ionicPopover.fromTemplateUrl('comment.html', {
+			scope: $scope
+		}).then(function(popover) {
+			$scope.popover = popover;
+		});
+
+		$scope.openPopover = function(name, pid, path) {
+			console.log($scope.model.isComment);
+			if(!$scope.model.isComment || path && path.length > 180) {
+				return;
+			}
+			$scope.postModel.aciContent = "";
+			//			console.log(" name=======提交数据========" + name);
+			//			console.log("pid=====提交数据========" + pid);
+			//			console.log("path======提交数据========" + path);
+			$scope.postModel.name = "回复 " + name + " :";
+			$scope.postModel.pid = pid;
+			$scope.postModel.path = path;
+			$scope.popover.show();
+
+		};
+		$scope.closePopover = function() {
+			$scope.popover.hide();
+		};
+		// 清除浮动框
+		$scope.$on('$destroy', function() {
+			$scope.popover.remove();
+		});
+		// 在隐藏浮动框后执行
+		$scope.$on('popover.hidden', function() {
+			// 执行代码
+		});
+		// 移除浮动框后执行
+		$scope.$on('popover.removed', function() {
+			// 执行代码
+		});
+
+	}
+</script>

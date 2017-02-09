@@ -1,0 +1,122 @@
+<ion-view hide-back-button="false" id="user_create">
+  <ion-nav-title align-title="center"><span class="ui inverted header">绑定手机号</span></ion-nav-title>
+  <ion-content overflow-scroll="false" has-bouncing="true" class="has-header nohasfooterscroll" style="background-color: #ffffff;">
+    <div class="list list-inset" ng-class="{'clkcheckform':clkcheckform}">
+      <div class="ui form">
+        <div class="field"><input type="text" class="input-default-cls" placeholder="请输入手机号" maxlength="11"
+                                  ng-model="model.loginName" maxlength="11" ng-minlength="11" ng-maxlength="11"
+                                  required></div>
+        <div class="field fluid ui right labeled input"><input type="text" class="input-default-cls"
+                                                               placeholder="请输入验证码" ng-model="model.checkCode"
+                                                               ng-readonly="smsmodel.input_checkcode == 0" maxlength="6"
+                                                               ng-minlength="4" ng-maxlength="6" required>
+          <a class="btn-check-sms border-left" ng-click="toGetCheckSMS()"
+                                         ng-disabled="smsmodel.clk_checkcode != 1" ng-bind-html="smsmodel.btn_title"></a>
+        </div>
+        <div class="field"><input type="password" class="input-default-cls" placeholder="请输入密码"
+                                  ng-model="model.loginPwd" maxlength="12" ng-minlength="8" ng-maxlength="12" required>
+        </div>
+        <div class="field"><input type="password" class="input-default-cls" placeholder="请再次输入密码"
+                                  ng-model="model.loginPwd2" ng-class="{'ng-invalid':model.loginPwd!=model.loginPwd2}"
+                                  maxlength="12" ng-minlength="8" ng-maxlength="12" required></div>
+
+        <a class="button button-full button-blue" ng-click="createData()">提交</a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+<script type="text/javascript">
+  function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+    $scope.model = {};
+    $scope.smsmodel = {clk_checkcode: 1, input_checkcode: 0, is_clk_post: 1, btn_title: '获取验证码', btn_title_num: 0};
+
+    $scope.toGetCheckSMS = function () {
+      if ($scope.smsmodel.clk_checkcode == 1) {
+        if (!_.isString($scope.model.loginName) || $scope.model.loginName == '' || !CheckPhoneFormat($scope.model.loginName)) {
+          return showError("手机号格式不正确，请输入手机号");
+        }
+        ajaxPost.call($scope, $http, API_smsserverurl + "/api/sms/registerData", {
+          phone: $scope.model.loginName
+        }, "获取短信验证码", function (data) {
+          $scope.smsmodel.input_checkcode = 1;
+          $scope.smsmodel.btn_title = '180秒';
+          $scope.smsmodel.btn_title_num = 180;
+          $scope.smsmodel.txt_checkcode = 0;
+          $scope.titleSetTimeout();
+        }, function (data) {
+          $scope.smsmodel.clk_checkcode = 1;
+        });
+      }
+    }
+
+    $scope.titleSetTimeout = function (obj) {
+      if ($scope.smsmodel) {
+        if ($scope.smsmodel.btn_title_num <= 1) {
+          $scope.smsmodel.btn_title = '获取验证码';
+          $scope.smsmodel.clk_checkcode = 1;
+        } else {
+          $scope.smsmodel.btn_title_num--;
+          $scope.smsmodel.btn_title = $scope.smsmodel.btn_title_num.toString() + '秒';
+          $timeout(function () {
+            $scope.titleSetTimeout();
+          }, 1000);
+        }
+      }
+    }
+
+    $scope.getLoadData = function () {
+      $ionicHistory.removeBackView();
+      var keyPar = $scope.pageParams();
+      if (_.isObject(keyPar) && _.isString(keyPar.uciKey) && keyPar.uciKey != '') {
+        $scope.model.uciKey = keyPar.uciKey;
+      } else {
+        $scope.openWindow('user_register');
+      }
+    }
+
+    $scope.createData = function () {
+      $scope.clkcheckform = true;
+      var errinfo = '';
+      if (!_.isString($scope.model.loginName) || $scope.model.loginName == '') {
+        errinfo += ',手机号不能为空';
+      } else if (!CheckPhoneFormat($scope.model.loginName)) {
+        errinfo += '手机号不能为空,且格式必须正确';
+      }
+      if (!_.isString($scope.model.checkCode) || $scope.model.checkCode == '' || $scope.model.checkCode.length < 4 || $scope.model.checkCode.length > 6) {
+        errinfo += ',验证码不能为空,且必须是4位长度数字';
+      }
+      if (!_.isString($scope.model.loginPwd) || $scope.model.loginPwd == '' || $scope.model.loginPwd.length < 8 || $scope.model.loginPwd.length > 12) {
+        errinfo += ',密码不能为空,且长度在8到12位之间';
+      }
+      if ($scope.model.loginPwd != $scope.model.loginPwd2) {
+        errinfo += ',确认密码必须与密码一致';
+      }
+      if (errinfo == '') {
+
+        var confirmPopup = $ionicPopup.confirm({
+          title: '绑定',
+          template: '确定绑定此登录名？',
+          buttons: [{text: "取消"}, {
+            text: '<b>确定</b>',
+            type: 'button-positive',
+            onTap: function (e) {
+
+              ajaxPost.call($scope, $http, API_appserverurl + "/api/user/createData", $scope.model, "绑定",
+                function (json) {
+                  db.add('login_model', {loginName: $scope.model.loginName, password: $scope.model.loginPwd});
+                  $scope.openWindow('login');
+                });
+
+              confirmPopup.close();
+              e.preventDefault();
+            }
+          }]
+        });
+      } else {
+        showError(errinfo.substring(1));
+      }
+    }
+    $scope.getLoadData();
+  }
+
+</script>

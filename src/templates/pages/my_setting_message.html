@@ -1,0 +1,75 @@
+<ion-view id="my_setting_message">
+  <ion-nav-title align-title="center"><span class="ui inverted header">消息设置</span></ion-nav-title>
+  <ion-content overflow-scroll="false" has-bouncing="true" class="has-header" style="background-color: #f8f8f8;">
+    <div class="list" style="margin-top: 10px;" ng-if="model">
+
+      <div class="item item-toggle">
+        推送通知
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="model.message_autoPush" ng-change="messageChange(1)">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </div>
+
+    </div>
+    <div class="list" ng-if="model">
+      <div class="item item-toggle item-input" style="height: 50px;">
+        声音
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="model.message_autoSound" ng-change="messageChange(2)">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </div>
+
+      <div class="item item-toggle item-input" style="height: 50px;">
+        振动
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="model.message_autoVibrate" ng-change="messageChange(3)">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </div>
+
+    </div>
+    <div class="list">
+
+      <a class="item item-icon-right item-input" style="height: 50px;" href="#/my_setting_message_disturb">
+        消息免打扰
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+
+    </div>
+  </ion-content>
+</ion-view>
+<script type="text/javascript">
+  function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+//    $scope.model = {};
+
+    $scope.messageChange = function (type) {
+      switch (type) {
+        case 1:
+          sysConfigData.message_autoPush = $scope.model.message_autoPush ? true : false;
+          break;
+        case 2:
+          sysConfigData.message_autoSound = $scope.model.message_autoSound ? true : false;
+          break;
+        case 3:
+          sysConfigData.message_autoVibrate = $scope.model.message_autoVibrate ? true : false;
+          break;
+      }
+      console.log(type + "----" + JSON.stringify($scope.model));
+    }
+    $scope.getLoadData = function () {
+      $scope.model.message_autoPush = sysConfigData.message_autoPush;
+      $scope.model.message_autoSound = sysConfigData.message_autoSound;
+      $scope.model.message_autoVibrate = sysConfigData.message_autoVibrate;
+    }
+    $scope.getLoadData();
+  }
+
+</script>

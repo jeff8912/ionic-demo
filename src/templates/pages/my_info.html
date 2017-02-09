@@ -1,0 +1,230 @@
+<ion-view id="my_info" title="个人资料">
+    <ion-nav-buttons side="right">
+        <a class="button button-blue btnsubmit" ng-href="" ng-click="myinfoData()">保存</a>
+    </ion-nav-buttons>
+    <ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="has-header"
+                 style="background-color: #f8f8f8;">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="getLoadData(1)"></ion-refresher>
+        <div class="account_top_bg" ng-style="{'background':'url('+(model.imgUrl|formatImgUrl)+') center top / 100% no-repeat'}">
+            <canvas id="account_canvas_myinfo" class="account_top_bg"
+                    style="width: 100%; height: 100%;max-width: 100%; max-height: 100%;"></canvas>
+        </div>
+        <div style="position: relative;">
+            <div class="account_top_body">
+                <div style="position: relative; width: 100%;height: 30px;" class="text-center">
+                    <div class="my_info_upload my_info_upload_bg"></div>
+                    <a class="my_info_upload my_info_upload_img" ng-click="changeUserImgUrl()">更换背景</a>
+                </div>
+                <div class="myinfo_tipbody" style="bottom: 35px; height: 80px;padding-left: 15px;">
+
+                    <div ng-sortable="{ group: 'item', animation: 150 }"
+                         style="position: relative; float: left; height: 80px; display: inline-block;">
+                        <div ng-repeat="item in userFileImgUrl track by $index" class="fl" style="margin-right: 8px;">
+                            <img class="ui tiny image circular" style="height: 80px;" on-hold="btnRemoveImg({{$index}})" image-lazy-src="{{item|formatImgUrl}}">
+                        </div>
+                    </div>
+                    <div ng-if="userFileImgUrl.length < 3"
+                         style="position: relative; float: left; height: 80px; display: inline-block;"
+                         ngf-capture="'camera'" ngf-drop ngf-select
+                         ngf-change="uploadFiles($file)"
+                         ngf-accept="'image/*'" ngf-fix-orientation="true"
+                         ngf-resize="{width: 500, quality: 0.8, type: 'image/jpeg'}"
+                         ngf-resize-if="$width > 500 || $height > 500">
+            <span class="icon-my_add_head" style="font-size: 80px;">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                </span></div>
+                </div>
+                <div class="myinfo_tipbody" style=""><div class="myinfo_tipbody" style="opacity:0.3; background-color: #000000; "></div><div class="myinfo_tipbody" style="color:#dddddd; line-height: 30px; padding-left: 15px;">拖拽图片更换顺序，最多上传3张</div></div>
+            </div>
+        </div>
+        <div class="list" style="padding-top: 0px;">
+            <div class="item item-input">
+                <label>姓名</label>
+                <span class="item_input_text_right" ng-bind="model.uuiName"></span>
+            </div>
+
+            <div class="item item-input">
+                <label>签名</label>
+                <input type="text" class="fr my_info_input_cls text-right" ng-model="model.uuiSignature"
+                       placeholder="请输入签名"
+                       maxlength="50">
+            </div>
+
+            <div class="item item-input">
+                <label>性别</label>
+                <span class="item_input_text_right" ng-bind="model.uuiSexName"></span>
+            </div>
+
+            <div class="item item-input">
+                <label>身份证</label>
+                <a href="javascript:void(0)" class="item_input_text_right" ng-bind="model.uuiIdcard"></a>
+            </div>
+
+            <div class="item item-input">
+                <label>学号</label>
+                <a href="javascript:void(0)" class="item_input_text_right" ng-bind="model.gradeCode"></a>
+            </div>
+
+            <div class="item item-input">
+                <label>所属院系</label>
+                <span class="item_input_text_right" ng-bind="model.uoiId.fullName"></span>
+            </div>
+
+            <div class="item item-input">
+                <label>手机</label>
+                <input type="text" class="fr my_info_input_cls text-right" ng-model="model.uuiPhone"
+                       placeholder="请设置您的手机号码"
+                       maxlength="11">
+            </div>
+
+            <div class="item item-input">
+                <label>邮箱</label>
+                <input type="text" class="fr my_info_input_cls text-right" ng-model="model.uuiMail"
+                       placeholder="请设置您的邮箱"
+                       maxlength="100">
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>
+<script type="text/javascript">
+
+    function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+        $scope.userFileImgUrl = [];
+
+        $scope.formatImgUrl = formatImgUrl;
+        //用户数据刷新事件订阅
+        EventBus.on("notice.index.getUser", function (evt) {
+            if ($scope.$parent) {
+                if ($scope.isRefreshData) {
+                    $scope.$broadcast('scroll.refreshComplete');
+                    $scope.isRefreshData = false;
+                }
+                if (evt && _.isObject(evt.data)) {
+                    $scope.setUserInfoData(evt.data);
+                }
+            }
+        });
+
+        $scope.myinfoData = function (retype) {
+            var confirmPopup = $ionicPopup.confirm({
+                title: '保存',
+                template: '确定保存编辑的个人资料？',
+                buttons: [{text: "取消"}, {
+                    text: '<b>确定</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                        if (_.isArray($scope.userFileImgUrl) && $scope.userFileImgUrl.length > 0) {
+                            $scope.model.imgUrl = $scope.userFileImgUrl[0];
+                            if (_.isArray($scope.userFileImgUrl) && $scope.userFileImgUrl.length > 1)
+                                $scope.model.userFileImgUrl = _.join($scope.userFileImgUrl.slice(1), ',');
+                            else
+                                $scope.model.userFileImgUrl = '';
+                        }
+//                        console.log('$scope.model:'+JSON.stringify($scope.model));
+                        ajaxPost.call($scope, $http, API_appserverurl + "/api/user/myinfoData", {
+                                    imgUrl: $scope.model.imgUrl,
+                                    userFileImgUrl: $scope.model.userFileImgUrl,
+                                    uuiSignature: $scope.model.uuiSignature,
+                                    uuiPhone: $scope.model.uuiPhone,
+                                    uuiMail: $scope.model.uuiMail
+                                }, "保存",
+                                function (json) {
+                                });
+
+                        confirmPopup.close();
+                        e.preventDefault();
+                    }
+                }]
+            });
+        }
+
+        $scope.uploadFiles = function (file) {
+            console.log('uploadFiles');
+            if ($scope.userFileImgUrl.length < 4 && file) {
+                zn.showWaiting();
+                Upload.upload({
+                    url: API_imgbaseurl + '/api/file/imgUploadFile',
+                    data: {image: file}
+                }).then(function (response) {
+                    if (_.isObject(response) && _.isString(response.data) && response.data != '') {
+//            console.log(response.data);
+                        $scope.userFileImgUrl.push(response.data);
+//            $scope.model.imgUrl = response.data;
+//            $scope.setBgImgUrl();
+                    }
+
+                    zn.hideWaiting();
+                }, function (resp) {
+                    console.log('Error status: ' + resp.status);
+                    zn.hideWaiting();
+                }, function (evt) {
+                    //console.log('progress:' + JSON.stringify(evt));
+                });
+            }
+        }
+
+        $scope.changeUserImgUrl = function () {
+            if (_.isArray($scope.userFileImgUrl) && $scope.userFileImgUrl.length > 0) {
+                $scope.model.imgUrl = $scope.userFileImgUrl[0];
+                $scope.setBgImgUrl();
+            }
+        }
+//
+        $scope.getLoadData = function (retype) {
+            $scope.isRefreshData = (retype == 1 ? true : false);
+            if ($scope.isRefreshData) {
+                $scope.$parent.getUser();
+            } else {
+                if (_.isObject($scope.$parent.userInfo)) {
+                    $scope.setUserInfoData($scope.$parent.userInfo);
+                } else {
+                    $scope.$parent.getUser();
+                }
+            }
+        }
+
+        $scope.setUserInfoData = function (data) {
+            $scope.model = data;
+            if ($scope.model.userFileImgUrl)
+                $scope.userFileImgUrl = _.union([$scope.model.imgUrl], $scope.model.userFileImgUrl.split(','));
+            else
+                $scope.userFileImgUrl = [$scope.model.imgUrl];
+            $scope.setBgImgUrl();
+        }
+
+        $scope.setBgImgUrl = function () {
+            var _img = formatImgUrl($scope.model.imgUrl, 960 / 4);
+            if ($scope.bg_img == _img)
+                return;
+            $scope.bg_img = _img;
+          if (_img.indexOf('.') == 0){
+            angular.element('#account_canvas_myinfo').hide();
+          }else {
+            angular.element('#account_canvas_myinfo').show();
+            renderImage(_img, 'account_canvas_myinfo', 6);
+          }
+        }
+
+        $scope.btnRemoveImg = function (idx) {
+            if (_.isArray($scope.userFileImgUrl) && $scope.userFileImgUrl.length > idx) {
+                var confirmPopup = $ionicPopup.confirm({
+                    title: '移除',
+                    template: '称除图片后必须保存才会生效,确定要移除此图片？',
+                    buttons: [{text: "取消"}, {
+                        text: '<b>确定</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            $scope.userFileImgUrl.splice(idx, 1);
+                            confirmPopup.close();
+                            e.preventDefault();
+                        }
+                    }]
+                });
+            }
+        }
+        $scope.getLoadData();
+
+    }
+
+</script>

@@ -1,0 +1,63 @@
+<ion-view hide-back-button="false" id="honor_detail">
+	<ion-nav-title align-title="center">
+		<span class="ui inverted header">荣誉详情</span>
+	</ion-nav-title>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true">
+		<span class="list">
+		  	<label class="item item-input margin-top-10">
+    			<span class="input-label">类别：</span>
+	    		<span>{{model.honor.uhiLabelModel.sdiName}}</span>
+	  		</label>
+		  	<label class="item item-input item-stacked-label">
+	  			<span class="input-label">名称</span>
+			    <span>{{model.honor.uhiName}}</span>
+			</label>
+			<label class="item item-input item-stacked-label" ng-if="model.honor.uhiLabelModel.sdiName == '证书' || model.honor.uhiLabelModel.sdiName == '奖励'">
+	  			<span class="input-label">时间</span>
+			    <span>{{model.honor.uhiDateStart | formatDate}}</span>
+			</label>
+			<label class="item item-input item-stacked-label margin-bottom-10" ng-if="model.honor.uhiLabelModel.sdiName == '校内职务'">
+	  			<span class="input-label">时间</span>
+			    <span>{{model.honor.uhiDateStart | formatDate}}~{{model.honor.uhiDateEnd | formatDate}}</span>
+			</label>
+			<label class="item item-input item-stacked-label margin-bottom-10">
+	  			<span class="input-label">介绍</span>
+			    <div>{{model.honor.uhiDescription}}</div>
+			</label>
+			<div class="item item-input marginTop marginBottom multiple-label row no-thin-border">
+				<!--<span>最多上传6张</span><br/>-->
+				<div class="multiple-div col" ng-repeat="file in model.honor.imgUrl">
+					<img ng-src="{{file | formatDbImgUrl}}" />
+				</div>
+			</div>
+	  	</div>	
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		console.log("参数                " + JSON.stringify($scope.pageParams()));
+		$scope.model = {};
+		//获取荣誉详情
+		$scope.getHonor = function() {
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/userhonorinfo/getHonor', {
+					id: $scope.pageParams().id
+				},
+				'获取荣誉详情',
+				function(data) {
+					$timeout(function() {
+						$scope.model.honor = data;
+						if($scope.model.honor.imgUrl){
+							$scope.model.honor.imgUrl = $scope.model.honor.imgUrl.split(",");
+						}
+						console.log(JSON.stringify(data) + "荣誉");
+					});
+				},
+				function(error) {
+					//TODO
+				});
+		}
+		$scope.getHonor();
+	}
+</script>

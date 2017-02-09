@@ -1,0 +1,143 @@
+<style>
+	a.ui.blue.button {
+    margin: 10px 5px;
+}
+.done-true{
+	text-decoration: line-through;
+}
+</style>
+
+<ion-view view-title="设备接口DEMO">
+  <ion-content overflow-scroll="false" has-bouncing="true">
+
+  	<script type="text/javascript">
+  		function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+			//$scope.device = zn.device;
+        $scope.todos = [
+          {text: 'build an angular app', done: false}
+        ];
+
+			$scope.getDeviceInfo = function () {
+				$scope.device = zn.device;
+				showInfo(JSON.stringify(zn.device));
+			};
+
+			$scope.getPosition = function () {
+				zn.getPosition(function (p) {
+					console.log(p);
+					showInfo(JSON.stringify(p));
+				}, function (err) {
+					console.log(err);
+				});
+			};
+
+			$scope.checkConnection = function () {
+				var txt = zn.checkConnection();
+				showInfo(txt);
+			};
+
+			$scope.clearCache = zn.clearCache;
+
+			$scope.qrcodeScan = function () {
+				zn.qrcodeScan(function (ret) {
+					$scope.$apply(function () {
+						$scope.qrCode = ret.text;
+						showInfo(ret.text);
+					});
+				}, function (err) {
+					console.log(err);
+				});
+			};
+
+			$scope.ShowNetworkError = function () {
+				var txt = zn.ShowNetworkError();
+				showInfo(txt);
+			};
+
+
+			$scope.showWaiting = zn.showWaiting;
+			$scope.hideWaiting = zn.hideWaiting;
+
+			$scope.open = function () {
+				$scope.openWindow('home', {test1: 1, test2: 2});
+			}
+			
+			$scope.share = function() {
+			    cordova.exec(function(result) {
+			        alert('分享成功');
+			    }, function(error) {
+			        alert('分享失败');
+			        console.debug(error)
+			    }, "ShareSDK", "share", ['测试分享-',
+			    		'青春科大分享成功！！！',
+			    		'http://join-inapp.com/images/zgj_logo_1.png',
+			    		'http://join-inapp.com'
+			    	]);
+			}
+			
+			$scope.doUpdate = function() {
+			    chcp_update.doUpdate();
+			}
+			
+			$scope.ttt = "";
+			
+			$scope.addTodo = function () {
+				debugger;
+				var item = {text: this.ttt, done: false};
+				$scope.todos.push(item);
+			}
+			
+
+			$timeout(function () {
+				$scope.getDeviceInfo();
+			},1000);
+			
+			
+			
+			
+			
+  		}
+
+  	</script>
+
+
+    <div>
+    	<span ng-if="device">
+	    	<h1>{{device.platform}} {{device.version}} {{serial}}</h1>
+	    	<h5>Info: {{device | json}}</h5>
+    	</span>
+    	<a class="ui blue button" ng-click="getDeviceInfo()">信息</a>
+    	<a class="ui blue button" ng-click="getPosition()">位置</a>
+    	<a class="ui blue button" ng-click="clearCache()">清缓存</a>
+    	<div class="clear" ng-if="qrCode">{{qrCode}}</div>
+    	<a class="ui blue button" ng-click="qrcodeScan()">扫码</a>
+
+    	<a class="ui blue button" ng-click="checkConnection()">网络</a>
+    	<a class="ui blue button" ng-click="ShowNetworkError()">模拟网络错误</a>
+
+    	<a class="ui blue button" ng-click="showWaiting('等待...')">等待</a>
+    	<a class="ui blue button" ng-click="hideWaiting()">取消等待</a>
+    	<a class="ui blue button" ng-click="open()">页面传参</a>
+    	
+    	<a class="ui blue button" ng-click="share()">分享</a>
+    	
+    	<a class="ui blue button" ng-click="doUpdate()">检查更新</a>
+
+    </div>
+
+		<hr/>
+
+		<div>
+			<input type="text" ng-model="ttt" />
+			<a class="ui blue button" ng-click="addTodo()">增加</a>
+			
+		</div>
+
+    <ul ng-sortable="{ group: 'todo', animation: 150 }" class="unstyled list" style="min-height: 40px;">
+      <li class="item" ng-repeat="todo in todos">
+        <input type="checkbox" ng-model="todo.done" /> 
+        <span class="done-{{todo.done}}">{{todo.text}}</span>
+      </li>
+    </ul>
+  </ion-content>
+</ion-view>

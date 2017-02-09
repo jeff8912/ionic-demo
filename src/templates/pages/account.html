@@ -1,0 +1,137 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" id="account" title="我的">
+  <ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="has-footer account" style="background-color: #f8f8f8;">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="getLoadData(1)"></ion-refresher>
+    <div class="account_top_bg" style="top:0;" ng-style="{'background':'url('+(model.imgUrl|formatImgUrl)+') center top / 100% no-repeat'}">
+			<canvas id="account_canvas" class="account_top_bg" style="top:0px;width: 100%; height: 100%;max-width: 100%; max-height: 100%;"></canvas>
+    </div>
+    <div class="clear" style="position: relative;">
+      <div class="account_top_body">
+        <div style="position: relative; width: 100%;margin-bottom: 20px;">
+          <img class="ui centered tiny image circular" style="height: 80px;" image-lazy-src="{{model.imgUrl|formatImgUrl}}">
+          <span class="badge badge-assertive" style="position: absolute; bottom: 0px; margin-left: 50%; left: 35px; display: none;"
+                ng-bind-html="model.uuiGrade||'Lv.1'"></span>
+        </div>
+        <div class="clear text-center" style="color: #fff;">
+          <p ng-bind-html="model.uuiName"></p>
+          <p ng-bind-html="model.uuiSignature||'你若安好，便是晴天！'"></p></div>
+        <div class="account_top_edit" ng-click="openWindow('my_info')">
+          <span class="icon-my_edit" style="padding-right: 4px; font-size: 20px;"></span>
+          <label style="line-height: 20px;vertical-align: top;">编辑</label>
+        </div>
+      </div>
+    </div>
+    <div class="list" style="padding-top: 0px;">
+      <a class="item item-input item-icon-left item-icon-right" style="padding-left: 60px;" href="#/my_activity">
+        <i class="icon" style="left: 15px;"><span class="icon-my_activity">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                </span></i>
+        我的活动
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+
+      <a class="item item-input item-icon-left item-icon-right" style="padding-left: 60px;" href="#/my_expense">
+        <i class="icon" style="left: 15px;"><span class="icon-my_wipe">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+          class="path4"></span>
+                </span></i>
+        我的报销
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+
+      <a class="item item-input item-icon-left item-icon-right" style="padding-left: 60px;" href="#/news_list">
+        <i class="icon" style="left: 15px;"><span class="icon-my_news">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+          class="path4"></span>
+                </span></i>
+        我的新闻稿
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+
+      <a class="item item-input item-icon-left item-icon-right" style="padding-left: 60px;" href="#/my_report_card">
+        <i class="icon" style="left: 15px;"><span class="icon-my_report">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+          class="path4"></span>
+                </span></i>
+        我的成绩单
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+      <!--<a class="item item-icon-left item-icon-right" style="padding-left: 74px;" href="#/honor_list">
+        <i class="icon" style="left: 31px;"><span class="icon-create_honor">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+          class="path4"></span>
+                </span></i>
+        我的荣誉
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>-->
+    </div>
+    <div class="list" style="padding-top: 0px;">
+      <a class="item item-input item-icon-left item-icon-right" style="padding-left: 60px;" href="#/my_message">
+        <i class="icon" style="left: 15px;"><span class="icon-my_messege" style="color: #21D3BC;">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+          class="path4"></span>
+                </span></i>
+        我的消息
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+
+      <a class="item item-input item-icon-left item-icon-right" style="padding-left: 60px;" href="#/my_setting">
+        <i class="icon" style="left: 15px;"><span class="icon-my_set" style="color: #1EAEFF;">
+                <span class="path1"></span><span class="path2"></span>
+                </span></i>
+        设置
+        <i class="icon"><span class="icon-common_rightarrow item_common_arrow_right"></span></i>
+      </a>
+
+    </div>
+  </ion-content>
+</ion-view>
+<script type="text/javascript">
+  function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+    $scope.formatImgUrl = formatImgUrl;
+    $scope.bg_img = '';
+    //用户数据刷新事件订阅
+    EventBus.on("notice.index.getUser", function (evt) {
+      if ($scope.$parent) {
+        if ($scope.isRefreshData) {
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.isRefreshData = false;
+        }
+        if (evt && _.isObject(evt.data)) {
+          $scope.model = evt.data;
+//        $scope.model.imgUrl = './img/my_portrait_bg_boy.png';
+          var _img = formatImgUrl($scope.model.imgUrl, 960 / 4);
+          if ($scope.bg_img == _img)
+            return;
+          $scope.bg_img = _img;
+          if (_img.indexOf('.') == 0) {
+            angular.element('#account_canvas').hide();
+          } else {
+            angular.element('#account_canvas').show();
+            renderImage(_img, 'account_canvas', 6);
+          }
+        }
+      }
+    });
+
+
+    $scope.getLoadData = function (retype) {
+      $scope.isRefreshData = (retype == 1 ? true : false);
+      if(!$scope.isRefreshData)
+        $scope.model = null;
+      $scope.$parent.getUser();
+
+
+
+//    $timeout(function () {
+//    	//account_top_bg
+//    	//stackBlurImage( sourceImageID, targetCanvasID, radius, blurAlphaChannel );
+//    	console.log('begin blur');
+//
+//    	console.log('end blur');
+//    },1000);
+    }
+
+    $scope.getLoadData();
+  }
+
+</script>

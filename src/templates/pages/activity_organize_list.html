@@ -1,0 +1,157 @@
+<style>
+</style>
+<ion-view id="activity_organize_list" view-title="组织人">
+	<!--<ion-nav-buttons side="right">
+		<label style="font-size: 1.2em;margin-top: 3px;margin-right: 10px;" ng-if="userId == pageParams().createId" ng-click="editOrganize(title)">{{title}}</label>
+	</ion-nav-buttons>-->
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="has-header" style="background-color: #f8f8f8;">
+		<div class="nodata_textdiv" ng-if="hasData==0">
+			该活动还组织人哟~~！
+		</div>
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresh_()"></ion-refresher>
+	
+		<ion-list show-delete="shouldShowDelete">
+			<ion-item class="item item-thumbnail-left orgList noAfter" ng-repeat="item in list">
+				<img image-lazy-src="{{item.imgUrl | formatImgUrl}}" ng-click="toUser(item.aoiUserId)">
+				<p>
+					<h2 class="name">{{item.aoiUserName}}</h2>
+					<!--<span class="icon-common_cancel delete" ng-if="showDelete" ng-click="deleteOrganize(item.aoiUserId,$index)"></span>-->
+					<span class="icon-common_rightarrow" style="float: right;color: #c7c7cc;margin-top: -15px;font-size: 24px;" ng-click="commentInfo(activity.createId.createId)"></span>
+				</p>
+				<p class="department">{{item.uoiName}}</p>
+			</ion-item>
+		</ion-list>
+		<ion-infinite-scroll immediate-check="false" ng-if="moredata" on-infinite="pullupRefresh_()" distance="1%"></ion-infinite-scroll>
+
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+	var offset = 0;
+	var limit = 10;
+
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		
+		$scope.hasData = 1;
+		$scope.title = "编辑"
+		$scope.showDelete =false;
+		$scope.abiId = $scope.pageParams().abiId;
+		$scope.list =[];
+		
+		//用户数据刷新事件订阅
+		EventBus.on("notice.index.getUser", function (evt) {
+		  if ($scope.$parent) {
+		      $scope.userId = evt.data.id;
+		  }
+		});
+		
+		//下拉刷新
+		$scope.pulldownRefresh_ = function() {
+			$scope.list =[];
+			
+			$scope.moredata = false;
+			$scope.init(1, 0);
+			$scope.$broadcast('scroll.refreshComplete');
+		}
+		
+		//上拉加载更多
+		$scope.pullupRefresh_ = function() {
+			$scope.moredata = false;
+			$scope.init(2, offset);
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		}
+		
+		//跳转到用户信息
+  		$scope.toUser = function(userId){
+  			if(userId)
+				$scope.openWindow("user_home",{uuiId:userId})	
+  		}
+  		
+		//切换编辑状态
+		$scope.editOrganize = function(title){
+			if(title == '编辑'){
+				$scope.title="完成"
+				$scope.showDelete = true;
+			}else{
+				$scope.title="编辑"
+				$scope.showDelete = false;
+			}
+		}
+		
+		//删除组织人员
+		$scope.deleteOrganize = function(userId,index){
+			
+			ajaxPost.call($scope, $http, API_appserverurl + "/api/activitybaseinfo/deleteOrganize",{
+				abiId:$scope.abiId,
+				userId:userId
+			}, "删除组织人员",function(ret){
+				$scope.list.splice(index, 1);
+				if($scope.list.length==0){
+					$scope.hasData = 0;
+				}
+			});
+		}
+		
+		//获取活动信息
+		$scope.getActivity = function(){
+			ajaxPost.call($scope, $http, API_appserverurl + "/api/activitybaseinfo/getModel",{
+				id:$scope.abiId
+			}, "获取活动数据",function(ret){
+				$scope.activity = ret;
+			});
+		}
+		
+		//页面初始化
+		$scope.init = function(type,skip) {
+			var data ={
+				abiId:$scope.abiId
+			}
+			
+			switch (type){
+				case 0:
+				case 1:
+					$scope.getActivity();
+					offset = 0;
+					$.extend(data,{limit:limit,skip:0});
+					break;
+				case 2:
+					$.extend(data,{limit:limit,skip:skip});
+					break;
+			}
+			
+			console.log("参数"+JSON.stringify(data))
+			ajaxPost.call($scope, $http, API_appserverurl + "/api/activitybaseinfo/getMoreOrganize",data, "组织人员列表",function(ret){
+				console.log(JSON.stringify(ret))
+				if(ret.length==0){
+					if($scope.list.length==0)
+						$scope.hasData = 0;
+					$scope.moredata = false;
+				}else{
+					offset += ret.length;
+					$scope.hasData = 1;
+					$scope.list = $scope.list.concat(ret);
+					$scope.moredata = true;
+				}
+			});
+		}
+		
+		$scope.$parent.getUser();
+		
+		$scope.init(0,0);
+		
+		// 评分
+		$scope.goToJudge = function(userId) {
+			$scope.openWindow('comment_personage', {
+				id: userId,
+				abiId: $scope.abiId
+			});
+		}
+		 // 个人评论详情
+	    $scope.commentInfo = function(usrid) {
+	    	console.log("活动：" + $scope.abiId + "组织者ID:" + usrid);
+			$scope.openWindow('comment_personage_info', {
+				aciUserid: usrid,
+				abiId: $scope.abiId
+			});
+		}
+	}
+</script>

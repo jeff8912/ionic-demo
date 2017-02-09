@@ -1,0 +1,193 @@
+<ion-view hide-back-button="false" id="comment_personage">
+	<ion-nav-buttons side="right">
+    <a class="button button-blue btnsubmit" ng-href="" ng-click="submitComment()">提交</a>
+	</ion-nav-buttons>
+	<ion-nav-title align-title="center">
+		<!--活动评论-->
+		<span class="ui inverted header">发表评论</span>
+	</ion-nav-title>
+	<ion-content overflow-scroll="false" has-bouncing="true">
+		<div class="list">
+			<div class="head_img" ng-style=" {'background-image': 'url('+formatImgUrl(userInfo.userBgimgUrl,960)+')', 'background-size': '100% auto', 'background-repeat': 'no-repeat'}">
+				<div style=" position: relative; width: 100%; ">
+					<img class="ui centered tiny image circular " src="{{postModel.imgUrl}}">
+					<!-- <span class="badge badge-assertive " style="position: absolute; bottom: 0px; margin-left: 50%; left: 15px; ">Lv.8</span>-->
+					<div class="head_name">{{postModel.uuiName}}</div>
+				</div>
+			</div>
+			<div class="list no-margin-bottom">
+				<div class="item item-encourage">为ta的表现打分鼓励一下吧</div>
+			</div>
+			<div class="rating-div" ng-click = "clickStar()">
+				<div class="ui rating" data-rating="0" data-max-rating="5"></div>
+			</div>
+			<div style="font-size:14px; color:#39d0e7;letter-spacing:0px;text-align:center; padding-top: initial; margin: 15px; margin-top: -5px;">
+				{{postModel.hint}}
+			</div>
+			<div class="commentDiv item-textarea" >
+				<textarea id="comment" rows="5" placeholder="写点评价，您的意见对其他同学很有帮助哦~" maxlength="150" ng-model="postModel.aciContent" autocomplete="off" autocorrect="off"></textarea>
+				<p class="float-right textarea-sub">{{postModel.aciContent.length || 0}}/150</p>
+			<br/>
+		</div>
+		</div>
+		<p hidden="false" ng-model="postModel.abiId"></p>
+		<p hidden="false" ng-model="postModel.auditStatus"></p>
+		<p hidden="false" ng-model="postModel.ubiId"></p>
+		<p hidden="false" ng-model="postModel.aciUserid"></p>
+	</ion-content>
+</ion-view>
+<script type="text/javascript">
+	function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+		var params = $scope.pageParams();
+		console.log("参数  " + JSON.stringify(params));
+		$scope.model = {
+			comment: {}
+		};
+		$scope.postModel = {
+			aciScore: 0
+		};
+		$('.ui.rating')
+		  .rating({
+		    initialRating: 3,
+		    maxRating: 5
+		  })
+		;
+		//		debugger;
+		$scope.getcomment = function() {
+			ajaxPost.call(
+				$scope, $http,
+				API_appserverurl + '/api/activityscoreinfo/getScoreData', {
+					usId: params.id,
+					abiId: params.abiId
+				},
+				'获取活动评论及个人信息',
+				function(data) {
+					console.log(JSON.stringify(data) + " 发布个人评论信息~~~~~~~~~~~~~~~~~");
+					$scope.model.comment = data;
+					$scope.postModel.aciUserid = data.usId; // 评分用户id
+					$scope.postModel.uuiName = data.uuiName;
+					$scope.postModel.ubiId = data.ubiId; // 学校id
+					if (data.commentAudit ==0) {
+						$scope.postModel.auditStatus = 2; // '审核状态，0为待审核，1为未通过，2为已通过（默认）',
+					} else{
+						$scope.postModel.auditStatus = 0; // '审核状态，0为待审核，1为未通过，2为已通过（默认）',
+					}
+					$scope.postModel.abiId = params.abiId;
+					$scope.postModel.imgUrl = data.imgUrl;
+				},
+				function(error) {
+					//TODO
+				});
+		}
+		$scope.getcomment();
+
+
+		// 评星
+		$scope.clickStar = function() {
+				//			debugger;
+				$scope.postModel.aciScore = $(".ui.rating").find(".active.icon").length;
+				switch ($scope.postModel.aciScore) {
+					case 1:
+						$scope.postModel.hint = "1分";
+						break;
+					case 2:
+						$scope.postModel.hint = "2分";
+						break;
+					case 3:
+						$scope.postModel.hint = "3分";
+						break;
+					case 4:
+						$scope.postModel.hint = "4分";
+						break;
+					case 5:
+						$scope.postModel.hint = "非常满意";
+						break;
+				}
+				console.log("+++++++++++++++++++++++" + $scope.postModel.aciScore);
+			}
+
+			//提交评论
+		$scope.submitComment = function() {
+				console.log(JSON.stringify($scope.postModel) + " =======提交数据========");
+//				$scope.postModel.aciScore = $(".ui.rating").find(".active.icon").length;
+				if ($scope.postModel.aciScore <= 0) {
+					showError("给Ta一个满星吧");
+					return;
+				}
+				if (!$scope.postModel.aciContent) {
+					showError("写点评价，您的意见对其他同学很有帮助哦~");
+					return;
+				}
+				if ($scope.postModel.aciContent.length>150) {
+					showError("文字过多！");
+					return;
+				}
+				$scope.postModel.pid = 0;
+				$scope.postModel.path = "0,";
+				$scope.postModel.type = 0;
+				ajaxPost.call(
+					$scope, $http,
+					API_appserverurl + '/api/activityscoreInfo/addData',
+					$scope.postModel,
+					'活动评论提交',
+					function(data) {
+						$scope.showSubmitSuccess();
+					},
+					function(error) {
+					});
+			}
+			//提交成功
+		var commentPopup = null;
+		$scope.showSubmitSuccess = function() {
+			commentPopup = $ionicPopup.show({
+				title: '<div style="position: relative;"><i style="top:0; right: 0;" class="icon-common_prompt_cancel"></i><div>',
+				template: '<i ng-click="closeCommentPopup()" class="icon-common_prompt_cancel"></i>' +
+				'<div class="submit-success-div">' +
+				'<span class="icon-my_comment_success">' +
+                '<span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>' +
+                '<span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span>' +
+                '<span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span>' +
+                '<span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span>' +
+                '<span class="path17"></span><span class="path18"></span><span class="path19"></span><span class="path20"></span>' +
+                '<span class="path21"></span><span class="path22"></span><span class="path23"></span><span class="path24"></span>' +
+                '<span class="path25"></span><span class="path26"></span><span class="path27"></span><span class="path28"></span>' +
+                '<span class="path29"></span><span class="path30"></span><span class="path31"></span><span class="path32"></span>' +
+                '<span class="path33"></span><span class="path34"></span><span class="path35"></span><span class="path36"></span>' +
+                '<span class="path37"></span><span class="path38"></span><span class="path39"></span>' +
+                '</span><br/><div class="desc">评论成功</div><div>',
+//				template: '<div style="text-align: center;">评论成功<div>',
+				scope: $scope,
+				buttons: [{
+					text: '查看此评论',
+					type: 'button',
+					onTap: function(e) {
+						$scope.openWindow('comment_personage_info', {
+							aciUserid: params.id,
+							abiId: params.abiId
+						});
+						commentPopup.close();
+					}
+				}, {
+					text: '返回',
+					type: 'button-positive',
+					onTap: function(e) {
+						$scope.postModel = {
+							aeiImgUrl: [],
+							auditStatus: 0,
+							aeiAmount: 0,
+							amount: 0
+						};
+						$scope.openWindow('activity_details', {
+							id: params.abiId
+						});
+						commentPopup.close();
+					}
+				}]
+			});
+		}
+		//关闭弹出框
+		$scope.closeCommentPopup = function () {
+			commentPopup.close();
+		}
+	}
+</script>

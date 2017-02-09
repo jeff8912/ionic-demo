@@ -1,0 +1,26 @@
+<ion-view id="my_setting_message_disturb">
+  <ion-nav-title align-title="center"><span class="ui inverted header">消息设置</span></ion-nav-title>
+  <ion-content overflow-scroll="false" has-bouncing="true" class="has-header"
+               style="background-color: #f8f8f8;">
+    <ion-list style="margin-top: 10px;" ng-if="model">
+      <ion-radio class="item-input" ng-model="model.message_Set" ng-value="'1'" ng-change="messageChange()">开启</ion-radio>
+      <ion-radio class="item-input" ng-model="model.message_Set" ng-value="'2'" ng-change="messageChange()">只在夜间开启</ion-radio>
+      <ion-radio class="item-input" ng-model="model.message_Set" ng-value="'0'" ng-change="messageChange()">关闭</ion-radio>
+    </ion-list>
+  </ion-content>
+</ion-view>
+<script type="text/javascript">
+
+  function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
+
+    $scope.messageChange = function () {
+      sysConfigData.message_Set = $scope.model.message_Set;
+      console.log("----" + JSON.stringify($scope.model));
+    }
+    $scope.getLoadData = function () {
+      $scope.model.message_Set = sysConfigData.message_Set;
+    }
+    $scope.getLoadData();
+  }
+
+</script>
