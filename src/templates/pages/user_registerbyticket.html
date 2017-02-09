@@ -1,8 +1,0 @@
-<script type="text/javascript">
-  console.log('location.href=' + location.href);
-  var tmpticket = location.href;
-  if (tmpticket.indexOf('ticket=') != -1) {
-    tmpticket = tmpticket.substring(tmpticket.indexOf('ticket=') + 7);
-  }
-  parent.getJoinutcInfo({'ticket': tmpticket});
-</script>
