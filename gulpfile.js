@@ -25,8 +25,12 @@ var paths = {
     html: './src/**/*.html',
     assets: {
       images: './src/styles/img/**/*.*',
-      css: './src/styles/css/**/*.*',
-      js: './src/js/**/*.js',
+      css: './src/styles/**/*.css',
+      js: [
+      	'./src/styles/private_layout.css',
+      	'./src/styles/public_layout.css',
+      	'./src/styles/lib_overwrite.css',
+      ],
       lib: {
         css: [
           'lib/ionic/css/ionic.css',
