@@ -178,9 +178,27 @@ a.item_input_text_right:hover{
 }
 
 .home_center_icon{
-	background: #000000;
+	
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
+.home_center_icon .home_center_button{
+
+	width: 24%;
+	height: 50px;
+
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.home_center_icon .home_center_double_div{
+
+	padding: 20px;
+	height: 100px;
+}
 
 .home_list_item_img{
 
@@ -198,4 +216,6 @@ a.item_input_text_right:hover{
 
 	float:  left;
 }
+
+
 
