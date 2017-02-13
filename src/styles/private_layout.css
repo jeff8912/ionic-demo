@@ -164,3 +164,38 @@ a.item_input_text_right:hover{
     padding-top: 4px;
 }
 
+
+.home_header_slider{
+
+	height: 200px;
+
+}
+
+.home_header_slider .slide_item{
+
+	height: 200px;
+
+}
+
+.home_center_icon{
+	background: #000000;
+}
+
+
+.home_list_item_img{
+
+	float: left;
+	width: 40px;
+	height: :40px;
+	background: #00ff00;
+
+}
+
+.home_list_item_right_div{
+
+	height: :40px;
+	background: #00ff00;
+
+	float:  left;
+}
+
