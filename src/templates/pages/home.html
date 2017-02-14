@@ -1,22 +1,85 @@
-<ion-view hide-back-button="true" hide-nav-bar="true" id="home" title="首页">
-	<div class="bar bar-header bar-balanced bar-icon-top">
-        <div class="home_search_div" ng-if="model.isLoad" ng-click="openWindow('activity_search')">
-			<form class="home-search-form">
-				<input class="topbar_search" type="text" value="搜索活动" readonly="readonly" />
-			</form>
-		</div>
-		<span  ng-if="showSearchBox" class="ui inverted header">首页</span>
-		<a class="home-header-item topbar_message" ng-click="openWindow('my_message')">
-			<i class="icon-topbar_message"></i>
-      		<div class="topbar_message_count" ng-if="revicemessages > 0"><span ng-bind="revicemessages>9?'..':revicemessages" style="margin-left: 4px;"></span></div>
-		</a>
-    </div>
-	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header"
-		on-scroll="onScroll($event)" scroll-event-interval="200">
-		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
-		<div ng-repeat="$$value$$ in microPage.list" ng-style="{'padding': ($$value$$.option.padding||0)+'px 0', 'padding-bottom': '0', 'background-color': microPage.page.option.backColor}" class="">
-			<div ng-include="'templates/plus/'+$$value$$.type + '.html'"></div>
-		</div>
-		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
-	</ion-content>
-</ion-view>
+<div class="bar bar-header item-input-inset">
+    <!--<button class="button icon-left ion-ios-search-strong button-clear button-small" ng-click="search(searchName)">-->
+    <!--</button>-->
+    <label class="item-input-wrapper">
+        <i class="icon  ion-ios-search-strong placeholder-icon"></i>
+        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+    </label>
+
+    <button>消息按钮</button>
+
+  
+  <!-- binner -->
+
+</div>
+
+
+  <div class = "home_header_slider">
+
+	<ion-slide-box >
+	  <ion-slide>
+	    <div class="slide_item"><h1>BLUE</h1></div>
+	  </ion-slide>
+	  <ion-slide>
+	    <div class="slide_item"><h1>YELLOW</h1></div>
+	  </ion-slide>
+	  <ion-slide on-slide-changed="slideHasChanged(index)">
+	    <div class="slide_item"><h1>PINK</h1></div>
+	  </ion-slide>
+	</ion-slide-box>
+
+  </div>	
+
+
+
+<!-- 按钮 -->
+
+
+<div class = "home_center_icon">
+
+	<button class = "home_center_button"><img src="#"><hr/>师资培训</button>
+	<button class = "home_center_button"><img src="#"><hr/>赛事</button>
+	<button class = "home_center_button"><img src="#"><hr/>研学旅游</button>
+	<button class = "home_center_button"><img src="#"><hr/>学习基地</button>
+
+</div>
+
+<div class = "home_center_double_div">
+	<button class = "home_center_double_div_button">2016特警训练专辑</button>
+	<button class = "home_center_double_div_button">户外知识普及</button>
+</div>
+
+
+<div class = "home_list_head_div"> 
+	<span class = "home_list_head_left">推荐好课</span> <div class = "home_list_head_right_div"><button>全部课程</button><img src="#"></div>
+</div>
+
+<div class = "home_list">
+	<ion-list >
+
+	  <ion-item>
+
+	  	<img class = "home_list_item_img" ng-src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1486975048&di=3d2ee307469e4036853e853d41f8a569&src=http://img4.duitang.com/uploads/item/201412/16/20141216195606_UJdB3.thumb.700_0.jpeg"> 
+
+	  	<div class = "home_list_item_right_div">
+
+			<h2>亲子沟通秘籍</h2>
+		  	<span>北京</span><span>|</span><span>中国户外教育基地</span>
+		  	<h2>12万人学过</h2>
+			<span>开课时间:</span><span>8/12</span> <span>免费</span>
+			
+	  	</div>
+
+	  </ion-item>
+	</ion-list>
+</div>
+
+
+
+<script type="text/javascript">
+	
+	
+
+</script>
+
+
