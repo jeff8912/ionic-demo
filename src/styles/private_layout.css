@@ -253,8 +253,141 @@ a.item_input_text_right:hover{
 .home_list_item_right_div{
 
 	height: :40px;
-	float:  left;
+	
 }
 
 
+/*通用*/
+
+.common-float-left-style{
+
+	float: left;
+
+}
+
+
+.common-float-right-style{
+
+	float: right;
+
+}
+
+.common-background{
+
+	background: #eeeeee;
+
+}
+
+/*个人中心*/
+
+
+
+.personal-firstitem{
+
+
+	height: 80px;
+}
+.personal-commonitem{
+
+	height: 50px;
+}
+
+.personal-common-line{
+
+	height: 1px;
+	background: #eeeeee;
+
+}
+
+.personal-common-margin-line{
+
+	height: 1px;
+	margin-left: 10px;
+	margin-right: 10px;
+	background: #eeeeee;
+
+}
+
+.personal-firstitem .personal-headicon{
+	float: left;
+	margin-left: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 60px;
+	height: 60px;
+
+}
+
+.personal-firstitem .personal-text{
+
+	float: left;
+	padding-left: 20px;
+	padding-right: 30px;
+	line-height: 80px;
+	height: 80px;
+
+}
+
+.personal-commonitem .personal-common-text{
+
+	height: 50px;
+	padding-left: 20px;
+	padding-right: 30px;
+	line-height: 50px;
+}
+
+.personal-20px-div{
+
+	background: #eeeeee;
+	height: 20px;
+
+}
+
+.personal-collection-div{
+	height: 100%;
+	width: 100%;
+
+	background: #eeeeee;
+
+}
+
+.personal-collection-div .personal-collection-item{
+
+	height: 130px;
+
+}
+
+.personal-collection-div .personal-collection-item-right-div{
+
+	height: 90px;
+
+}
+
+.personal-collection-div .personal-collection-item .personal-collection-item-img{
+
+	width: 65px;
+	margin-bottom: 10px;
+	float: left;
+
+}
+
+.personal-collection-div .personal-collection-item .personal-collection-item-darktext{
+
+	color: #999999;
+	font-size: 12px;
+
+}
+
+.personal-collection-div .personal-collection-item .personal-collection-item-darkrighttext{
+
+	color: #999999;
+	font-size: 12px;
+
+}
+
+.personal-collection-div .personal-collection-item .personal-collection-item-bottom-div{
+
+	height: 20px;
+
+}
 
