@@ -167,13 +167,13 @@ a.item_input_text_right:hover{
 
 .home_header_slider{
 
-	height: 200px;
+	height: 150px;
 
 }
 
 .home_header_slider .slide_item{
 
-	height: 200px;
+	height: 150px;
 
 }
 
@@ -183,6 +183,9 @@ a.item_input_text_right:hover{
 	padding-right: 10px;
 	padding-top: 5px;
 	padding-bottom: 5px;
+
+	overflow: hidden;
+	height: 80px;
 }
 
 .home_center_icon .home_center_button{
@@ -194,26 +197,62 @@ a.item_input_text_right:hover{
 	padding-right: 2px;
 }
 
-.home_center_icon .home_center_double_div{
+.home_center_double_div{
 
 	padding: 20px;
 	height: 100px;
+
+	overflow: hidden;
 }
+
+.home_center_double_div_button{
+
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.home_list_head_div{
+
+	height: 40px;
+
+}
+
+.home_list_head_left{
+
+	padding-left: 20px;
+	float: left;
+	
+	line-height:40px;
+	height: 40px;
+}
+
+.home_list_head_right_div{
+
+	padding-right: 20px;
+	float: right;
+	line-height:40px;
+	height: 40px;
+}
+
+.home_list{
+
+	width: 100%;
+
+}
+
 
 .home_list_item_img{
 
 	float: left;
 	width: 40px;
 	height: :40px;
-	background: #00ff00;
 
 }
 
 .home_list_item_right_div{
 
 	height: :40px;
-	background: #00ff00;
-
 	float:  left;
 }
 
