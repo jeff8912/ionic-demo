@@ -113,6 +113,9 @@ var stateList = ['demo', {
 	}, {
 		name: 'activity_comment',
 		url: 'activity_comment/:abiId'
+	},{
+		name: 'home_messsage',
+		url: 'home_messsage'
 	}
 ];
 

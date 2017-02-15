@@ -23,19 +23,16 @@
 	</head>
 
 	<body ng-app="znApp" animation="slide-left-right-ios7" ng-controller="rootCtrl" id="rootCtrl">
-	    <ion-nav-bar class="bar-balanced">
-	      <ion-nav-back-button>
-	      </ion-nav-back-button>
-	    </ion-nav-bar>
+	
 	    <!--
 	      The views will be rendered in the <ion-nav-view> directive below
 	      Templates are in the /templates folder (but you could also
 	      have templates inline in this html file if you'd like).
 	    -->
-	    <div ng-include="src='templates/pages/home.html'"></div>
-
-	    <div ng-include="src='templates/tabs.html'" ng-if="!hideNavFooterBar" ></div>
-
+	 
+	    <div ng-include="src='templates/pages/mine_course.html'"></div>
+<!-- 	    <div ng-include="src='templates/tabs.html'" ng-if="!hideNavFooterBar" ></div>
+ -->
 	    
 	</body>
 </html>

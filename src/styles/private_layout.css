@@ -295,6 +295,7 @@ a.item_input_text_right:hover{
 .personal-common-line{
 
 	height: 1px;
+	width: 100%;
 	background: #eeeeee;
 
 }
@@ -357,6 +358,7 @@ a.item_input_text_right:hover{
 
 }
 
+
 .personal-collection-div .personal-collection-item-right-div{
 
 	height: 90px;
@@ -371,17 +373,32 @@ a.item_input_text_right:hover{
 
 }
 
-.personal-collection-div .personal-collection-item .personal-collection-item-darktext{
+
+.personal-collection-item-right-div{
+
+	float: left;
+	min-width: 75%;
+}
+
+.personal-collection-item-right100-div{
+
+	float: left;
+	min-width: 100%;
+}
+
+.personal-collection-item-darktext{
 
 	color: #999999;
 	font-size: 12px;
+	line-height: 20px;
 
 }
 
-.personal-collection-div .personal-collection-item .personal-collection-item-darkrighttext{
+.personal-collection-item-darkrighttext{
 
 	color: #999999;
 	font-size: 12px;
+	line-height: 20px;
 
 }
 
@@ -389,5 +406,132 @@ a.item_input_text_right:hover{
 
 	height: 20px;
 
+}
+
+
+/*意见反馈*/
+
+
+.persona-feedback-div{
+
+	background: #eeeeee;
+	min-width: 100%;
+	min-height: 100%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.persona-feedback-div .personal-feedback-textarea{
+
+	background: #ffffff;
+	font-size: 14px;
+	width: 100%;
+	height: 200px;
+	padding: 10px;
+	border: #ffffff;
+
+}
+
+.persona-feedback-div .personal-feedback-button{
+
+	width: 90%;
+	height: 40px;
+	color: #ffffff;
+	border-radius: 5px;
+	border: #3bac0d;
+	background: #3bac0d;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-top: 20px;
+
+}
+
+/*课程*/
+
+.personal-course-item-div{
+
+
+	height: 205px;
+	width: 100%;
+	padding: 0px;
+
+}
+
+.personal-course-item-div .personal-course-top-div{
+
+	height: 30px;
+	width: 100%;
+
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+
+}
+
+.personal-course-item-div .personal-course-center-div{
+
+	height: 125px;
+	width: 100%;
+	padding-right: 10px;
+	padding-left: 10px;
+	overflow: hidden;
+	padding-top: 15px;
+	padding-bottom: 15px;
+
+}
+
+.personal-course-item-div .personal-course-center-right-div{
+
+	height: 95px;
+	min-width: 55%;
+	overflow: hidden;
+	float: left;
+
+}
+
+
+.personal-course-item-div .personal-course-center-right-top-div{
+
+	height: 75px;
+
+}
+
+.personal-course-item-div .personal-course-center-right-bottom-div{
+
+	height: 20px;
+
+}
+
+.personal-course-item-div .personal-course-img{
+
+	height: 95px;
+	width: 125px;
+
+	float: left;
+	margin-right: 10px;
+}
+
+.personal-course-item-div .personal-course-bottom-div{
+
+	height: 50px;
+	width: 100%;
+	padding-right: 10px;
+	padding-left: 10px;
+
+
+}
+
+.personal-course-item-div .personal-course-bottom-button{
+
+	height: 25px;
+	width: 60px;
+	color: #ffffff;
+	background: #3bac0d;
+	border: #3bac0d;
+	font-size: 10px;
+	float: right;
+	margin-top: 12.5px;
+	margin-bottom: 12.5px;
 }
 
