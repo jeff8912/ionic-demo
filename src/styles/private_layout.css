@@ -257,26 +257,7 @@ a.item_input_text_right:hover{
 }
 
 
-/*通用*/
 
-.common-float-left-style{
-
-	float: left;
-
-}
-
-
-.common-float-right-style{
-
-	float: right;
-
-}
-
-.common-background{
-
-	background: #eeeeee;
-
-}
 
 /*个人中心*/
 
@@ -292,22 +273,7 @@ a.item_input_text_right:hover{
 	height: 50px;
 }
 
-.personal-common-line{
 
-	height: 1px;
-	width: 100%;
-	background: #eeeeee;
-
-}
-
-.personal-common-margin-line{
-
-	height: 1px;
-	margin-left: 10px;
-	margin-right: 10px;
-	background: #eeeeee;
-
-}
 
 .personal-firstitem .personal-headicon{
 	float: left;
@@ -421,31 +387,6 @@ a.item_input_text_right:hover{
 	padding-bottom: 10px;
 }
 
-.persona-feedback-div .personal-feedback-textarea{
-
-	background: #ffffff;
-	font-size: 14px;
-	width: 100%;
-	height: 200px;
-	padding: 10px;
-	border: #ffffff;
-
-}
-
-.persona-feedback-div .personal-feedback-button{
-
-	width: 90%;
-	height: 40px;
-	color: #ffffff;
-	border-radius: 5px;
-	border: #3bac0d;
-	background: #3bac0d;
-	margin-left: 15px;
-	margin-right: 15px;
-	margin-top: 20px;
-
-}
-
 /*课程*/
 
 .personal-course-item-div{
@@ -503,15 +444,6 @@ a.item_input_text_right:hover{
 
 }
 
-.personal-course-item-div .personal-course-img{
-
-	height: 95px;
-	width: 125px;
-
-	float: left;
-	margin-right: 10px;
-}
-
 .personal-course-item-div .personal-course-bottom-div{
 
 	height: 50px;
@@ -535,3 +467,52 @@ a.item_input_text_right:hover{
 	margin-bottom: 12.5px;
 }
 
+
+.personal-givemarks-top-div{
+
+	height: 110px;
+	width: 100%;
+
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.personal-givemarks-bottom-div{
+
+	height: 40px;
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 20px;
+}
+
+.personal-givemarks-bottom-div span{
+
+
+	height: 40px;
+	line-height: 40px;
+	color: #333333;
+	font-size: 14px;
+
+
+}
+
+
+.personal-givemarks-margin-line{
+
+
+	height: 1px;
+	margin-left: 10px;
+	margin-right: 10px;
+	background: #eeeeee;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+.personal-textarea-div-line{
+
+	height: 20px;
+
+	background: #eeeeee;
+	
+}

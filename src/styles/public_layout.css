@@ -937,3 +937,109 @@ ion-modal-view > .share-icon .row-first,
 	position: relative;
 	overflow: visible;
 }
+
+
+
+.mine-img-div{
+
+	height: 95px;
+	width: 125px;
+
+	float: left;
+	margin-right: 10px;
+
+}
+
+/*通用*/
+
+.common-float-left-style{
+
+	float: left;
+
+}
+
+
+.common-float-right-style{
+
+	float: right;
+
+}
+
+.common-background{
+
+	background: #eeeeee;
+
+}
+
+.common-line{
+
+	height: 1px;
+	width: 100%;
+	background: #eeeeee;
+
+}
+
+.common-margin-line{
+
+	height: 1px;
+	margin-left: 10px;
+	margin-right: 10px;
+	background: #eeeeee;
+
+}
+
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px;
+}
+
+.rating > span {
+	  display: inline-block;
+	  position: relative;
+	  width: 1.1em;
+	  color: #e7e7e7;
+   	  border: #e7e7e7;
+	  content: "\2605";
+	  padding: 0px;
+	  margin:0px;
+}
+
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+   color: #fa6501;
+   border: #fa6501;
+}
+
+
+.textarea-style{
+
+
+	background: #ffffff;
+	font-size: 14px;
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	border: #ffffff;
+
+}
+
+
+.green-button-style{
+
+	width: 90%;
+	height: 40px;
+	color: #ffffff;
+	border-radius: 5px;
+	border: #3bac0d;
+	background: #3bac0d;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-top: 20px;
+}
