@@ -992,6 +992,38 @@ ion-modal-view > .share-icon .row-first,
 
 }
 
+.common-color-33{
+
+
+	color: #333333;
+}
+
+.common-color-66{
+
+
+	color: #666666;
+}
+
+.common-panding-5{
+
+	padding-left: 5px;
+}
+
+.common-margin-5{
+
+	margin-left: 5px;
+}
+
+.common-font-size-13{
+
+	font-size: 13px;
+}
+
+.common-font-size-14{
+
+	font-size: 14px;
+}
+
 .common-background{
 
 	background: #eeeeee;

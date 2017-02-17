@@ -260,14 +260,11 @@ a.item_input_text_right:hover{
 
 
 /*个人中心*/
-
-
-
 .personal-firstitem{
-
 
 	height: 80px;
 }
+
 .personal-commonitem{
 
 	height: 50px;
@@ -330,9 +327,8 @@ a.item_input_text_right:hover{
 .personal-collection-div .personal-collection-item-right-div{
 
 	height: 105px;
-
-	float: left;
-
+	padding-left: 10px;
+	padding-right: 10px;
 	overflow: hidden;
 }
 
@@ -340,9 +336,8 @@ a.item_input_text_right:hover{
 .personal-collection-div .personal-collection-item-right-div .personal-collection-item-right-inner-div{
 
 	height: 75px;
-	float: left;
-	overflow: hidden;
 
+	overflow: hidden;
 }
 
 
@@ -364,7 +359,7 @@ a.item_input_text_right:hover{
 .personal-collection-item-darktext{
 
 	color: #999999;
-	font-size: 13px;
+	font-size: 14px;
 	line-height: 25px;
 
 }
@@ -372,7 +367,7 @@ a.item_input_text_right:hover{
 .personal-collection-item-redtext{
 
 	color: #e55507;
-	font-size: 13px;
+	font-size: 14px;
 	line-height: 25px;
 
 }
