@@ -553,3 +553,51 @@ a.item_input_text_right:hover{
 	line-height: 20px;
 }
 
+
+.login-input-background-out-div{
+
+	margin-top: 50px;
+}
+
+.login-input-background-div{
+
+	height: 95px;
+	width: 85%;
+	border-radius: 5px;
+	display: block;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+
+.login-notice-div{
+
+	height: 30px;
+	width: 85%;
+
+	display: block;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+
+}
+
+.login-notice-div button{
+
+	color: #666666;
+}
+
+.login-input-background-div label{
+
+	color: #666666;
+}
+
+.login-input-background-div input{
+
+	color: #666666;
+}
+
+

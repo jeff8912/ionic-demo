@@ -1014,6 +1014,11 @@ ion-modal-view > .share-icon .row-first,
 	margin-left: 5px;
 }
 
+.common-margin-top-10{
+
+	margin-top: 10px;
+}
+
 .common-font-size-13{
 
 	font-size: 13px;
@@ -1036,6 +1041,18 @@ ion-modal-view > .share-icon .row-first,
 	width: 100%;
 	background: #eeeeee;
 
+}
+
+.common-top-radius{
+
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.common-bottom-radius{
+
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .common-20px-line{
@@ -1099,15 +1116,16 @@ ion-modal-view > .share-icon .row-first,
 
 .green-button-style{
 
-	min-width: 90%;
+	width: 85%;
 	height: 40px;
 	color: #ffffff;
 	border-radius: 5px;
 	border: #3bac0d;
+	display: block;
 	background: #3bac0d;
-	margin-left: 15px;
-	margin-right: 15px;
 	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 
