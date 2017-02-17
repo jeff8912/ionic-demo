@@ -364,18 +364,20 @@ a.item_input_text_right:hover{
 .personal-collection-item-darktext{
 
 	color: #999999;
-	font-size: 12px;
-	line-height: 20px;
+	font-size: 13px;
+	line-height: 25px;
 
 }
 
-.personal-collection-item-darkrighttext{
+.personal-collection-item-redtext{
 
-	color: #999999;
-	font-size: 12px;
-	line-height: 20px;
+	color: #e55507;
+	font-size: 13px;
+	line-height: 25px;
 
 }
+
+
 
 .personal-collection-div .personal-collection-item .personal-collection-item-bottom-div{
 
@@ -472,7 +474,7 @@ a.item_input_text_right:hover{
 	border: #3bac0d;
 	font-size: 10px;
 	float: right;
-	margin-top: 12.5px;
+	margin-top: 13px;
 	margin-bottom: 12.5px;
 }
 
@@ -481,9 +483,10 @@ a.item_input_text_right:hover{
 
 	height: 110px;
 	width: 100%;
-
+	padding-top: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
+	margin-bottom: 5px;
 }
 
 .personal-givemarks-bottom-div{
@@ -501,7 +504,6 @@ a.item_input_text_right:hover{
 	line-height: 40px;
 	color: #333333;
 	font-size: 14px;
-
 
 }
 
@@ -522,5 +524,37 @@ a.item_input_text_right:hover{
 	width: 100%;
 	height: 100%;
 	background: #eeeeee;
+}
+
+
+.peronal-modifyemail-inputdiv{
+
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+
+.common-nav-background{
+
+	background: #fafafa;
+
+	height: 44px;
+
+
+}
+
+
+.common-nav-back-div{
+
+	height: 44px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	background: none;
+}
+
+.common-nav-back-div .navspan{
+
+	height: 20px;
+	line-height: 20px;
 }
 

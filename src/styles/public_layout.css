@@ -11,10 +11,10 @@
 input{
 
 	padding-left: 30px;
-	height: 40px;
+	height: 50px;
 	width: 100%;
 	background: #ffffff;
-	font-size: 12px;
+	font-size: 14px;
 	color: #666666;
 }
 
@@ -26,6 +26,11 @@ body{
 div{
 
 	background: #ffffff;
+}
+
+h4{
+	font-size: 18px;
+	color: #000000;
 }
 
 
@@ -1031,8 +1036,8 @@ ion-modal-view > .share-icon .row-first,
 	  display: inline-block;
 	  position: relative;
 	  width: 1.1em;
-	  color: #e7e7e7;
-   	  border: #e7e7e7;
+	  color: #333333;
+   	  border: #333333;
 	  content: "\2605";
 	  padding: 0px;
 	  margin:0px;
@@ -1062,7 +1067,7 @@ ion-modal-view > .share-icon .row-first,
 
 .green-button-style{
 
-	width: 90%;
+	min-width: 90%;
 	height: 40px;
 	color: #ffffff;
 	border-radius: 5px;
@@ -1070,5 +1075,96 @@ ion-modal-view > .share-icon .row-first,
 	background: #3bac0d;
 	margin-left: 15px;
 	margin-right: 15px;
-	margin-top: 20px;
+	margin-top: 30px;
 }
+
+
+
+/*关闭按钮 */
+.close {
+
+  position: relative;
+  display:inline-block;
+
+  overflow: hidden;
+  border-radius:30px;
+  background:#b2b2b2;
+  opacity:0.5;
+  width: 30px;
+  height:30px;
+  line-height:20px;
+  font-size:10px;
+
+}
+.close:hover{
+	cursor:pointer;
+	opacity:1;
+}
+.close::before, .close::after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 10%;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 5px;
+  background: #ffffff;
+}
+.close::before {
+  transform: rotate(45deg);
+}
+.close::after {
+  transform: rotate(-45deg);
+}
+
+/*关闭按钮 end*/
+
+/*返回按钮 */
+
+.left{
+    width:20px;
+    height:20px;
+    position:absolute;
+    left:0;
+    z-index: 2;/*兼容ie8-*/
+    border:1px solid blue;
+}
+
+.left-arrow1,.left-arrow2{
+	width:0;
+    height:0;
+    display:block;
+    position:absolute;
+    left:0;
+    top:12px;
+    z-index:5;/*兼容ie8-*/
+    border-top:10px transparent dashed;
+    border-left:10px transparent dashed;
+    border-bottom:10px transparent dashed;
+    border-right:10px #000000 solid;
+    overflow:hidden;
+
+}
+
+.left-arrow1{
+
+    border-right:10px #000000 #fafafa;
+
+}
+
+.left-arrow2{
+
+    left:1px;/*重要*/
+    border-right:10px #fafafa solid;
+
+}
+
+
+/*标准标题字样---标题*/
+.common-item-title-style{
+
+	font-size: 18px;
+	color: #000000;
+}
+/*返回按钮 end */
