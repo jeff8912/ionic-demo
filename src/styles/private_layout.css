@@ -632,3 +632,25 @@ a.item_input_text_right:hover{
 
 	color: #3bac0d;
 }
+
+.register-input-background-div{
+
+	height: 145px;
+	width: 85%;
+	border-radius: 5px;
+	display: block;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+.register-input-background-div label{
+
+	color: #666666;
+}
+
+.register-input-background-div input{
+
+	color: #666666;
+}
