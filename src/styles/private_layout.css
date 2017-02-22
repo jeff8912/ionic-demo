@@ -188,6 +188,8 @@ a.item_input_text_right:hover{
 	height: 80px;
 }
 
+
+
 .home_center_icon .home_center_button{
 
 	width: 24%;
@@ -195,6 +197,13 @@ a.item_input_text_right:hover{
 
 	padding-left: 2px;
 	padding-right: 2px;
+}
+
+.home-list-text-div{
+
+	height: 25px;
+	width: 100%;
+	float: none;
 }
 
 .home_center_double_div{
@@ -327,7 +336,7 @@ a.item_input_text_right:hover{
 .personal-collection-div .personal-collection-item-right-div{
 
 	height: 105px;
-	padding-left: 10px;
+
 	padding-right: 10px;
 	overflow: hidden;
 }
