@@ -1,16 +1,16 @@
 <div class="tabs-icon-top tabs-color-active-positive tabs-bottom tabs-standard" ng-controller="navCtrl">
 	<div class="tab-nav tabs" style="border: none;">
-  <a class="tab-item" nav-transition="none" href="#/home" ng-class="{'tab-item-active':checkView('home')}">
-    <i class="icon icon-footbar_home_press"></i>
-  	<span class="tab-title">首页</span>
-  </a>
-  <a class="tab-item add" nav-transition="none" ng-click="openModal()">
-    <i class="icon ion-plus-round"></i>
-    <span class="tab-title">课程</span>
-  </a>
-  <a class="tab-item" nav-transition="none" href="#/account" ng-class="{'tab-item-active':checkView('account')}">
-    <i class="icon icon-footbar_my_press"></i>
-  	<span class="tab-title">我的</span>
-  </a>
-  </div>
+		<a class="tab-item" nav-transition="none" href="#/home" ng-class="{'tab-item-active':checkView('home')}">
+			<i class="icon icon-footbar_home_press"></i>
+			<span class="tab-title">首页</span>
+		</a>
+		<a class="tab-item add" nav-transition="none" href="#/course_all" ng-class="{'tab-item-active':checkView('account')}">
+			<i class="icon icon-footbar"></i>
+			<span class="tab-title">全部课程</span>
+		</a>
+		<a class="tab-item" nav-transition="none" href="#/mine" ng-class="{'tab-item-active':checkView('account')}">
+			<i class="icon icon-footbar_my_press"></i>
+			<span class="tab-title">我的</span>
+		</a>
+	</div>
 </div>

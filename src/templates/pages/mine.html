@@ -1,0 +1,55 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" id="home" title="个人中心">
+	<div class="bar bar-header bar-balanced bar-icon-top">
+		<span class="ui inverted header">个人中心</span>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<div>
+			<div class="personal-firstitem"><img class="personal-headicon" src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"><span class="personal-text">面朝大海</span></div>
+			<div class="personal-commonline"></div>
+		</div>
+		<div>
+			<div class="personal-commonitem">
+				<span class="personal-common-text">我参加的课程</span>
+			</div>
+			<div class="common-line"></div>
+		</div>
+		<div>
+			<div class="personal-commonitem">
+				<span class="personal-common-text">我的收藏</span>
+			</div>
+			<div class="common-margin-line"></div>
+		</div>
+		<div>
+			<div class="personal-commonitem">
+				<span class="personal-common-text">个人资料</span>
+			</div>
+			<div class="common-margin-line"></div>
+		</div>
+		<div>
+			<div class="personal-commonitem">
+				<span class="personal-common-text">修改密码</span>
+			</div>
+			<div class="common-line"></div>
+		</div>
+		<div class="personal-20px-div"></div>
+		<div>
+			<div class="personal-commonitem">
+				<span class="personal-common-text">关于我们</span>
+			</div>
+			<div class="common-line"></div>
+		</div>
+		<div>
+			<div class="personal-commonitem">
+				<span class="personal-common-text">帮助中心</span>
+			</div>
+			<div class="common-margin-line"></div>
+		</div>
+		<div>
+			<div class="personal-commonitem">
+				<span class="personal-common-text">意见反馈</span>
+			</div>
+			<div class="common-line"></div>
+		</div>
+	</ion-content>
+</ion-view>

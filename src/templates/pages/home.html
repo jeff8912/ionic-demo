@@ -1,100 +1,86 @@
-<div class="bar bar-header item-input-inset">
-    <!--<button class="button icon-left ion-ios-search-strong button-clear button-small" ng-click="search(searchName)">-->
-    <!--</button>-->
-    <label class="item-input-wrapper">
-        <i class="icon  ion-ios-search-strong placeholder-icon"></i>
-        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
-    </label>
+<ion-view hide-back-button="true" hide-nav-bar="true" id="home" title="首页">
+	<div class="bar bar-header item-input-inset">
+		<!--<button class="button icon-left ion-ios-search-strong button-clear button-small" ng-click="search(searchName)">-->
+		<!--</button>-->
+		<label class="item-input-wrapper">
+	        <i class="icon  ion-ios-search-strong placeholder-icon"></i>
+	        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+	    </label>
+		<i class="icon-message"></i>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
 
-    <button>消息按钮</button>
+		<div class="home_header_slider">
 
-</div>
+			<ion-slide-box>
+				<ion-slide>
+					<div class="slide_item">
+						<h1>BLUE</h1></div>
+				</ion-slide>
+				<ion-slide>
+					<div class="slide_item">
+						<h1>YELLOW</h1></div>
+				</ion-slide>
+				<ion-slide on-slide-changed="slideHasChanged(index)">
+					<div class="slide_item">
+						<h1>PINK</h1></div>
+				</ion-slide>
+			</ion-slide-box>
 
+		</div>
 
-  <div class = "home_header_slider">
+		<!-- 按钮 -->
 
-	<ion-slide-box >
-	  <ion-slide>
-	    <div class="slide_item"><h1>BLUE</h1></div>
-	  </ion-slide>
-	  <ion-slide>
-	    <div class="slide_item"><h1>YELLOW</h1></div>
-	  </ion-slide>
-	  <ion-slide on-slide-changed="slideHasChanged(index)">
-	    <div class="slide_item"><h1>PINK</h1></div>
-	  </ion-slide>
-	</ion-slide-box>
+		<div class="home_center_icon">
 
-  </div>	
+			<button class="home_center_button"><img src="#"><hr/>师资培训</button>
+			<button class="home_center_button"><img src="#"><hr/>赛事</button>
+			<button class="home_center_button"><img src="#"><hr/>研学旅游</button>
+			<button class="home_center_button"><img src="#"><hr/>学习基地</button>
 
+		</div>
 
+		<div class="home_center_double_div">
+			<button class="home_center_double_div_button">2016特警训练专辑</button>
+			<button class="home_center_double_div_button">户外知识普及</button>
+		</div>
 
-<!-- 按钮 -->
+		<div class="home_list_head_div">
+			<span class="home_list_head_left">推荐好课</span>
+			<div class="home_list_head_right_div"><button>全部课程</button><img src="#"></div>
+		</div>
 
+		<div class="personal-collection-div">
+			<ion-list>
 
-<div class = "home_center_icon">
+				<ion-item class="personal-collection-item">
 
-	<button class = "home_center_button"><img src="#"><hr/>师资培训</button>
-	<button class = "home_center_button"><img src="#"><hr/>赛事</button>
-	<button class = "home_center_button"><img src="#"><hr/>研学旅游</button>
-	<button class = "home_center_button"><img src="#"><hr/>学习基地</button>
+					<img class="mine-img-div" ng-src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg">
 
-</div>
+					<div class="personal-collection-item-right-div">
 
-<div class = "home_center_double_div">
-	<button class = "home_center_double_div_button">2016特警训练专辑</button>
-	<button class = "home_center_double_div_button">户外知识普及</button>
-</div>
+						<div class="personal-collection-item-right-inner-div">
 
+							<h3>帆船基本知识</h3>
 
-<div class = "home_list_head_div"> 
-	<span class = "home_list_head_left">推荐好课</span> <div class = "home_list_head_right_div"><button>全部课程</button><img src="#"></div>
-</div>
+							<div class="common-float-left-style home-list-text-div">
+								<span class="personal-collection-item-darktext">深圳</span>
+								<span class="personal-collection-item-darktext">南澳基地</span>
+							</div>
 
-
-<div  class = "personal-collection-div">
-	<ion-list >
-
-	  <ion-item class = "personal-collection-item">
-
-	  	<img class = "mine-img-div" ng-src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"> 
-
-	  	<div class = "personal-collection-item-right-div">
-
-
-	  		<div class = "personal-collection-item-right-inner-div">
-
-				<h3>帆船基本知识</h3>
-
-				<div class = "common-float-left-style home-list-text-div">
-					<span class = "personal-collection-item-darktext">深圳</span>
-					<span class = "personal-collection-item-darktext">南澳基地</span>
-				</div>
-
-				<div class = "home-list-text-div">
-					<span class = "personal-collection-item-darktext">1.2W学过</span>
-				</div>
-
-	  		</div>
-
-	  	 	<div class = "personal-collection-item-bottom-div">
-
-		  		<div class = "common-float-left-style common-font-size-14 common-color-33"><span>开课时间:</span><span class = "common-font-size-14 common-margin-5">10/19</span></div>
-
-		  		<div class = "common-float-right-style"><span class = "common-font-size-14 personal-collection-item-redtext common-float-right-style">￥12.00</span></div>
-	  		</div>	
-
-
-	  	</div>
-
-	
-
-	  </ion-item>
-	</ion-list>
-</div>
-
-
-
-
-
-
+							<div class="home-list-text-div">
+								<span class="personal-collection-item-darktext">1.2W学过</span>
+							</div>
+						</div>
+						<div class="personal-collection-item-bottom-div">
+							<div class="common-float-left-style common-font-size-14 common-color-33"><span>开课时间:</span><span class="common-font-size-14 common-margin-5">10/19</span></div>
+							<div class="common-float-right-style"><span class="common-font-size-14 personal-collection-item-redtext common-float-right-style">￥12.00</span></div>
+						</div>
+					</div>
+				</ion-item>
+			</ion-list>
+		</div>
+		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>

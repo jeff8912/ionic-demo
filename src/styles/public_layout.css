@@ -1219,3 +1219,106 @@ ion-modal-view > .share-icon .row-first,
 	color: #000000;
 }
 /*返回按钮 end */
+
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?8yzf18');
+  src:  url('fonts/icomoon.eot?8yzf18#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?8yzf18') format('truetype'),
+    url('fonts/icomoon.woff?8yzf18') format('woff'),
+    url('fonts/icomoon.svg?8yzf18#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-return:before {
+  content: "\e900";
+}
+.icon-complete:before {
+  content: "\e901";
+}
+.icon-all-courses:before {
+  content: "\e902";
+}
+.icon-all-courses-choose .path1:before {
+  content: "\e903";
+  color: rgb(50, 205, 94);
+}
+.icon-all-courses-choose .path2:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(50, 205, 94);
+}
+.icon-all-courses-choose .path3:before {
+  content: "\e905";
+  margin-left: -1em;
+  color: rgb(50, 205, 94);
+}
+.icon-all-courses-choose .path4:before {
+  content: "\e906";
+  margin-left: -1em;
+  color: rgb(50, 205, 94);
+}
+.icon-all-courses-choose .path5:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(50, 205, 94);
+}
+.icon-all-courses-choose .path6:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-all-courses-choose .path7:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-all-courses-choose .path8:before {
+  content: "\e90a";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-all-courses-choose .path9:before {
+  content: "\e90b";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-home:before {
+  content: "\e910";
+}
+.icon-home-choose:before {
+  content: "\e911";
+}
+.icon-little-search:before {
+  content: "\e912";
+}
+.icon-my:before {
+  content: "\e913";
+}
+.icon-my-choose:before {
+  content: "\e914";
+}
+.icon-message:before {
+  content: "\e915";
+}
+.icon-little-arrow:before {
+  content: "\e91a";
+}
+

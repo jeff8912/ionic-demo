@@ -34,7 +34,6 @@ var paths = {
       lib: {
         css: [
           'lib/ionic/css/ionic.css',
-          'lib/Ionicons/css/ionicons.css',
           'lib/Swiper/dist/css/swiper.css',
         ],
         js: [
@@ -53,7 +52,7 @@ var paths = {
     images: './.tmp/img/',
     styles: './.tmp/styles/',
     scripts: './.tmp/js/',
-    fonts: './.tmp/fonts/'
+    fonts: './.tmp/styles/fonts/'
   },
   build: {
     root: './build/'

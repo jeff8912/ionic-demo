@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="white">
 		<title>首页</title>
-
 		<!--Public Style-->
 		<link href="styles/lib.css" rel="stylesheet" />
 		<!--Public Style End-->
@@ -19,12 +17,10 @@
 		<!--Public Script-->
 		<script src="js/lib.min.js"></script>
 		<script src="js/build.min.js"></script>
-
 	</head>
-
 	<body ng-app="znApp" animation="slide-left-right-ios7" ng-controller="rootCtrl" id="rootCtrl">
-	
-	    <div ng-include="src='templates/pages/forgetpassword.html'"></div>
-
+		<ion-nav-view></ion-nav-view>
+		<div ng-include="src='templates/tabs.html'"></div>
+	    <!--<div ng-include="src='templates/pages/forgetpassword.html'"></div>-->
 	</body>
 </html>
