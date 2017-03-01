@@ -1,0 +1,60 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="activity_detail" id="course_detail">
+	<div class="bar bar-header item-input-inset">
+		<h1 class="title">课程主页</h1>
+		<!--<label class="item-input-wrapper">
+		<i class="icon  ion-ios-search-strong placeholder-icon"></i>
+		<input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+		</label>-->
+		<div class="return">
+			<i class="icon-return" ng-click="goBack()"></i>
+		</div>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<div class="course-top">
+			<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+			<h3>印度洋上的明珠——斯里兰卡追寻宁静之美</h3>
+			<p>
+				<span class="money">¥9300/每人</span>
+				<span>(会员价)</span>
+			</p>
+		</div>
+
+		<div class="course-bottom">
+			<div class="row course-detail-tabs">
+				<div ng-class="{'col': true, 'actived': toggleIndex == 0}" ng-click="toggleTab(0)">
+					课程详情
+				</div>
+				<div ng-class="{'col': true, 'actived': toggleIndex == 1}" ng-click="toggleTab(1)">
+					课程安排
+				</div>
+				<div ng-class="{'col': true, 'actived': toggleIndex == 2}" ng-click="toggleTab(2)">
+					用户点评
+				</div>
+			</div>
+			<div class="course-content">
+				基本水电费水电费水电费
+			</div>
+		</div>
+		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>
+<div class="tabs tabs-icon-top activity-tabs">
+	<a class="tab-item">
+		<i class="icon icon-phone"></i>
+		<span class="tab-title">电话咨询</span>
+	</a>
+	<a class="tab-item">
+		<i class="icon icon-service"></i>
+		<span class="tab-title">在线客服</span>
+	</a>
+	<a class="tab-item">
+		<i class="icon icon-collect"></i>
+		<span class="tab-title">收藏</span>
+	</a>
+</div>
+<div class="activity-join" ng-click="openWindow('activity_join')">
+	<button>
+		立即报名
+	</button>
+</div>

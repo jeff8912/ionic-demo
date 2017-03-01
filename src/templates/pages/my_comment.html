@@ -1,0 +1,59 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" id="my_comment" class="my_comment my_feedback">
+	<div class="bar bar-header item-input-inset">
+		<h1 class="title">评论</h1>
+		<div class="return">
+			<i class="icon-return" ng-click="goBack()"></i>
+		</div>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<div class="comment-info">
+			<div class="list comment-main">
+				<div class="item item-thumbnail-left">
+	        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+						 image-lazy-distance-from-bottom-to-load="100"
+						 ng-click="clickLook(item.id, item.abiId.id)">
+					<h2 ng-click="clickLook(item.id, item.abiId.id)">亲子沟通秘籍</h2>
+					<p>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+					</p>
+		        </div>
+			</div>
+			<div class="list comment-other">
+				<div class="item">
+	        		课程服务评分
+					<span class="right-tip"></span>
+		        </div>
+				<div class="item">
+					<p>
+						户外教育师
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+					</p>
+					<p>
+						户外教育基地
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="list">
+		 	<label class="item item-input">
+		    	<textarea placeholder="写下您的体验和感受来帮助其他小伙伴吧~"></textarea>
+		  	</label>
+		</div>
+		<div class="confirm-submit">
+			<button class="button button-block button-balanced">提交评论</button>
+		</div>
+	</ion-content>
+</ion-view>

@@ -1,47 +1,12 @@
-<ion-view hide-back-button="true" hide-nav-bar="true" class="course_all">
+<ion-view hide-back-button="true" hide-nav-bar="true" id="my_collection">
 	<div class="bar bar-header item-input-inset">
-		<h1 class="title">全部课程</h1>
-		<!--<label class="item-input-wrapper">
-	        <i class="icon  ion-ios-search-strong placeholder-icon"></i>
-	        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
-	    </label>-->
-		<div class="search">
-			<i class="icon-search"></i>
+		<h1 class="title">我的收藏</h1>
+		<div class="return">
+			<i class="icon-return" ng-click="goBack()"></i>
 		</div>
 	</div>
 	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
 		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
-		<div class="tabs tabs-default tabs-top">
-			<a class="tab-item" ng-click="showAllModal=!showAllModal">
-		    	全部课程
-		    	<span class="ion-chevron-up" ng-if="!model.showActivityModal"></span>
-				<span class="ion-chevron-down" ng-if="model.showActivityModal"></span>
-		  	</a>
-			<a class="tab-item">
-		    	地区
-		    	<span class="ion-chevron-up" ng-if="!model.showActivityModal"></span>
-				<span class="ion-chevron-down" ng-if="model.showActivityModal"></span>
-		  	</a>
-			<a class="tab-item">
-		    	综合排序
-		    	<span class="ion-chevron-up" ng-if="!model.showActivityModal"></span>
-				<span class="ion-chevron-down" ng-if="model.showActivityModal"></span>
-		  	</a>
-			<a class="tab-item">
-		    	排序
-		    	<span class="ion-chevron-up" ng-if="!model.showActivityModal"></span>
-				<span class="ion-chevron-down" ng-if="model.showActivityModal"></span>
-		  	</a>
-		</div>
-		<div ng-if="showAllModal" class="category-modal list">
-			<div class="item select" ng-click="chooseTime(1)">
-				<span>发布时间</span>
-			</div>
-			<div class="item select" ng-click="chooseTime(2)">
-				<span>开始时间</span>
-			</div>
-			<div class="opacity" ng-click="closeAllModal()"></div>
-		</div>
 		<div class="list activity-list"  show-delete="shouldShowDelete">
         	<div class="item item-thumbnail-left">
         		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"

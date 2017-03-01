@@ -1,0 +1,26 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="company_detail teacher_detail">
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<i class="icon-return" ng-click="goBack()"></i>
+		<div class="company-top">
+			<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+			<div class="cover-info">
+				<div class="company-logo">
+					<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+				</div>
+				<div class="company-name">吴军生</div>
+				<div class="age-limit">
+					北京 | 北京体育大学 从业年限：25年
+				</div>
+				<div class="company-other">
+					<p>擅长课程：户外教育、青少年安全教育、定向越野、野战运动、团队领导力和执行力绩效倍增、沟通力训练系列课程</p>
+				</div>
+			</div>
+		</div>
+		<div class="list">
+			<div class="item">
+				老师介绍。。。。此处剩余一万字
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

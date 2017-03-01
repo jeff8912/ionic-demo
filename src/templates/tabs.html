@@ -1,15 +1,18 @@
-<div class="tabs-icon-top tabs-color-active-positive tabs-bottom tabs-standard" ng-controller="navCtrl">
+<div class="tabs-icon-top tabs-color-active-positive tabs-bottom tabs-standard footer_tab" ng-controller="navCtrl">
 	<div class="tab-nav tabs" style="border: none;">
-		<a class="tab-item" nav-transition="none" href="#/home" ng-class="{'tab-item-active':checkView('home')}">
-			<i class="icon icon-footbar_home_press"></i>
+		<a class="tab-item" nav-transition="none" href="#/home" ng-class="{'tab-choose': checkView('home')}">
+			<i class="icon-home"></i>
 			<span class="tab-title">首页</span>
 		</a>
-		<a class="tab-item add" nav-transition="none" href="#/course_all" ng-class="{'tab-item-active':checkView('account')}">
-			<i class="icon icon-footbar"></i>
+		<a class="tab-item" nav-transition="none" href="#/course_all" ng-class="{'tab-choose': checkView('course_all')}">
+			<i class="icon-course-choose" ng-if="checkView('course_all')">
+				<span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span>
+			</i>
+			<i class="icon-course" ng-if="!checkView('course_all')"></i>
 			<span class="tab-title">全部课程</span>
 		</a>
-		<a class="tab-item" nav-transition="none" href="#/mine" ng-class="{'tab-item-active':checkView('account')}">
-			<i class="icon icon-footbar_my_press"></i>
+		<a class="tab-item" nav-transition="none" href="#/mine" ng-class="{'tab-choose': checkView('mine')}">
+			<i class="icon-my"></i>
 			<span class="tab-title">我的</span>
 		</a>
 	</div>

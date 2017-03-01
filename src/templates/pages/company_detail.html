@@ -1,0 +1,130 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="company_detail">
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<i class="icon-return" ng-click="goBack()"></i>
+		<div class="company-top">
+			<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+			<div class="cover-info">
+				<div class="company-logo">
+					<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+				</div>
+				<div class="company-name">中国户外教育网</div>
+				<div class="company-other" ng-click="openWindow('company_info')">
+					<p>
+						评分：
+						<span class="star">
+							<i class="icon-star"></i>
+							<i class="icon-star"></i>
+							<i class="icon-star"></i>
+							<i class="icon-star"></i>
+							<i class="icon-star"></i> 5分
+						</span>
+						| 999人评价
+
+					</p>
+					<p>所在地：中国北京 东城区</p>
+					<i class="icon-right"></i>
+				</div>
+			</div>
+		</div>
+		<div class="list company-title">
+			<div class="item left-space-title">
+				<span class="title">热门课程</span>
+				<span class="num">(88)</span>
+				<span class="more" ng-click="moreCourse()">更多</span>
+			</div>
+		</div>
+		<div class="list activity-list"  show-delete="shouldShowDelete">
+        	<div class="item item-thumbnail-left" ng-click="openWindow('course_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+	        <div class="item item-thumbnail-left" ng-click="openWindow('course_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+        </div>
+        <div class="list company-title">
+			<div class="item left-space-title">
+				<span class="title">他的基地</span>
+				<span class="num">(5)</span>
+				<span class="more">更多</span>
+			</div>
+		</div>
+		<div class="list activity-list"  show-delete="shouldShowDelete">
+        	<div class="item item-thumbnail-left" ng-click="openWindow('bases_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+	        <div class="item item-thumbnail-left" ng-click="openWindow('bases_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+        </div>
+        <div class="list company-title">
+			<div class="item left-space-title">
+				<span class="title">师资介绍</span>
+				<span class="num">(5)</span>
+				<span class="more">更多</span>
+			</div>
+		</div>
+		<div class="list activity-list"  show-delete="shouldShowDelete">
+        	<div class="item item-thumbnail-left" ng-click="openWindow('teacher_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+	        <div class="item item-thumbnail-left" ng-click="openWindow('teacher_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+        </div>
+	</ion-content>
+</ion-view>

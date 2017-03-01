@@ -25,10 +25,10 @@ var paths = {
     html: './src/**/*.html',
     assets: {
       images: './src/styles/img/**/*.*',
-      js: './src/js/**/*.js',
+      js: ['./src/js/dependencies/*.js', './src/js/common/*.js', './src/js/modules/*.js'],
       css: [
       	'./src/styles/lib_overwrite.css',
-      	'./src/styles/public_layout.css',
+      	'./src/styles/common_layout.css',
       	'./src/styles/private_layout.css'
       ],
       lib: {
@@ -52,7 +52,7 @@ var paths = {
     images: './.tmp/img/',
     styles: './.tmp/styles/',
     scripts: './.tmp/js/',
-    fonts: './.tmp/styles/fonts/'
+    fonts: './.tmp/fonts/'
   },
   build: {
     root: './build/'
@@ -99,7 +99,8 @@ gulp.task('font', function() {
 
 // Task js
 gulp.task('js', function() {
-  return gulp.src(paths.src.assets.js)
+  return gulp
+  	.src(paths.src.assets.js)
     // .pipe(replace(/__REPLACE_API__/g, API))
     .pipe(insert.append(';'))
     .pipe(concat('build.js'))
@@ -157,7 +158,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.src.html, ['html']);
   gulp.watch(paths.src.assets.lib.fonts, ['font']);
   gulp.watch(['src/js/**/*.js'], ['js']);
-  gulp.watch(['src/styles/css/**/*.css'], ['css']);
+  gulp.watch(['src/styles**/*.css'], ['css']);
   gulp.watch(paths.src.assets.images, ['image']);
 });
 

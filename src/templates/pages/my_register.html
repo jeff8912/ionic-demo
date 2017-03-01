@@ -1,0 +1,31 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="my_register" title="注册">
+	<div class="bar bar-header bar-balanced bar-icon-top">
+		<span class="title">注册</span>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<div class="register-block">
+			<div class="username">
+				<input type="text" placeholder="用户名/手机号" ng-model="username" ng-key-up="delUsername()">
+			</div>
+			<div class="pwd">
+				<input type="password" placeholder="新密码" >
+	        	<i class="icon-visible"></i>
+			</div>
+			<div class="pwd">
+				<input type="password" placeholder="确认新密码" >
+	        	<i class="icon-visible"></i>
+			</div>
+			<div class="pwd">
+                <input type="password" placeholder="验证码" >
+                <button class="send-captcha">发送</button>
+                <span ng-if="false" class="send-again">59s后重新发送</span>
+            </div>
+            <div class="agree">
+                <input type="checkbox" class="check-agree" id="check-agree"/>
+                <label class="read" for="check-agree">我已阅读并同意</label>
+                <span class="agree-book">《中国户外教育网用户协议》</span>
+            </div>
+        	<button class="button button-block button-balanced">注册</button>
+		</div>
+	</ion-content>
+</ion-view>

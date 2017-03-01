@@ -18,9 +18,9 @@
 		<script src="js/lib.min.js"></script>
 		<script src="js/build.min.js"></script>
 	</head>
-	<body ng-app="znApp" animation="slide-left-right-ios7" ng-controller="rootCtrl" id="rootCtrl">
+	<body ng-app="oeApp" animation="slide-left-right-ios7" ng-controller="rootCtrl" id="rootCtrl">
 		<ion-nav-view></ion-nav-view>
-		<div ng-include="src='templates/tabs.html'"></div>
+		<div ng-if="showFooter" ng-include="src='templates/tabs.html'"></div>
 	    <!--<div ng-include="src='templates/pages/forgetpassword.html'"></div>-->
 	</body>
 </html>

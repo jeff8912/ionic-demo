@@ -1,0 +1,51 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="company_info">
+	<div class="bar bar-header item-input-inset">
+		<h1 class="title">企业信息</h1>
+		<!--<label class="item-input-wrapper">
+		<i class="icon  ion-ios-search-strong placeholder-icon"></i>
+		<input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+		</label>-->
+		<div class="return">
+			<i class="icon-return" ng-click="goBack()"></i>
+		</div>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<div class="list left-space-list" style="padding-top: 0px;">
+            <div class="item item-input">
+            	 <span class="input-label">名称</span>
+            	 中国户外教育网
+            </div>
+            <div class="item item-input">
+        	 	<span class="input-label">地址</span>
+        	 	中国北京
+            </div>
+        </div>
+        <div class="list-title">
+        	联系方式
+        </div>
+        <div class="list left-space-list">
+            <div class="item item-input">
+            	 <span class="input-label">电话</span>
+            	 010-61830231
+            </div>
+            <div class="item item-input">
+        	 	<span class="input-label">联系人</span>
+        	 	付老师、任老师
+            </div>
+            <div class="item item-input">
+        	 	<span class="input-label">邮箱</span>
+        	 	yanchijidi@163.com
+            </div>
+            <div class="item item-input">
+        	 	<span class="input-label">网址</span>
+        	 	<a href="http://baidu.com">http://baidu.com</a>
+            </div>
+        </div>
+        <div class="list-title">
+        	简介
+        </div>
+        <div class="recommend" >
+        	北京市雁翅中小学素质教育基地，地处京西门头沟区
+        </div>
+	</ion-content>
+</ion-view>

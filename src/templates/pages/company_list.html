@@ -1,0 +1,52 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" id="company_list">
+	<div class="bar bar-header item-input-inset">
+		<h1 class="title">学习基地</h1>
+		<!--<label class="item-input-wrapper">
+		<i class="icon  ion-ios-search-strong placeholder-icon"></i>
+		<input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+		</label>-->
+		<div class="return">
+			<i class="icon-return" ng-click="goBack()"></i>
+		</div>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<div class="list activity-list"  show-delete="shouldShowDelete">
+        	<div class="item item-thumbnail-left" ng-click="openWindow('company_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook()">
+				<h2 ng-click="clickLook()">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+        	<div class="item item-thumbnail-left" ng-click="openWindow('company_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook()">
+				<h2 ng-click="clickLook()">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+        	<div class="item item-thumbnail-left" ng-click="openWindow('company_detail')">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook()">
+				<h2 ng-click="clickLook()">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+      	</div>
+	</ion-content>
+</ion-view>

@@ -9,7 +9,6 @@
 
 <ion-view view-title="设备接口DEMO">
   <ion-content overflow-scroll="false" has-bouncing="true">
-
   	<script type="text/javascript">
   		function pageCtrl($scope, $http, $rootScope, $ionicHistory, $timeout, $ionicModal, $ionicPopup, EventBus, $ionicPopover, Upload, $ionicLoading) {
 			//$scope.device = zn.device;
@@ -82,7 +81,6 @@
 			$scope.ttt = "";
 			
 			$scope.addTodo = function () {
-				debugger;
 				var item = {text: this.ttt, done: false};
 				$scope.todos.push(item);
 			}

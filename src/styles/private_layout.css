@@ -4,6 +4,703 @@
  2. 或者改写了第三方组件，但却不能通用
  重要：请在页面根Div写上一个特有的Class，在这里写出来的CSS需要从这个特有的Class开始写
  * */
+.home .message {
+	font-size: 32px;
+	padding-left: 10px;
+	color: #666;
+}
+.home .carousel {
+    height: 50%;
+}
+.home .carousel-image {
+    padding-bottom: 0;
+    background-size: 100% auto;
+    -webkit-background-size: 100% auto;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box;
+    background-position: top;
+    padding-left: 0;
+    padding-right: 0;
+    height: 100%;
+    width: 100vw;
+}
+.home .swiper-container {
+    width: 100%;
+    height: 60vmin;
+    margin-left: auto;
+    margin-right: auto;
+}
+.footer_tab .tab-item i{
+    display: block;
+    margin: 0 auto;
+    height: 32px;
+    font-size: 32px;
+}
+.footer_tab .tab-item.tab-choose {
+	color: #32CD5E;
+}
+.footer_tab .tab-item.tab-choose .icon-home:before {
+	content: "\e917";
+}
+.footer_tab .tab-item.tab-choose .icon-my:before {
+	content: "\e91a";
+}
+.home .activity-nav {
+	background-color: white;
+	margin-top: 10px;
+}
+.home .activity-nav i{
+    display: block;
+    margin: 0 auto;
+    height: 50px;
+    font-size: 50px;
+}
+.home .activity-nav .col {
+	text-align: center;
+	padding-bottom: 2px;
+}
+.home .activity-nav p {
+	display: block;
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 5px 0;
+}
+.home .activity-nav .icon-teacher .path1:before {
+	color: #FF9555;
+}
+.home .activity-nav .icon-race .path1:before {
+	color: #42DA6D;
+}
+.home .activity-nav .icon-study-tour .path1:before {
+	color: #46C4FF;
+}
+.home .activity-nav .icon-study-bases .path1:before {
+	color: #FF6982;
+}
+.home .topic-nav {
+	padding: 15px 22.5px 10px;
+}
+.home .topic-nav .col {
+	padding-bottom: 25%;
+	position: relative;
+	height: 100%;
+}
+.home .topic-nav .col:FIRST-CHILD .topic-img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 7.5px;
+}
+.home .topic-nav .col:last-child .topic-img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 7.5px;
+}
+.home .topic-nav .col:FIRST-CHILD .topic-title {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	right: 7.5px;
+	text-align: center;
+	top: 40%;
+	color: white;
+	font-size: 14px;
+}
+.home .topic-nav .col:last-child .topic-title {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 7.5px;
+	text-align: center;
+	top: 40%;
+	color: white;
+	font-size: 14px;
+}
+.home .topic-nav .col:FIRST-CHILD .topic-cover {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	right: 7.5px;
+	top: 0;
+	background-color: black;
+	opacity: 0.3;
+}
+.home .topic-nav .col:last-child .topic-cover {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 7.5px;
+	top: 0;
+	background-color: black;
+	opacity: 0.3;
+}
+.home .topic-nav .col .topic-img img {
+	width: 100%;
+	height: 100%;
+}
+/*
+	搜索页面
+*/
+.home_search .bar-header {
+	padding: 7px 60px 7px 42px;
+}
+.home_search .search {
+	position: absolute;
+	left: 10px;
+	top: 12px;
+	font-size: 20px;
+	color: #999999;
+}
+.home_search .item-input {
+	width: 100%;
+	font-size: 14px;
+	color: #999999;
+	padding: 0;
+}
+.home_search .item-input input{
+	padding: 0;
+	height: 100%;
+}
+.home_search .cancel {
+	position: absolute;
+	right: 15px;
+	top: 12px;
+	font-size: 14px;
+	color: #999999;
+}
+.home_search .hot-search {
+	padding: 15px 15px 0;
+}
+.home_search .hot-search .hot-title {
+	color: #333333;
+	font-size: 14px;
+}
+.home_search .hot-search .hot-keyword {
+	color: #666666;
+	font-size: 14px;
+	margin-top: 15px;
+}
+.home_search .hot-search .hot-keyword span {
+	padding: 5px 10px;
+	display: inline-block;
+	border: 1px solid #C8C8C8;
+	margin-bottom: 10px;
+	margin-right: 5px;
+}
+.home_search .history-search .history-title {
+	color: #333333;
+	font-size: 14px;
+	padding: 15px;
+	position: relative;
+}
+.home_search .history-search .history-title .history-clear {
+	color: #999999;
+	font-size: 12px;
+	position: absolute;
+	right: 15px;
+}
+.home_search .history-search .history-keyword {
+	font-size: 14px;
+	color: #666666;
+}
+.home_search .history-search .history-keyword p {
+	padding: 10px 15px;
+	margin-bottom: 0;
+	border-top: 1px solid #DDDDDD;
+}
+/*
+	我的页面
+*/
+.mine .list {
+	margin: 10px 0;
+	border: 0;
+	background-color: white;
+}
+.mine .list .item-avatar {
+	padding: 26px;
+	padding-left: 92px;
+	min-height: 92px;
+	border: 0;
+}
+.mine .list .item-avatar img{
+	max-width: 60px;
+    max-height: 60px;
+}
+.mine .list .item .icon-right{
+	font-size: 32px;
+	color: #444;
+	top: 0;
+	right: 10px;
+}
+.mine .list .item-avatar .icon-right {
+	position: absolute;
+	right: 10px;
+    top: 31px;
+}
+.mine .list .item-icon-left.item-icon-right {
+	border: 0;
+	margin-bottom: 1px;
+	padding: 10px 54px;
+	line-height: 30px;
+}
+.mine .list .item-icon-right .icon-course {
+	color: #32CD5E;
+}
+.mine .list .item-icon-right .icon-collect {
+	color: #FF9302;
+}
+.mine .list .item-icon-right .icon-pwd {
+	color: #14B4FF;
+}
+.mine .list .item-icon-right .icon-about {
+	color: #32CD5E;
+}
+.my_info .left-space-list .item img {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+.login ion-content {
+	background-color: white;
+}
+.login .login-block {
+	padding: 36% 30px;
+}
+.login .login-block div{
+	width: 100%;
+	height: 60px;
+	padding: 15px 0;
+	position: relative;
+}
+.login .login-block div input {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #F2F2F2;
+}
+.login .login-block .username .icon-close-solid {
+	position: absolute;
+	right: 0;
+	top: 15px;
+	font-size: 30px;
+	color: #CCC;
+}
+.login .login-block .pwd .icon-visible,
+.login .login-block .pwd .icon-invisible {
+	position: absolute;
+	right: 0;
+	top: 15px;
+	font-size: 30px;
+	color: #32CD5E;
+}
+
+.login .pwd-register {
+	width: 100%;
+	position: absolute;
+	bottom: 30px;
+	text-align: center;
+	color: #999;
+}
+.login .pwd-register a{
+	color: #999;
+	text-decoration: none;
+}
+.login .pwd-register span {
+	position: relative;
+	bottom: 1px;
+	font-size: 12px;
+}
+.my_register ion-content {
+    background-color: white;
+}
+.my_register .register-block {
+	padding: 15px 20px;
+}
+.my_register .register-block div {
+    position: relative;
+    height: 50px;
+    padding: 10px 0;
+    position: relative;
+}
+.my_register .register-block div input {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.my_register .register-block .pwd .icon-visible,
+.my_register .register-block .pwd .icon-invisible {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 30px;
+    color: #32CD5E;
+}
+.my_register .register-block .send-again {
+    font-size: 12px;
+    color: #CCC;
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+.my_register .register-block .send-captcha {
+    height: 20px;
+    position: absolute;
+    right: 3px;
+    top: 10px;
+    border: 0;
+    color: #32CD5E;
+    background-color: white;
+}
+.my_register .register-block .agree {
+    padding-top: 5px;
+    height: 40px;
+}
+.my_register .register-block .agree .check-agree {
+    background-color: #32CD5E;
+    width: 12px;
+    height: 12px;
+    position: relative;
+    top: 1px;
+}
+.my_register .register-block .agree .read {
+    color: #CCCCCC;
+    font-size: 12px;
+}
+.my_register .register-block .agree .agree-book {
+    font-size: 12px;
+    color: #32CD5E;
+}
+/*我的消息*/
+.my_message .list {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+/*我参加的课程/比赛*/
+.my_join .join-success{
+	font-size: 12px;
+	color: #32CD5E;
+}
+.my_join .icon-end {
+	position: absolute;
+	top: 0;
+	right: 15px;
+	font-size: 40px;
+	color: #999999;
+}
+.my_join .go-comment {
+	border: 1px solid #32CD5E;
+	font-size: 12px;
+	padding: 5px 15px;
+	background-color: white;
+	color: #32CD5E;
+	border-radius: 1px;
+}
+/*意见反馈*/
+.my_feedback .list {
+	margin-top: 10px;
+}
+.my_feedback .list textarea {
+	height: 90px;
+	font-size: 14px;
+	line-height: 18px;
+	width: 100%;
+}
+.my_feedback .confirm-submit {
+	margin-top: 30px;
+	padding: 0 15px;
+}
+.my_feedback .confirm-submit button {
+	margin: 0;
+	min-height: 44px;
+}
+/*提交评论*/
+.my_comment .comment-info {
+	padding: 15px 15px 0 15px;
+	background-color: white;
+	margin-top: 10px;
+}
+.my_comment .comment-info .comment-main .item{
+	background-color: #F7F7F7;
+}
+.my_comment .comment-info .list {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+.my_comment .comment-other .item{
+	padding: 10px 0;
+}
+/*修改性别*/
+.my_modify_sex ion-content {
+}
+.my_modify_sex .list {
+	padding: 0;
+	background-color: white;
+	margin-top: 10px;
+}
+/*修改邮箱*/
+.my_modify_email {
+}
+/*修改昵称*/
+.my_modify_nickname {
+
+}
+
+/*全部课程*/
+.course_all .bar-header .search {
+    position: absolute;
+    right: 15px;
+    font-size: 28px;
+    color: #666;
+}
+.course_all .tabs-top {
+	top: 0;
+	background-color: white;
+	text-align: center;
+	line-height: 44px;
+	height: 44px;
+    background-image: linear-gradient(0deg, #DDD, #EEE 50%, transparent 50%);
+}
+.course_all .activity-list{
+	top: 44px;
+}
+.course_all .tabs-top .tab-item {
+	font-size: 14px;
+	color: #666666;
+	font-family: Helvetica, Tahoma, Arial, "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+}
+.course_all .tabs-top .ion-chevron-up,
+.course_all .tabs-top .ion-chevron-down {
+	color: #999;
+	position: relative;
+	top: 1px;
+	font-size: 12px;
+}
+.activity_detail .course-top {
+	background-color: white;
+}
+.activity_detail .course-top img {
+	width: 100%;
+}
+.activity_detail .course-top .money {
+	color: #FD4444;
+}
+.activity_detail .course-bottom {
+	background-color: white;
+	margin-top: 10px;
+}
+.activity_detail .course-detail-tabs {
+	padding: 0;
+}
+.activity_detail .course-detail-tabs .col {
+	padding: 10px 0;
+	text-align: center;
+	color: #666;
+}
+.activity_detail .course-detail-tabs .col.actived {
+	border-bottom: 2px solid #32CD5E;
+	color: #32CD5E;
+}
+.activity-tabs {
+	width: 60%;
+}
+.activity-tabs .tab-item {
+	color: #32CD5E;
+}
+.activity-join {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding: 0;
+	width: 40%;
+	z-index: 5;
+	height: 49px;
+}
+.activity-join button{
+	height: 100%;
+	width: 100%;
+	background-color: #32CD5E;
+	color: white;
+	font-size: 16px;
+	border: 0;
+}
+/*立即报名*/
+.activity_join .now-join {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 44px;
+	border: 0;
+	background-color: #32cd5e;
+	color: white;
+}
+.activity_join .join-info {
+	padding: 15px;
+	border: 0;
+	background-color: white;
+}
+.activity_join .join-info .joining {
+	color: #999999;
+	font-size: 12px;
+	margin-bottom: 0;
+}
+.activity_join .join-info .join-title {
+	color: #333333;
+	margin: 10px 0;
+	font-size: 16px;
+}
+.activity_join .join-info .activity-time {
+	color: #999999;
+	font-size: 12px;
+}
+/*
+	企业信息
+*/
+.company_info .left-space-list .item-input {
+	padding: 8px 0;
+	font-size: 14px;
+}
+.company_info .left-space-list .item-input .input-label {
+	width: 50px;
+	color: #999999;
+}
+.company_info .recommend {
+	padding: 10px 15px;
+	background-color: white;
+}
+/*
+	企业详情
+*/
+.company_detail ion-content {
+	top: 0 !important;
+}
+.company_detail .company-top {
+	height: 200px;
+	width: 100%;
+	position: relative;
+	border-bottom: 1px solid #CCCCCC;
+	overflow: hidden;
+}
+.company_detail .company-top .top-buttons {
+	height: 44px;
+	padding: 7px 15px;
+}
+.company_detail .icon-return {
+	font-size: 30px;
+	top: 7px;
+	left: 10px;
+	position: absolute;
+	color: white;
+	z-index: 101
+}
+.company_detail .company-top>img{
+	height: 100%;
+	width: 100%;
+	  -webkit-filter: blur(10px); /* Chrome, Opera */
+       -moz-filter: blur(10px);
+        -ms-filter: blur(10px);
+            filter: blur(10px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+}
+.company_detail .company-top .cover-info {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	right: 0;
+}
+.company_detail .company-top .cover-info {
+	padding: 44px 30px 10px;
+}
+.company_detail .company-top .cover-info  .company-logo{
+	text-align: center;
+	width: 100%;
+	height: 60px;
+	margin: 0 auto;
+}
+.company_detail .company-top .cover-info .company-logo img{
+	height: 60px;
+	width: 60px;
+	border-radius: 100%;
+	margin: 0 auto;
+}
+.company_detail .company-top .cover-info .company-name {
+	padding: 10px 0;
+	text-align: center;
+	width: 100%;
+	font-size: 18px;
+	color: white;
+}
+.company_detail .company-top .cover-info .company-other {
+	position: relative;
+	width: 100%;
+	padding-left: 15px;
+	color: white;
+	font-size: 14px;
+}
+.company_detail .company-top .cover-info .company-other p{
+	margin-bottom: 5px;
+}
+.company_detail .company-top .cover-info .company-other .star {
+	position: relative;
+	color: #ff9302;
+}
+.company_detail .company-top .cover-info .company-other .icon-right {
+	position: absolute;
+	top: 5px;
+	font-size: 30px;
+	right: 10px;
+}
+.company_detail .company-title {
+	padding: 0 0 0 15px;
+	background-color: white;
+	margin-bottom: 0;
+	position: relative;
+}
+.company_detail .company-title .left-space-title {
+	border: 0;
+	padding: 0;
+    margin-bottom: 1px;
+}
+.company_detail .company-title .left-space-title:after {
+	height: 1px;
+}
+.company_detail .company-title .left-space-title .title {
+	display: inline-block;
+	padding: 15px 0;
+	border-bottom: 2px solid #32CD5E;
+	font-size: 14px;
+	color: #333333;
+}
+.company_detail .company-title .left-space-title .num {
+	color: #999999;
+	font-size: 12px;
+}
+.company_detail .company-title .left-space-title .more {
+	color: #999999;
+	font-size: 12px;
+	position: absolute;
+	right: 15px;
+	top: 15px;
+}
+/*老师详情页*/
+.teacher_detail .company-top .cover-info {
+	padding: 35px 30px 10px;
+}
+.teacher_detail .company-top .company-other{
+	font-size: 12px;
+}
+.teacher_detail .age-limit {
+	text-align: center;
+	font-size: 12px;
+}
+
 
 .clear {
 	clear: both;
@@ -18,7 +715,7 @@
 }
 .none{ display: none;}
 .shadow{box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);}
-.ui.form input:focus:not([type]),
+/*.ui.form input:focus:not([type]),
 .ui.form input[type="text"]:focus,
 .ui.form input[type="email"]:focus,
 .ui.form input[type="search"]:focus,
@@ -30,636 +727,4 @@
 .ui.form input[type="url"]:focus,
 .ui.form input[type="number"]:focus {
 	background-color: #f8f8f8;
-}
-
-.ui.form textarea:focus {
-	background-color: #f8f8f8;
-}
-
-.ui.form select {
-	border-width: 0px;
-}
-
-.ui.form input.input-default-cls,
-.input-default-cls {
-	background-color: #f8f8f8 !important;
-	border-width: 0px;
-	color: #333 !important;
-}
-
-.page-font-color {
-	color: #39d0e7;
-}
-
-.ui.basic.label {
-	background-color: #f8f8f8;
-	border-width: 0px;
-	color: #999;
-}
-
-a.btn-check-sms {
-	color: #999;
-	padding: 0 10px;position: absolute;right: 0;top: 12px;    font-size: 14px;
-}
-
-.btn-check-sms.border-left:before {
-  left: -10px;
-	margin-right: 10px;
-}
-
-.item_common_arrow_right {
-	color: #c7c7cc;
-}
-
-.item_input_text_right {
-	float: right;
-	width: 100%;
-	padding-right: 15px;
-	color: #9B9B9B;
-	text-align: right;
-	line-height: 34px;font-size: 13px;
-}
-a.item_input_text_right:hover{
-  color: #222222;
-}
-
-/*homepage*/
-#home .home-header-item{
-	text-align: center;
-	position: relative;
-	width: 40px;
-}
-#home .home-header-item .bar-title{
-	font-size: 10px;
-	width: 100%;
-    color: #fff;
-    line-height: 12px;
-    white-space: nowrap;
-}
-#home .bar.bar-header.bar-stable{
-	padding: 5px 10px;
-}
-
-#home .bar.bar-header.bar-stable .icon-home_scan {
-	font-size: 1.4rem;
-    position: relative;
-    top: 0.2rem;
-    color: #fff;
-}
-
-#home .bar.bar-header.bar-stable .icon-topbar_search_grey {
-	font-size: 1.4rem;
-	position: relative;
-	top: 0.2rem;
-}
-
-#home .bar.bar-header.bar-stable .topbar_message {
-	position: relative;
-}
-
-#home .bar.bar-header.bar-stable .topbar_message_count {
-	position: absolute;
-	text-align: center;
-	top: 0px;
-	right: 0;
-	background-color: white;
-	border-radius: 1rem;
-	width: 1rem;
-	height: 1rem;
-	line-height: 1rem;
-}
-
-#home .bar.bar-header.bar-stable .topbar_message_count span {
-	color: red;
-	font-size: 1rem;
-}
-
-#home .bar.bar-header.bar-stable .cancel-search {
-	line-height: 2rem;
-}
-
-#home .bar.bar-header.bar-stable .icon-topbar_message {
-	font-size: 1.4rem;
-	position: relative;
-	top: 0.2rem;
-	color: #fff;
-}
-
-#home .bar.bar-header.bar-stable .title.title-center.header-item {
-	margin: 0;
-	left: 45px !important;
-	right: 49px !important;
-}
-
-#home .bar.bar-header.bar-stable .title.title-center.header-item>span> {
-	height: 100%;
-	width: 100%;
-}
-
-.home_search_div {
-	display: block;
-    width: 100%;
-    margin: 0 10px;
-    position: relative;
-    padding-top: 4px;
-}
-
-
-.home_header_slider{
-
-	height: 150px;
-
-}
-
-.home_header_slider .slide_item{
-
-	height: 150px;
-
-}
-
-.home_center_icon{
-	
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-
-	overflow: hidden;
-	height: 80px;
-}
-
-
-
-.home_center_icon .home_center_button{
-
-	width: 24%;
-	height: 50px;
-
-	padding-left: 2px;
-	padding-right: 2px;
-}
-
-.home-list-text-div{
-
-	height: 25px;
-	width: 100%;
-	float: none;
-}
-
-.home_center_double_div{
-
-	padding: 20px;
-	height: 100px;
-
-	overflow: hidden;
-}
-
-.home_center_double_div_button{
-
-	width: 50%;
-	height: 100%;
-	float: left;
-}
-
-.home_list_head_div{
-
-	height: 40px;
-
-}
-
-.home_list_head_left{
-
-	padding-left: 20px;
-	float: left;
-	
-	line-height:40px;
-	height: 40px;
-}
-
-.home_list_head_right_div{
-
-	padding-right: 20px;
-	float: right;
-	line-height:40px;
-	height: 40px;
-}
-
-.home_list{
-
-	width: 100%;
-
-}
-
-
-.home_list_item_img{
-
-	float: left;
-	width: 40px;
-	height: :40px;
-
-}
-
-.home_list_item_right_div{
-
-	height: :40px;
-	
-}
-
-
-
-
-/*个人中心*/
-.personal-firstitem{
-
-	height: 80px;
-}
-
-.personal-commonitem{
-
-	height: 50px;
-}
-
-
-
-.personal-firstitem .personal-headicon{
-	float: left;
-	margin-left: 15px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 60px;
-	height: 60px;
-
-}
-
-.personal-firstitem .personal-text{
-
-	float: left;
-	padding-left: 20px;
-	padding-right: 30px;
-	line-height: 80px;
-	height: 80px;
-
-}
-
-.personal-commonitem .personal-common-text{
-
-	height: 50px;
-	padding-left: 20px;
-	padding-right: 30px;
-	line-height: 50px;
-}
-
-.personal-20px-div{
-
-	background: #eeeeee;
-	height: 20px;
-
-}
-
-.personal-collection-div{
-	height: 100%;
-	width: 100%;
-
-	background: #eeeeee;
-
-}
-
-.personal-collection-div .personal-collection-item{
-
-	height: 130px;
-
-	padding: 10px;
-
-}
-
-
-.personal-collection-div .personal-collection-item-right-div{
-
-	height: 105px;
-
-	padding-right: 10px;
-	overflow: hidden;
-}
-
-
-.personal-collection-div .personal-collection-item-right-div .personal-collection-item-right-inner-div{
-
-	height: 75px;
-
-	overflow: hidden;
-}
-
-
-.personal-collection-div .personal-collection-item .personal-collection-item-img{
-
-	width: 65px;
-	margin-bottom: 10px;
-	float: left;
-
-}
-
-
-.personal-collection-item-right100-div{
-
-	float: left;
-	min-width: 100%;
-}
-
-.personal-collection-item-darktext{
-
-	color: #999999;
-	font-size: 14px;
-	line-height: 25px;
-
-}
-
-.personal-collection-item-redtext{
-
-	color: #e55507;
-	font-size: 14px;
-	line-height: 25px;
-
-}
-
-
-
-.personal-collection-div .personal-collection-item .personal-collection-item-bottom-div{
-
-	height: 20px;
-	float: none;
-}
-
-
-/*意见反馈*/
-
-
-.persona-feedback-div{
-
-	background: #eeeeee;
-	min-width: 100%;
-	min-height: 100%;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-/*课程*/
-
-.personal-course-item-div{
-
-
-	height: 205px;
-	width: 100%;
-	padding: 0px;
-
-}
-
-.personal-course-item-div .personal-course-top-div{
-
-	height: 30px;
-	width: 100%;
-
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-
-}
-
-.personal-course-item-div .personal-course-center-div{
-
-	height: 125px;
-	width: 100%;
-	padding-right: 10px;
-	padding-left: 10px;
-	overflow: hidden;
-	padding-top: 15px;
-	padding-bottom: 15px;
-
-}
-
-.personal-course-item-div .personal-course-center-right-div{
-
-	height: 95px;
-	min-width: 55%;
-	overflow: hidden;
-	float: left;
-
-}
-
-
-.personal-course-item-div .personal-course-center-right-top-div{
-
-	height: 75px;
-
-}
-
-.personal-course-item-div .personal-course-center-right-bottom-div{
-
-	height: 20px;
-
-}
-
-.personal-course-item-div .personal-course-bottom-div{
-
-	height: 50px;
-	width: 100%;
-	padding-right: 10px;
-	padding-left: 10px;
-
-
-}
-
-.personal-course-item-div .personal-course-bottom-button{
-
-	height: 25px;
-	width: 60px;
-	color: #ffffff;
-	background: #3bac0d;
-	border: #3bac0d;
-	font-size: 10px;
-	float: right;
-	margin-top: 13px;
-	margin-bottom: 12.5px;
-}
-
-
-.personal-givemarks-top-div{
-
-	height: 110px;
-	width: 100%;
-	padding-top: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 5px;
-}
-
-.personal-givemarks-bottom-div{
-
-	height: 40px;
-	width: 100%;
-	padding-left: 10px;
-	padding-right: 20px;
-}
-
-.personal-givemarks-bottom-div span{
-
-
-	height: 40px;
-	line-height: 40px;
-	color: #333333;
-	font-size: 14px;
-
-}
-
-
-.personal-givemarks-margin-line{
-
-
-	height: 1px;
-	margin-left: 10px;
-	margin-right: 10px;
-	background: #eeeeee;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.personal-modifypassword-div{
-
-	width: 100%;
-	height: 100%;
-	background: #eeeeee;
-}
-
-
-.peronal-modifyemail-inputdiv{
-
-	padding-left: 20px;
-	padding-right: 20px;
-}
-
-
-.common-nav-background{
-
-	background: #fafafa;
-
-	height: 44px;
-
-
-}
-
-
-.common-nav-back-div{
-
-	height: 44px;
-	padding-top: 12px;
-	padding-bottom: 12px;
-	background: none;
-}
-
-.common-nav-back-div .navspan{
-
-	height: 20px;
-	line-height: 20px;
-}
-
-
-.login-input-background-out-div{
-
-	margin-top: 50px;
-}
-
-.login-input-background-div{
-
-	height: 95px;
-	width: 85%;
-	border-radius: 5px;
-	display: block;
-	overflow: hidden;
-	margin-left: auto;
-	margin-right: auto;
-
-}
-
-
-.login-notice-div{
-
-	height: 30px;
-	width: 85%;
-
-	display: block;
-	overflow: hidden;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10px;
-
-}
-
-.login-notice-div button{
-
-	color: #666666;
-}
-
-.login-input-background-div label{
-
-	color: #666666;
-}
-
-.login-input-background-div input{
-
-	color: #666666;
-}
-
-
-.register-code-div{
-
-	height: 40px;
-	color: #3bac0d;
-	font-size: 16px;
-
-	padding-right: 15px;
-}
-
-
-.register-code-div span{
-
-	line-height: 40px;
-	padding: 5px;
-
-
-
-}
-
-.register-notice-div{
-
-
-	margin-top: 10px;
-	text-align: center;
-
-}
-
-.register-notice-div .other-text-color{
-
-	color: #3bac0d;
-}
-
-.register-input-background-div{
-
-	height: 145px;
-	width: 85%;
-	border-radius: 5px;
-	display: block;
-	overflow: hidden;
-	margin-left: auto;
-	margin-right: auto;
-
-}
-
-.register-input-background-div label{
-
-	color: #666666;
-}
-
-.register-input-background-div input{
-
-	color: #666666;
-}
+}*/

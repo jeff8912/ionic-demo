@@ -1,86 +1,106 @@
-<ion-view hide-back-button="true" hide-nav-bar="true" id="home" title="首页">
+<ion-view hide-back-button="true" hide-nav-bar="true" class="home" title="首页">
 	<div class="bar bar-header item-input-inset">
-		<!--<button class="button icon-left ion-ios-search-strong button-clear button-small" ng-click="search(searchName)">-->
-		<!--</button>-->
+		<!--<div class="buttons">
+	    	<button class="button" ng-click="doSomething()">Left Button</button>
+	  	</div>-->
 		<label class="item-input-wrapper">
 	        <i class="icon  ion-ios-search-strong placeholder-icon"></i>
-	        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+	        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-click="gotoSearch()">
 	    </label>
-		<i class="icon-message"></i>
+		<div class="message" ng-click="openWindow('my_message')">
+			<i class="icon-message"></i>
+		</div>
 	</div>
 	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
 		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
-
-		<div class="home_header_slider">
-
-			<ion-slide-box>
-				<ion-slide>
-					<div class="slide_item">
-						<h1>BLUE</h1></div>
-				</ion-slide>
-				<ion-slide>
-					<div class="slide_item">
-						<h1>YELLOW</h1></div>
-				</ion-slide>
-				<ion-slide on-slide-changed="slideHasChanged(index)">
-					<div class="slide_item">
-						<h1>PINK</h1></div>
-				</ion-slide>
-			</ion-slide-box>
-
-		</div>
-
+		<div class="carousel slide"><!--data-ride="carousel"-->
+	   		<div class="swiper-container"  >
+	      		<div class="swiper-wrapper" >
+	        		<div class="swiper-slide">
+	          			<div class="carousel-image" style=" background-repeat: no-repeat;background: url('http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg');">
+	          			</div>
+				          <!--<div class="carousel-image" image-lazy-src="{{item.imgUrl | formatDbImgUrl}}" image-lazy-background-image="true"
+				          	style="background-repeat: no-repeat;" ng-click="gotoActivityDetail(item.id)" ng-init="$last && swiper_init($$value$$.ids, 'index-')">
+				          </div>-->
+	        		</div>
+	      		</div>
+	      		<!-- Add Pagination -->
+	      		<div class="swiper-pagination" id="index-pagination-{{$$value$$.ids}}"></div>
+			      <!-- Add Arrows -->
+			      <!--<div class="swiper-button-next"></div>
+			      <div class="swiper-button-prev"></div>-->
+    		</div>
+	  	</div>
 		<!-- 按钮 -->
-
-		<div class="home_center_icon">
-
-			<button class="home_center_button"><img src="#"><hr/>师资培训</button>
-			<button class="home_center_button"><img src="#"><hr/>赛事</button>
-			<button class="home_center_button"><img src="#"><hr/>研学旅游</button>
-			<button class="home_center_button"><img src="#"><hr/>学习基地</button>
-
+		<div class="row activity-nav">
+			<div class="col">
+				<i class="icon-teacher">
+					<span class="path1"></span><span class="path2"></span>
+				</i>
+				<p>师资培训</p>
+			</div>
+			<div class="col">
+				<i class="icon-race">
+					<span class="path1"></span><span class="path2"></span>
+				</i>
+				<p>赛事</p>
+			</div>
+			<div class="col">
+				<i class="icon-study-tour">
+					<span class="path1"></span><span class="path2"></span>
+				</i>
+				<p>研学旅行</p>
+			</div>
+			<div class="col">
+				<i class="icon-study-bases" ng-click="openWindow('company_list')">
+					<span class="path1"></span><span class="path2"></span>
+				</i>
+				<p>学习基地</p>
+			</div>
 		</div>
-
-		<div class="home_center_double_div">
-			<button class="home_center_double_div_button">2016特警训练专辑</button>
-			<button class="home_center_double_div_button">户外知识普及</button>
+		<div class="row topic-nav">
+			<div class="col">
+				<div class="topic-img">
+					<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+				</div>
+				<div class="topic-cover"></div>
+				<div class="topic-title">
+					2016特警训练专辑
+				</div>
+			</div>
+			<div class="col">
+				<div class="topic-img">
+					<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+				</div>
+				<div class="topic-cover"></div>
+				<div class="topic-title">
+					户外知识普及
+				</div>
+			</div>
 		</div>
-
-		<div class="home_list_head_div">
-			<span class="home_list_head_left">推荐好课</span>
-			<div class="home_list_head_right_div"><button>全部课程</button><img src="#"></div>
+		<div class="list transverse-title">
+			<a class="item item-icon-left" href="#">
+	          	推荐好课
+	          	<span class="item-note">
+	            	全部课程
+	            	<i class="icon-right"></i>
+	          	</span>
+        	</a>
 		</div>
-
-		<div class="personal-collection-div">
-			<ion-list>
-
-				<ion-item class="personal-collection-item">
-
-					<img class="mine-img-div" ng-src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg">
-
-					<div class="personal-collection-item-right-div">
-
-						<div class="personal-collection-item-right-inner-div">
-
-							<h3>帆船基本知识</h3>
-
-							<div class="common-float-left-style home-list-text-div">
-								<span class="personal-collection-item-darktext">深圳</span>
-								<span class="personal-collection-item-darktext">南澳基地</span>
-							</div>
-
-							<div class="home-list-text-div">
-								<span class="personal-collection-item-darktext">1.2W学过</span>
-							</div>
-						</div>
-						<div class="personal-collection-item-bottom-div">
-							<div class="common-float-left-style common-font-size-14 common-color-33"><span>开课时间:</span><span class="common-font-size-14 common-margin-5">10/19</span></div>
-							<div class="common-float-right-style"><span class="common-font-size-14 personal-collection-item-redtext common-float-right-style">￥12.00</span></div>
-						</div>
-					</div>
-				</ion-item>
-			</ion-list>
-		</div>
+		<div class="list activity-list"  show-delete="shouldShowDelete">
+        	<div class="item item-thumbnail-left">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id)">
+				<h2 ng-click="clickLook(item.id)">帆船基本知识</h2>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：深圳|南澳基地</p>
+				<p><span class="icon-my_news_add"></span>&nbsp;活动地点：1.2万人学过</p>
+				<p>
+					<span class="icon-my_news_time"></span>&nbsp;开课时间：<a href="javascript:void(0)" style="color: #555555;">10/19</a>
+					<span class="activity-money">￥12.00</span>
+				</p>
+	        </div>
+      	</div>
 		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
 	</ion-content>
 </ion-view>

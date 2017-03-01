@@ -1,0 +1,41 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="company_detail bases_detail">
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<i class="icon-return" ng-click="goBack()"></i>
+		<div class="company-top">
+			<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+			<div class="cover-info">
+				<div class="company-logo">
+					<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+				</div>
+				<div class="company-name">北京市雁翅中小学素质教育基地</div>
+			</div>
+		</div>
+		<div class="list company-title">
+			<div class="item left-space-title">
+				<span class="title">基地介绍</span>
+			</div>
+		</div>
+		<div class="list">
+			<div class="item">
+				基地介绍。。。。此处剩余一万字
+			</div>
+		</div>
+        <div class="list company-title">
+			<div class="item left-space-title">
+				<span class="title">近期照片</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+					<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+			</div>
+			<div class="col">
+					<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+			</div>
+			<div class="col">
+					<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

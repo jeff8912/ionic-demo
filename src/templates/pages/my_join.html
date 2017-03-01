@@ -1,0 +1,49 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="my_join" id="my_join">
+	<div class="bar bar-header item-input-inset">
+		<h1 class="title">我参加的课程/比赛</h1>
+		<div class="return">
+			<i class="icon-return" ng-click="goBack()"></i>
+		</div>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<div class="list" show-delete="shouldShowDelete">
+        	<div class="item item-thumbnail-left">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-time"></span>&nbsp;时间：2017-05-05</p>
+				<p class="join-success">
+					<!-- //TODO 报名成功勾图标 -->
+					<i class="icon"></i>
+					<span>报名成功</span>
+				</p>
+	        </div>
+        	<div class="item item-thumbnail-left">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-time"></span>&nbsp;时间：2017-05-05</p>
+				<p class="join-success">
+					<!-- //TODO 报名成功勾图标 -->
+					<i class="icon"></i>
+					<span>报名成功</span>
+				</p>
+	        </div>
+        	<div class="item item-thumbnail-left">
+        		<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+					 image-lazy-distance-from-bottom-to-load="100"
+					 ng-click="clickLook(item.id, item.abiId.id)">
+				<h2 ng-click="clickLook(item.id, item.abiId.id)">帆船基本知识</h2>
+				<p><span class="icon-time"></span>&nbsp;时间：2017-05-05</p>
+				<i class="icon-end"></i>
+				<p>
+					<button type="button" name="button" class="go-comment" ng-click="openWindow('my_comment')">去评论</button>
+				</p>
+	        </div>
+      	</div>
+		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,41 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="activity_join" id="course_detail">
+	<div class="bar bar-header item-input-inset">
+		<h1 class="title">报名</h1>
+		<!--<label class="item-input-wrapper">
+		<i class="icon  ion-ios-search-strong placeholder-icon"></i>
+		<input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+	</label>-->
+		<div class="return">
+			<i class="icon-return" ng-click="goBack()"></i>
+		</div>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<div class="join-info">
+			<p class="joining">
+				你正在报名参加
+			</p>
+			<h1 class="join-title">
+				2017国际化学比赛
+			</h1>
+			<p class="activity-time">
+				<i class="icon-time"></i>
+				比赛时间：2017-05-01 00:00:00
+			</p>
+		</div>
+		<div class="left-space-list list">
+			<label class="item item-input common-top-radius">
+				<span class="input-label padding-left-15">姓名：</span>
+				<input type="text">
+			</label>
+			<label class="item item-input common-bottom-radius">
+				<span class="input-label padding-left-15">身份证/护照号：</span>
+				<input type="text">
+			</label>
+			<label class="item item-input common-bottom-radius">
+				<span class="input-label padding-left-15">手机号：</span>
+				<input type="text">
+			</label>
+		</div>
+	</ion-content>
+	<button class="now-join">立即报名</button>
+</ion-view>

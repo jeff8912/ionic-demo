@@ -1,0 +1,527 @@
+/*
+说明：公共布局样式，比如页的Header、Footer等等大多数页面一致的样式，请放在这里
+* */
+.bar-header {
+	padding: 7px 15px;
+}
+.bar-header h1 {
+	color: #333333;
+}
+
+ion-content {
+	top: 44px !important;
+	background-color: #F7F7F7;
+}
+ion-content .scroll {
+	padding-bottom: 65px;
+}
+.list {
+	border: 0;
+}
+.list .item {
+	border: 0;
+	margin-bottom: 1px;
+	color: #333333;
+}
+.list .main-item {
+	font-size: 14px;
+	color: #333333;
+}
+.list .item:after,.popup .popup-head:after{
+	content: '';
+	position: absolute;
+	left: 0;
+	background: #D2D2D2;
+	right: 1px;
+	height: 1px;
+	-webkit-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+	bottom: 0;
+	z-index: 14;
+}
+.left-space-list .item:after,.popup .popup-head:after{
+	content: '';
+	position: absolute;
+	left: 0;
+	background: #D2D2D2;
+	right: 1px;
+	left: 15px;
+	height: 1px;
+	-webkit-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+	bottom: 0;
+	z-index: 14;
+}
+.list .item:last-child:after{
+	height: 0px;
+}
+/*
+.list .item:first-child:before,.popup .popup-buttons:before{
+content: '';
+position: absolute;
+left: 0;
+background: #D2D2D2;
+right: 1px;
+height: 1px;
+-webkit-transform: scaleY(0.5);
+transform: scaleY(0.5);
+-webkit-transform-origin: 0 0;
+transform-origin: 0 0;
+top: 0;
+z-index: 14;
+}*/
+
+/*
+返回按钮
+*/
+.bar-header .return .icon-return {
+	font-size: 28px;
+	color: #999999;
+	position: relative;
+	top:  1px;
+	right: 6px;
+}
+/* 横向标题 */
+.transverse-title {
+	border: 0;
+	margin-bottom: 0;
+	border: 0;
+	border-bottom: 1px;
+}
+.transverse-title .item-icon-left{
+	border: 0;
+	color: #333;
+	padding: 10px 30px 10px 15px;
+}
+.transverse-title .item-icon-left .icon-right{
+	position: absolute;
+	top: 10px;
+	font-size: 20px;
+	right: 10px;
+}
+/*活动列表样式*/
+.activity-list {
+	border: 0;
+	padding-top: 0;
+	margin-bottom: 10px;
+}
+.activity-list .item {
+	border: 0;
+	padding: 15px 15px 15px 136px;
+	margin-bottom: 1px;
+}
+.activity-list .item img{
+	top: 15px;
+	left: 15px;
+	width: 110px;
+	height: 90px;
+	max-width: 110px;
+	max-height: 90px;
+}
+.activity-list .item h2 {
+	font-size: 16px;
+	color: #333;
+	margin-bottom: 8px;
+	margin-left: 2px;
+}
+.activity-list .item p {
+	font-size: 12px;
+	color: #666;
+	margin-bottom: 1px;
+}
+.activity-list .item p .activity-money{
+	color: #FD4444;
+	margin-left: 15px;
+}
+
+.left-space-list {
+	background-color: white;
+	border: 0;
+	margin: 10px 0;
+}
+.left-space-list .item {
+	padding: 15px 0;
+	border: 0;
+	margin-bottom: 1px;
+}
+.left-space-list .item .padding-left-15{
+	padding-left: 15px;
+}
+
+.left-space-list .item .icon-right {
+	position: absolute;
+	right: 0;
+	top: 10px;
+	font-size: 30px;
+}
+.common-submit {
+	padding: 0 15px;
+	margin-top: 10px;
+	height: 44px;
+}
+.common-submit button{
+	background-color: #32CD5E;
+	font-size: 16px;
+	color: white;
+	height: 44px;
+}
+/*
+遮罩层样式
+*/
+.opacity {
+	background-color: #000;
+	position: absolute;
+	background-size: cover;
+	opacity: 0.5;
+	z-index: 100;
+	width: 100%;
+	height:100%;
+}
+.category-modal {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 44px;
+	text-align: left;
+	z-index: 13;
+	border: 0;
+}
+.category-modal .item {
+	border: 0;
+	margin-bottom: 1px;
+}
+/*显示toast样式*/
+
+
+/*关闭按钮 end*/
+
+/*返回按钮 */
+
+.left-arrow2{
+
+	left:1px;/*重要*/
+	border-right:10px #fafafa solid;
+
+}
+
+
+/*标准标题字样---标题*/
+.common-item-title-style{
+
+	font-size: 18px;
+	color: #000000;
+}
+/*
+list  标题
+*/
+.list-title {
+	margin: 10px 0;
+	color: #999999;
+	padding: 0 15px;
+	font-size: 14px;
+}
+/*返回按钮 end */
+
+
+@font-face {
+	font-family: 'icomoon';
+	src:  url('../fonts/icomoon.eot?ktd04n');
+	src:  url('../fonts/icomoon.eot?ktd04n#iefix') format('embedded-opentype'),
+	url('../fonts/icomoon.ttf?ktd04n') format('truetype'),
+	url('../fonts/icomoon.woff?ktd04n') format('woff'),
+	url('../fonts/icomoon.svg?ktd04n#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-return:before {
+	content: "\e900";
+}
+.icon-end:before {
+	content: "\e901";
+}
+.icon-help:before {
+	content: "\e902";
+}
+.icon-share:before {
+	content: "\e903";
+}
+.icon-about:before {
+	content: "\e904";
+}
+.icon-cert:before {
+	content: "\e905";
+}
+.icon-collect:before {
+	content: "\e906";
+}
+.icon-pwd:before {
+	content: "\e907";
+}
+.icon-course:before {
+	content: "\e908";
+}
+.icon-course-choose .path1:before {
+	content: "\e909";
+	color: rgb(50, 205, 94);
+}
+.icon-course-choose .path2:before {
+	content: "\e90a";
+	margin-left: -1em;
+	color: rgb(50, 205, 94);
+}
+.icon-course-choose .path3:before {
+	content: "\e90b";
+	margin-left: -1em;
+	color: rgb(50, 205, 94);
+}
+.icon-course-choose .path4:before {
+	content: "\e90c";
+	margin-left: -1em;
+	color: rgb(50, 205, 94);
+}
+.icon-course-choose .path5:before {
+	content: "\e90d";
+	margin-left: -1em;
+	color: rgb(50, 205, 94);
+}
+.icon-course-choose .path6:before {
+	content: "\e90e";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-course-choose .path7:before {
+	content: "\e90f";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-course-choose .path8:before {
+	content: "\e910";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-course-choose .path9:before {
+	content: "\e911";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-race .path1:before {
+	content: "\e912";
+	color: rgb(0, 0, 0);
+}
+.icon-race .path2:before {
+	content: "\e913";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-teacher .path1:before {
+	content: "\e914";
+	color: rgb(0, 0, 0);
+}
+.icon-teacher .path2:before {
+	content: "\e915";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-home:before {
+	content: "\e916";
+}
+.icon-home-choose:before {
+	content: "\e917";
+}
+.icon-search-input:before {
+	content: "\e918";
+}
+.icon-my:before {
+	content: "\e919";
+}
+.icon-my-choose:before {
+	content: "\e91a";
+}
+.icon-message:before {
+	content: "\e91b";
+}
+.icon-study-bases .path1:before {
+	content: "\e91c";
+	color: rgb(0, 0, 0);
+}
+.icon-study-bases .path2:before {
+	content: "\e91d";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-study-tour .path1:before {
+	content: "\e91e";
+	color: rgb(0, 0, 0);
+}
+.icon-study-tour .path2:before {
+	content: "\e91f";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-right:before {
+	content: "\e920";
+}
+.icon-location .path1:before {
+	content: "\e921";
+	color: rgb(50, 205, 94);
+}
+.icon-location .path2:before {
+	content: "\e922";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-gift .path1:before {
+	content: "\e923";
+	color: rgb(50, 205, 94);
+}
+.icon-gift .path2:before {
+	content: "\e924";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-phone:before {
+	content: "\e925";
+}
+.icon-share2:before {
+	content: "\e926";
+}
+.icon-route .path1:before {
+	content: "\e927";
+	color: rgb(50, 205, 94);
+}
+.icon-route .path2:before {
+	content: "\e928";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-route-intro .path1:before {
+	content: "\e929";
+	color: rgb(50, 205, 94);
+}
+.icon-route-intro .path2:before {
+	content: "\e92a";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-lightspot .path1:before {
+	content: "\e92b";
+	color: rgb(50, 205, 94);
+}
+.icon-lightspot .path2:before {
+	content: "\e92c";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-info .path1:before {
+	content: "\e92d";
+	color: rgb(50, 205, 94);
+}
+.icon-info .path2:before {
+	content: "\e92e";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-wonderful .path1:before {
+	content: "\e92f";
+	color: rgb(50, 205, 94);
+}
+.icon-wonderful .path2:before {
+	content: "\e930";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-collect2:before {
+	content: "\e931";
+}
+.icon-comment .path1:before {
+	content: "\e932";
+	color: rgb(50, 205, 94);
+}
+.icon-comment .path2:before {
+	content: "\e933";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-service:before {
+	content: "\e934";
+}
+.icon-sailing:before {
+	content: "\e935";
+}
+.icon-good:before {
+	content: "\e936";
+}
+.icon-ski:before {
+	content: "\e937";
+}
+.icon-ability:before {
+	content: "\e938";
+}
+.icon-star:before {
+	content: "\e939";
+}
+.icon-course2:before {
+	content: "\e93a";
+}
+.icon-hot:before {
+	content: "\e93b";
+}
+.icon-cert-solid:before {
+	content: "\e93c";
+}
+.icon-cert-bases:before {
+	content: "\e93d";
+}
+.icon-down:before {
+	content: "\e93e";
+}
+.icon-up:before {
+	content: "\e93f";
+}
+.icon-search:before {
+	content: "\e940";
+}
+.icon-tour:before {
+	content: "\e941";
+}
+.icon-swim:before {
+	content: "\e942";
+}
+.icon-time:before {
+	content: "\e943";
+}
+.icon-invisible:before {
+	content: "\e944";
+}
+.icon-close-solid:before {
+	content: "\e945";
+}
+.icon-close:before {
+	content: "\e946";
+}
+.icon-visible:before {
+	content: "\e947";
+}
+.icon-agree:before {
+	content: "\e948";
+}

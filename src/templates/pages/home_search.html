@@ -1,0 +1,44 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="home_search" title="首页">
+	<div class="bar bar-header item-input-inset">
+		<!--<div class="buttons">
+	    	<button class="button" ng-click="doSomething()">Left Button</button>
+	  	</div>-->
+	  	<div class="search">
+            <i class="icon-search"></i>
+        </div>
+		<label class="item-input">
+	        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+	    </label>
+		<div class="cancel" ng-click="goBack()">
+			取消
+		</div>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<div class="hot-search">
+        	<div class="hot-title">
+        	       热门搜索
+	        </div>
+	        <div class="hot-keyword">
+	        	<span>研学旅行</span>
+	        	<span>2017美洲杯</span>
+	        	<span>滑雪课程</span>
+	        	<span>帆船课程</span>
+	        </div>
+      	</div>
+		<div class="history-search">
+        	<div class="history-title">
+        		搜索历史
+        		<span class="history-clear">
+					<i class="icon-close"></i>
+					清除历史记录
+        		</span>
+	        </div>
+	        <div class="history-keyword">
+	        	<p>滑雪</p>
+	        	<p>研学</p>
+	        </div>
+      	</div>
+		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>

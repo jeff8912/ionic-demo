@@ -1,0 +1,17 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="my_modify_sex">
+    <div class="bar bar-header item-input-inset">
+        <h1 class="title">修改性别</h1>
+        <div class="return">
+            <i class="icon-return" ng-click="goBack()"></i>
+        </div>
+    </div>
+    <ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+        <ion-list>
+            <ion-radio ng-model="choice" ng-value="0">男</ion-radio>
+            <ion-radio ng-model="choice" ng-value="1">女</ion-radio>
+        </ion-list>
+        <div class="common-submit">
+            <button class="button button-block button-balanced">确定</button>
+        </div>
+    </ion-content>
+</ion-view>

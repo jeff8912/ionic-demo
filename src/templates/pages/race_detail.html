@@ -1,0 +1,38 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="activity_detail" id="course_detail">
+	<div class="bar bar-header item-input-inset">
+		<h1 class="title">赛事主页</h1>
+		<!--<label class="item-input-wrapper">
+	        <i class="icon  ion-ios-search-strong placeholder-icon"></i>
+	        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+	    </label>-->
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<div class="course-top">
+			<img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" />
+			<h3>2017国际化学比赛北京站</h3>
+			<p>
+				<span class="money">¥9300/每人</span>
+				<span>(会员价)</span>
+			</p>
+		</div>
+
+		<div class="course-bottom">
+			<div class="row course-detail-tabs">
+				<div ng-class="{'col': true, 'actived': toggleIndex == 0}" ng-click="toggleTab(0)">
+	        	          赛事详情
+				</div>
+				<div ng-class="{'col': true, 'actived': toggleIndex == 1}" ng-click="toggleTab(1)">
+	        		赛事安排
+				</div>
+				<div ng-class="{'col': true, 'actived': toggleIndex == 2}" ng-click="toggleTab(2)">
+	        		精彩回顾
+				</div>
+			</div>
+			<div class="course-content">
+				基本水电费水电费水电费
+			</div>
+ 		</div>
+		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>

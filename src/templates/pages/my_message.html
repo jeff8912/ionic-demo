@@ -1,0 +1,49 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" class="my_message" id="my_message">
+	<div class="bar bar-header item-input-inset">
+		<h1 class="title">我的消息</h1>
+		<!--<label class="item-input-wrapper">
+	        <i class="icon  ion-ios-search-strong placeholder-icon"></i>
+	        <input type="search" placeholder="搜索户外教育课程" ng-model="searchName" ng-change="search(searchName)">
+	    </label>-->
+		<div class="return">
+			<i class="icon-return" ng-click="goBack()"></i>
+		</div>
+	</div>
+	<ion-content lazy-scroll overflow-scroll="false" has-bouncing="true" class="no-header" on-scroll="onScroll($event)" scroll-event-interval="200">
+		<ion-refresher pulling-text="下拉刷新" on-refresh="pulldownRefresher()"></ion-refresher>
+		<div class="list">
+			<div class="item message-info">
+				<h2>中国户外教育网</h2>
+				<p>2017-25-12</p>
+				<p>欢迎你加入中国户外教育网，您已成功报名课程：家庭亲子教育。开课时间：2017-06-27</p>
+			</div>
+			<div class="item item-icon-right">
+				查看详情
+				<i class="icon icon-right"></i>
+			</div>
+		</div>
+		<div class="list">
+			<div class="item message-info">
+				<h2>中国户外教育网</h2>
+				<p>2017-25-12</p>
+				<p>欢迎你加入中国户外教育网，您已成功报名课程：家庭亲子教育。开课时间：2017-06-27</p>
+			</div>
+			<div class="item item-icon-right">
+				查看详情
+				<i class="icon icon-right"></i>
+			</div>
+		</div>
+		<div class="list">
+			<div class="item message-info">
+				<h2>中国户外教育网</h2>
+				<p>2017-25-12</p>
+				<p>欢迎你加入中国户外教育网，您已成功报名课程：家庭亲子教育。开课时间：2017-06-27</p>
+			</div>
+			<div class="item item-icon-right">
+				查看详情
+				<i class="icon icon-right"></i>
+			</div>
+		</div>
+		<ion-infinite-scroll ng-if="model.isMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>
